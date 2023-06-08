@@ -2,6 +2,7 @@
 import Profile from "@/app/(admin)/dashboard/components/UserProfile";
 import React, {useEffect} from "react";
 import {useUser} from "@auth0/nextjs-auth0/client";
+import {Gantt, Task} from "gantt-task-react";
 
 export default function Page() {
     const {user} = useUser()

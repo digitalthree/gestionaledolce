@@ -1,7 +1,10 @@
 'use client';
-import Profile from "@/app/(admin)/dashboard/components/UserProfile";
-import React, {useEffect} from "react";
+import React from "react";
 import {useUser} from "@auth0/nextjs-auth0/client";
+import {Gantt, Task, ViewMode} from "gantt-task-react";
+import {ViewSwitcher} from "@/app/(shared)/ViewSwitcher";
+import Profile from "@/app/(admin)/dashboard/components/UserProfile";
+import MainSection from "@/app/(admin)/dashboard/components/MainSection";
 
 export default function Page() {
     const {user} = useUser()
@@ -15,9 +18,10 @@ export default function Page() {
 
     return (
         <>
-            <Profile/>
+            <MainSection/>
         </>
 
     )
 
 }
+

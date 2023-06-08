@@ -5,15 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ac4ea4f-9152-402b-88b9-5b2d0ca3671d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/UserProfile.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(marketing)/marketing/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/api/auth/[...auth0].ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/logo_home.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/DiagrammaTemporale.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/MainSection.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/DashboardSaturazione.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/components/BubbleComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/components/HorizontalBarChartComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/components/LineChartComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/components/MonthTrendComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(shared)/ViewSwitcher.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(marketing)/marketing/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(marketing)/marketing/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/favicon.ico" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,26 +50,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/edgardovittoria/Digital-Three/gestionaledolce",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Users/edgardovittoria/Digital-Three/gestionaledolce/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/edgardovittoria/Digital-Three/gestionaledolce&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/edgardovittoria/Digital-Three/gestionaledolce/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione" />
+      <recent name="$PROJECT_DIR$/public/img" />
+      <recent name="$PROJECT_DIR$/src/app/(shared)" />
+      <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/app/(admin)/dashboard" />
-      <recent name="$PROJECT_DIR$/src/app/(admin)" />
     </key>
   </component>
   <component name="RunManager">
@@ -89,7 +100,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1685432421488</updated>
-      <workItem from="1685432423131" duration="8727000" />
+      <workItem from="1685432423131" duration="8822000" />
+      <workItem from="1685475686396" duration="1099000" />
+      <workItem from="1685521983715" duration="8327000" />
+      <workItem from="1685607645071" duration="2284000" />
+      <workItem from="1686208552517" duration="21227000" />
     </task>
     <servers />
   </component>
