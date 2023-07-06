@@ -9,7 +9,6 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import {HiArrowTrendingDown, HiArrowTrendingUp} from "react-icons/hi2";
 import {ImArrowDown, ImArrowUp} from "react-icons/im";
 import {CgMathEqual} from "react-icons/cg";
 

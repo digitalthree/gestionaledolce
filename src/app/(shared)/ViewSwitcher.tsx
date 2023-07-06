@@ -11,7 +11,7 @@ export const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
                                                               onViewListChange,
                                                               isChecked,
                                                           }) => {
-    const [filtriPeriodo, setFiltriPeriodo] = useState<>("Mese")
+    const [filtriPeriodo, setFiltriPeriodo] = useState("Mese")
     return (
         <div className="ViewContainer">
             <button

@@ -79,15 +79,16 @@ const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({}) => {
                     isChecked={isChecked}
                 />
                 <Gantt
+
                     tasks={tasks}
                     viewMode={view}
-                    onDateChange={handleTaskChange}
-                    onDelete={handleTaskDelete}
-                    onProgressChange={handleProgressChange}
-                    onDoubleClick={handleDblClick}
-                    onClick={handleClick}
-                    onSelect={handleSelect}
-                    onExpanderClick={handleExpanderClick}
+                    // onDateChange={handleTaskChange}
+                    // onDelete={handleTaskDelete}
+                    // onProgressChange={handleProgressChange}
+                    // onDoubleClick={handleDblClick}
+                    // onClick={handleClick}
+                    // onSelect={handleSelect}
+                    // onExpanderClick={handleExpanderClick}
                     listCellWidth={isChecked ? "100px" : ""}
                     columnWidth={columnWidth}
                     locale="it-IT"
