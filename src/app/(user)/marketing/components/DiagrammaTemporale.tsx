@@ -1,7 +1,7 @@
 import React from 'react';
 import {Gantt, Task, ViewMode} from "gantt-task-react";
 import {ViewSwitcher} from "@/app/(shared)/ViewSwitcher";
-import Profile from "@/app/(admin)/dashboard/components/UserProfile";
+import Profile from "@/app/(user)/marketing/components/UserProfile";
 
 export interface DiagrammaTemporaleProps{
 

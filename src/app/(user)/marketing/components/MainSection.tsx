@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {useUser} from "@auth0/nextjs-auth0/client";
 import {MdArrowRight} from "react-icons/md";
-import DiagrammaTemporale from "@/app/(admin)/dashboard/components/DiagrammaTemporale";
-import DashboardSaturazione from "@/app/(admin)/dashboard/components/dashboardSaturazione/DashboardSaturazione";
+import DiagrammaTemporale from "@/app/(user)/marketing/components/DiagrammaTemporale";
+import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
 import Image from "next/image";
 
 export default function MainSection() {
@@ -21,7 +21,7 @@ export default function MainSection() {
                         <ul className=" py-6">
                             <div className="flex flex-row justify-between items-center px-5">
                                 <div className="h-24 w-24 flex items-center">
-                                    <Image src="img/logo_home.png" alt="logo"/>
+                                    <Image src="/img/logo_home.png" alt="logo" width={100} height={100}/>
                                 </div>
                                 <div className="text-white">
                                     utente: <br/>

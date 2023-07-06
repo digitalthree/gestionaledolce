@@ -1,16 +1,14 @@
 'use client';
-import React from "react";
+import Profile from "@/app/(user)/marketing/components/UserProfile";
+import React, {useEffect} from "react";
 import {useUser} from "@auth0/nextjs-auth0/client";
-import {Gantt, Task, ViewMode} from "gantt-task-react";
-import {ViewSwitcher} from "@/app/(shared)/ViewSwitcher";
-import Profile from "@/app/(admin)/dashboard/components/UserProfile";
-import MainSection from "@/app/(admin)/dashboard/components/MainSection";
+import {Gantt, Task} from "gantt-task-react";
 
 export default function Page() {
     const {user} = useUser()
 
     if (user) {
-        if (user.nickname !== "admin") {
+        if (user.nickname !== "user") {
             window.alert("Non hai i permessi necessari per accedere a questa sezione")
             window.history.back()
         }
@@ -18,10 +16,9 @@ export default function Page() {
 
     return (
         <>
-            <MainSection/>
+            <Profile/>
         </>
 
     )
 
 }
-

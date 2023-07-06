@@ -1,13 +1,13 @@
 import React from 'react';
-import BubbleComponent from "@/app/(admin)/dashboard/components/dashboardSaturazione/components/BubbleComponent";
+import BubbleComponent from "@/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent";
 import MonthTrendComponent
-    from "@/app/(admin)/dashboard/components/dashboardSaturazione/components/MonthTrendComponent";
+    from "@/app/(user)/marketing/components/dashboardSaturazione/components/MonthTrendComponent";
 import {
     LineChartComponent
-} from "@/app/(admin)/dashboard/components/dashboardSaturazione/components/LineChartComponent";
+} from "@/app/(user)/marketing/components/dashboardSaturazione/components/LineChartComponent";
 import {
     HorizontalBarChartComponente
-} from "@/app/(admin)/dashboard/components/dashboardSaturazione/components/HorizontalBarChartComponent";
+} from "@/app/(user)/marketing/components/dashboardSaturazione/components/HorizontalBarChartComponent";
 
 export interface DashboardSaturazioneProps {
 
