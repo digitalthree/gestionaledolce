@@ -8,7 +8,7 @@ export const rtkqApi = createApi({
     baseQuery: fetchBaseQuery({baseUrl: process.env.NEXT_PUBLIC_URL+'api'}),
     tagTypes: ['Residenze', 'Gare', 'Gara'],
     endpoints: (build) => ({
-        getResidenze : build.query({
+        getResidenze : build.query<InputResidenza[], void>({
             query: () => 'residenze',
             providesTags: ['Residenze']
         }),
@@ -20,7 +20,7 @@ export const rtkqApi = createApi({
             }),
             invalidatesTags: ['Residenze']
         }),
-        getGare: build.query({
+        getGare: build.query<Gara[], void>({
             query: () => 'gare',
             providesTags: ['Gare']
         }),

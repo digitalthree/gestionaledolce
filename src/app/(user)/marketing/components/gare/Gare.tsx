@@ -4,14 +4,13 @@ import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import VerticalBarChart from "@/app/(user)/marketing/components/gare/components/VerticalBarChart";
 import {Gara} from "@/model/Gara";
 import {useGetGaraByAnno, useGetGare} from "@/store/rtkqApi";
-import {skipToken} from "@reduxjs/toolkit/query";
 
 export interface GareProps {
 
 }
 
 const Gare: React.FC<GareProps> = ({}) => {
-    const resGare = useGetGare(skipToken)
+    const resGare = useGetGare()
     const resGara = useGetGaraByAnno(new Date().getFullYear())
     let gara = {} as Gara
     if(resGara.data){

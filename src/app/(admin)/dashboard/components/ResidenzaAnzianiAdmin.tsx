@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useGetResidenze, useUpdateResidenzaMutation} from "@/store/rtkqApi";
-import {skipToken} from "@reduxjs/toolkit/query";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
 
 
 
 export default function ResidenzaAnzianiAdmin() {
 
-    const res = useGetResidenze(skipToken)
+    const res = useGetResidenze()
     const [updateResidenza] = useUpdateResidenzaMutation()
 
     let residenze: InputResidenza[] = []

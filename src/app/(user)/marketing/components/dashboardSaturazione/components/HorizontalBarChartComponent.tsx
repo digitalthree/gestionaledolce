@@ -12,7 +12,6 @@ import { Bar } from 'react-chartjs-2';
 import {ImArrowDown, ImArrowUp} from "react-icons/im";
 import {CgMathEqual} from "react-icons/cg";
 import {useGetResidenze} from "@/store/rtkqApi";
-import {skipToken} from "@reduxjs/toolkit/query";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
 
 ChartJS.register(
@@ -59,7 +58,7 @@ const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> =
     const [data1, setData1] = useState<number[]>([])
     const [data2, setData2] = useState<number[]>([])
     const [data3, setData3] = useState<number[]>([])
-    const res = useGetResidenze(skipToken)
+    const res = useGetResidenze()
     let residenze: InputResidenza[] = []
     if(res.data){
         residenze = res.data

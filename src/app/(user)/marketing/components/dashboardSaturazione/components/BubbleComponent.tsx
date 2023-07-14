@@ -1,7 +1,6 @@
 import React from 'react';
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import {useGetResidenze} from "@/store/rtkqApi";
-import {skipToken} from "@reduxjs/toolkit/query";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
 
 export interface BubbleComponentProps{
@@ -11,7 +10,7 @@ export interface BubbleComponentProps{
 const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale}) => {
 
 
-    const {data, error, isLoading} = useGetResidenze(skipToken)
+    const {data, error, isLoading} = useGetResidenze()
 
     let residenze:InputResidenza[] = []
     if(data){
