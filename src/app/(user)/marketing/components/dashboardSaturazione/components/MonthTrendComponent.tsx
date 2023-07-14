@@ -9,6 +9,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import {useGetResidenze} from "@/store/rtkqApi.ts";
 
 ChartJS.register(
     CategoryScale,
@@ -20,10 +21,17 @@ ChartJS.register(
 );
 
 export interface MontTrendComponentProps{
-    
+    colorePrincipale: string
 }
 
-const MontTrendComponent: React.FC<MontTrendComponentProps> = ({}) => {
+const MontTrendComponent: React.FC<MontTrendComponentProps> = ({colorePrincipale}) => {
+
+    const {data, error, isLoading} = useGetResidenze()
+    let residenze = []
+    if(data){
+        residenze = data
+    }
+
     const options = {
         plugins: {},
         responsive: true,
@@ -39,13 +47,13 @@ const MontTrendComponent: React.FC<MontTrendComponentProps> = ({}) => {
 
     const labels = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
 
-    const data  = {
+    const dataChart  = {
         labels,
         datasets: [
             {
                 label: 'Anno corrente',
                 data: labels.map(() => Math.random()*100),
-                backgroundColor: '#B5C5E7',
+                backgroundColor: colorePrincipale,
             },
             {
                 label: 'Anno precedente',
@@ -55,7 +63,7 @@ const MontTrendComponent: React.FC<MontTrendComponentProps> = ({}) => {
         ],
     };
     return(
-        <Bar options={options as any} data={data as any} />
+        <Bar options={options as any} data={dataChart as any} />
     )
 }
 

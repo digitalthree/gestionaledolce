@@ -5,23 +5,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ac4ea4f-9152-402b-88b9-5b2d0ca3671d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/img/logo_home.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/DiagrammaTemporale.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/MainSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/DashboardSaturazione.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/components/BubbleComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/components/HorizontalBarChartComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/components/LineChartComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione/components/MonthTrendComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(shared)/ViewSwitcher.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/GareAdmin.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(shared)/SideBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/DiagrammaTemporale.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/components/Legend.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/components/PieChart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/components/VerticalBarChart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/faunadb/Fauna.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/Gara.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/ResidenzaAnziani.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/api/gare/[anno].ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/api/gare/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/api/residenze/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/Providers.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/rtkqApi.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(marketing)/marketing/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(marketing)/marketing/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(shared)/ViewSwitcher.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/components/ViewSwitcher.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/DiagrammaTemporale.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/MainSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/MainSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/HorizontalBarChartComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/HorizontalBarChartComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/LineChartComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/LineChartComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/MonthTrendComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/MonthTrendComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,8 +47,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -68,14 +84,24 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione" />
-      <recent name="$PROJECT_DIR$/public/img" />
+      <recent name="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/components" />
+      <recent name="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale" />
       <recent name="$PROJECT_DIR$/src/app/(shared)" />
-      <recent name="$PROJECT_DIR$/src/app" />
-      <recent name="$PROJECT_DIR$/src/app/(admin)/dashboard" />
+      <recent name="$PROJECT_DIR$/src/app/(user)/marketing/components" />
+      <recent name="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="npm.dev">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -89,6 +115,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -104,7 +131,14 @@
       <workItem from="1685475686396" duration="1099000" />
       <workItem from="1685521983715" duration="8327000" />
       <workItem from="1685607645071" duration="2284000" />
-      <workItem from="1686208552517" duration="21227000" />
+      <workItem from="1686208552517" duration="21378000" />
+      <workItem from="1687181715823" duration="2331000" />
+      <workItem from="1688637992201" duration="3893000" />
+      <workItem from="1688983399905" duration="12206000" />
+      <workItem from="1689079547671" duration="17509000" />
+      <workItem from="1689168502210" duration="15889000" />
+      <workItem from="1689235326353" duration="16930000" />
+      <workItem from="1689321393128" duration="17824000" />
     </task>
     <servers />
   </component>
