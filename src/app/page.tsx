@@ -6,14 +6,14 @@ export default function Home() {
     const { user } = useUser()
     useEffect(() => {
         if(!user){
-            window.location.href = `https://gestionaledolce.vercel.app/api/auth/login`
+            window.location.href = process.env.NEXT_PUBLIC_URL+'api/auth/login'
         }
         else {
             if(user?.nickname === "admin"){
-                window.location.href = "https://gestionaledolce.vercel.app/dashboard"
+                window.location.href = process.env.NEXT_PUBLIC_URL+'dashboard'
             }
             if(user?.nickname === "user"){
-                window.location.href = "https://gestionaledolce.vercel.app/marketing"
+                window.location.href = process.env.NEXT_PUBLIC_URL+'marketing'
             }
         }
     }, [user])

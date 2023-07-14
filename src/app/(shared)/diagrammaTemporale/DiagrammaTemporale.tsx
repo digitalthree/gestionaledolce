@@ -103,6 +103,7 @@ const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({editabile}) => {
                 </div>
                 :
                 <div>
+                    <Legend/>
                     <ViewSwitcher
                         onViewModeChange={viewMode => setView(viewMode)}
                         onViewListChange={setIsChecked}
