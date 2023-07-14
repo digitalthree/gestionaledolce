@@ -3,28 +3,29 @@ import PieChart from "@/app/(user)/marketing/components/gare/components/PieChart
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import VerticalBarChart from "@/app/(user)/marketing/components/gare/components/VerticalBarChart";
 import {Gara} from "@/model/Gara";
-import {useGetGaraByAnno, useGetGare} from "@/store/rtkqApi.ts";
+import {useGetGaraByAnno, useGetGare} from "@/store/rtkqApi";
+import {skipToken} from "@reduxjs/toolkit/query";
 
 export interface GareProps {
 
 }
 
 const Gare: React.FC<GareProps> = ({}) => {
-    const resGare = useGetGare()
+    const resGare = useGetGare(skipToken)
     const resGara = useGetGaraByAnno(new Date().getFullYear())
     let gara = {} as Gara
     if(resGara.data){
-        gara = resGara.data[0]
+        gara = (resGara.data as unknown as Gara[])[0]
     }
-    let gare = []
+    let gare: Gara[] = []
     if(resGare.data){
         gare = resGare.data
     }
 
 
     const [garaAnnoPrec, setGaraAnnoPrec] = useState<Gara>(gara)
-    const [garePartecipate, setGarePartecipate] = useState([])
-    const [gareVinte, setGareVinte] = useState([])
+    const [garePartecipate, setGarePartecipate] = useState<number[]>([])
+    const [gareVinte, setGareVinte] = useState<number[]>([])
 
     useEffect(() => {
         if(gare.length > 0){

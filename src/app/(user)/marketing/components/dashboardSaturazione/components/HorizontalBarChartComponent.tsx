@@ -11,7 +11,9 @@ import {
 import { Bar } from 'react-chartjs-2';
 import {ImArrowDown, ImArrowUp} from "react-icons/im";
 import {CgMathEqual} from "react-icons/cg";
-import {useGetResidenze} from "@/store/rtkqApi.ts";
+import {useGetResidenze} from "@/store/rtkqApi";
+import {skipToken} from "@reduxjs/toolkit/query";
+import {InputResidenza} from "@/model/ResidenzaAnziani";
 
 ChartJS.register(
     CategoryScale,
@@ -35,7 +37,7 @@ export const options = {
         legend: {
             position: 'top' as const,
             labels: {
-                filter: function (item, chart){
+                filter: function (item:any, chart:any){
                     return !item.text.includes("Dato Attuale")
                 }
             }
@@ -53,12 +55,12 @@ export interface HorizontalBarChartComponenteProps{
 }
 
 const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> = ({colorePrincipale}) => {
-    const [labels, setLabels] = useState([])
-    const [data1, setData1] = useState([])
-    const [data2, setData2] = useState([])
-    const [data3, setData3] = useState([])
-    const res = useGetResidenze()
-    let residenze = []
+    const [labels, setLabels] = useState<string[]>([])
+    const [data1, setData1] = useState<number[]>([])
+    const [data2, setData2] = useState<number[]>([])
+    const [data3, setData3] = useState<number[]>([])
+    const res = useGetResidenze(skipToken)
+    let residenze: InputResidenza[] = []
     if(res.data){
         residenze = res.data
     }
@@ -77,8 +79,8 @@ const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> =
         })
     }, [residenze])
 
-    function setColor(data1, data2){
-        let color = []
+    function setColor(data1:number[], data2:number[]){
+        let color: string[] = []
         data1.forEach((d1, index) => {
             if(d1 > data2[index]){
                 color.push("#4ECC8F")

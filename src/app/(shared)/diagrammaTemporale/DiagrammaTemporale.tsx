@@ -97,7 +97,7 @@ const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({editabile}) => {
                         columnWidth={columnWidth}
                         barCornerRadius={10}
                         locale="it-IT"
-                        fontSize={13}
+                        fontSize={"13"}
                         rowHeight={30}
                     />
                 </div>
@@ -115,7 +115,7 @@ const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({editabile}) => {
                         columnWidth={columnWidth}
                         barCornerRadius={10}
                         locale="it-IT"
-                        fontSize={12}
+                        fontSize={"12"}
                         rowHeight={30}
                     />
                 </div>

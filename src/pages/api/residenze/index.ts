@@ -1,6 +1,6 @@
 import {getAllResidenzeInFauna, updateResidenzaInFauna} from "@/faunadb/Fauna";
 
-export default async function handler(req, res) {
+export default async function handler(req:any, res:any) {
     if(req.method === "GET"){
         try {
             const residenze = await getAllResidenzeInFauna();

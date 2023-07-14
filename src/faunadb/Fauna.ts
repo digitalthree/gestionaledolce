@@ -27,7 +27,7 @@ export const getAllResidenzeInFauna = async () => {
             )
         )
     );
-    return data.map(d => {
+    return data.map((d: any) => {
         d.residenza.faunaDocumentId = d.faunaDocumentId
         delete d.faunaDocumentId
         return d.residenza
@@ -68,7 +68,7 @@ export const getAllGareInFauna = async () => {
             )
         )
     );
-    return data.map(d => {
+    return data.map((d: any) => {
         d.gara.faunaDocumentId = d.faunaDocumentId
         delete d.faunaDocumentId
         return d.gara
@@ -97,7 +97,7 @@ export const getGaraByAnnoInFauna = async (anno: number) => {
             )
         )
     );
-    return data.map(d => {
+    return data.map((d: any) => {
         d.gara.faunaDocumentId = d.faunaDocumentId
         delete d.faunaDocumentId
         return d.gara

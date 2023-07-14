@@ -9,7 +9,9 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import {useGetResidenze} from "@/store/rtkqApi.ts";
+import {useGetResidenze} from "@/store/rtkqApi";
+import {InputResidenza} from "@/model/ResidenzaAnziani";
+import {skipToken} from "@reduxjs/toolkit/query";
 
 ChartJS.register(
     CategoryScale,
@@ -26,8 +28,8 @@ export interface MontTrendComponentProps{
 
 const MontTrendComponent: React.FC<MontTrendComponentProps> = ({colorePrincipale}) => {
 
-    const {data, error, isLoading} = useGetResidenze()
-    let residenze = []
+    const {data, error, isLoading} = useGetResidenze(skipToken)
+    let residenze: InputResidenza[] = []
     if(data){
         residenze = data
     }

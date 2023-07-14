@@ -10,7 +10,9 @@ import {
     Legend,
 } from 'chart.js';
 import {Line} from 'react-chartjs-2';
-import {useGetResidenze} from "@/store/rtkqApi.ts";
+import {useGetResidenze} from "@/store/rtkqApi";
+import {skipToken} from "@reduxjs/toolkit/query";
+import {InputResidenza} from "@/model/ResidenzaAnziani";
 
 ChartJS.register(
     CategoryScale,
@@ -69,8 +71,8 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
             }
         ],
     };
-    const {data, error, isLoading} = useGetResidenze()
-    let residenze = []
+    const {data, error, isLoading} = useGetResidenze(skipToken)
+    let residenze: InputResidenza[] = []
     if(data){
         residenze = data
     }

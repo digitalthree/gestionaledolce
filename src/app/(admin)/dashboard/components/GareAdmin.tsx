@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {Gara} from "@/model/Gara";
-import {useGetGaraByAnno, useUpdateGaraMutation} from "@/store/rtkqApi.ts";
+import {useGetGaraByAnno, useUpdateGaraMutation} from "@/store/rtkqApi";
 
 
 export interface GareAdminProps {
@@ -14,7 +14,7 @@ const GareAdmin: React.FC<GareAdminProps> = ({}) => {
     const resGara = useGetGaraByAnno(new Date().getFullYear())
     let gara = {} as Gara
     if(resGara.data){
-        gara = resGara.data[0]
+        gara = (resGara.data as unknown as Gara[])[0]
     }
     const [inputsGara, setInputsGara] = useState<{ label: string, value: number }[]>(
         Object.entries(gara).map(entry => ({label: entry[0], value: entry[1]}))

@@ -1,7 +1,8 @@
 import React from 'react';
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
-import {useGetResidenze} from "@/store/rtkqApi.ts";
-import {color} from "chart.js/helpers";
+import {useGetResidenze} from "@/store/rtkqApi";
+import {skipToken} from "@reduxjs/toolkit/query";
+import {InputResidenza} from "@/model/ResidenzaAnziani";
 
 export interface BubbleComponentProps{
     colorePrincipale: string
@@ -10,16 +11,16 @@ export interface BubbleComponentProps{
 const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale}) => {
 
 
-    const {data, error, isLoading} = useGetResidenze()
+    const {data, error, isLoading} = useGetResidenze(skipToken)
 
-    let residenze = []
+    let residenze:InputResidenza[] = []
     if(data){
         residenze = data
     }
 
 
     function calcoloPercentualeAttuale(){
-        const percentuali = []
+        const percentuali: number[] = []
         residenze.forEach(ia => {
             percentuali.push((ia.dati[ia.dati.length-1].capienzaAttuale*100)/ia.capienza)
         })
@@ -27,7 +28,7 @@ const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale}) => 
     }
 
     function calcoloPercentualePrecedente(){
-        const percentuali = [];
+        const percentuali: number[] = [];
         residenze.forEach(ia => {
             percentuali.push((ia.dati[ia.dati.length-2].capienzaAttuale*100)/ia.capienza)
         })
