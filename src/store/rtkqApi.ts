@@ -5,7 +5,7 @@ import {Gara} from "@/model/Gara";
 
 export const rtkqApi = createApi({
     reducerPath: "rtkqApi",
-    baseQuery: fetchBaseQuery({baseUrl: '/api'}),
+    baseQuery: fetchBaseQuery({baseUrl: process.env.NEXT_PUBLIC_URL+'api'}),
     tagTypes: ['Residenze', 'Gare', 'Gara'],
     endpoints: (build) => ({
         getResidenze : build.query({
