@@ -47,14 +47,14 @@ const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale}) => 
                 </div>
                 {calcoloPercentualeAttuale() > calcoloPercentualePrecedente() ?
                     <div className="flex flex-col">
-                        <IoIosArrowUp size="50px" color={colorePrincipale} className="mb-[-30px]"/>
-                        <IoIosArrowUp size="50px" color={colorePrincipale} className="mb-[-30px] opacity-60"/>
-                        <IoIosArrowUp size="50px" color={colorePrincipale} className="opacity-40"/>
+                        <IoIosArrowUp size="50px" color={'#61cf9c'} className="mb-[-30px]"/>
+                        <IoIosArrowUp size="50px" color={'#61cf9c'} className="mb-[-30px] opacity-60"/>
+                        <IoIosArrowUp size="50px" color={'#61cf9c'} className="opacity-40"/>
                     </div> :
                     <div className="flex flex-col">
-                        <IoIosArrowDown size="50px" color={colorePrincipale} className="mb-[-30px] opacity-40"/>
-                        <IoIosArrowDown size="50px" color={colorePrincipale} className="mb-[-30px] opacity-60"/>
-                        <IoIosArrowDown size="50px" color={colorePrincipale}/>
+                        <IoIosArrowDown size="50px" color={'#df20e3'} className="mb-[-30px] opacity-40"/>
+                        <IoIosArrowDown size="50px" color={'#df20e3'} className="mb-[-30px] opacity-60"/>
+                        <IoIosArrowDown size="50px" color={'#df20e3'}/>
                     </div>
                 }
             </div>

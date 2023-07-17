@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useGetResidenze, useUpdateResidenzaMutation} from "@/store/rtkqApi";
-import {InputResidenza} from "@/model/ResidenzaAnziani";
+import {InputDati, InputResidenza} from "@/model/ResidenzaAnziani";
 import {BiPlus, BiSave} from "react-icons/bi";
 import {Task} from "gantt-task-react";
 import {BsFillTrash2Fill} from "react-icons/bs";
@@ -19,13 +19,12 @@ export default function ResidenzaAnzianiAdmin() {
     }
     const dispatch = useDispatch()
 
-    const [inputController, setInputController] = useState<{ id:number, capienzaAttuale: number }[]>([])
+    const [inputController, setInputController] = useState<{ struttura: string, dati: InputDati[] }[]>([])
 
 
     useEffect(() => {
         residenze.forEach((ia, index) => {
-            const capienzaAttuale = ia.dati[ia.dati.length-1].capienzaAttuale
-            setInputController(inputController => [...inputController, {id:index, capienzaAttuale: capienzaAttuale}])
+            setInputController(inputController => [...inputController, {struttura: ia.struttura, dati: ia.dati}])
         })
     }, [residenze])
 

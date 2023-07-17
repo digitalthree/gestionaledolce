@@ -20,7 +20,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrinci
                             <hr className={`w-48 border`}
                                 style={{borderColor: colorePrincipale}}
                             />
-                            <span style={{color: colorePrincipale}}>Situazione generale</span>
+                            <span style={{color: colorePrincipale}}>Saturazione generale</span>
                         </div>
                 </div>
                 <div className="col-span-5">
@@ -30,6 +30,16 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrinci
                                 style={{borderColor: colorePrincipale}}
                             />
                             <span style={{color: colorePrincipale}}>Trend mensile generale</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-span-4">
+                    <div className="flex flex-col">
+                        <div className="flex flex-row mb-5 items-baseline justify-between">
+                            <hr className={`w-[320px] border`}
+                                style={{borderColor: colorePrincipale}}
+                            />
+                            <span style={{color: colorePrincipale}}>Andamento generale</span>
                         </div>
                     </div>
                 </div>
@@ -47,7 +57,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrinci
             </div>
             <div className="px-5 flex flex-col">
                 <div className="flex flex-row mb-5 mt-10 items-baseline justify-between">
-                    <hr className={`w-[1180px] border hidden 2xl:visible`}
+                    <hr className={`w-[1140px] border`}
                         style={{borderColor: colorePrincipale}}
                     />
                     <span style={{color: colorePrincipale}}>Trend di ogni singola struttura in capo a Società Dolce</span>
@@ -56,7 +66,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrinci
             </div>
             <div className="px-5 flex flex-col">
                 <div className="flex flex-row mb-5 mt-10 items-baseline justify-between">
-                    <hr className={`w-[1180px] border hidden 2xl:visible`}
+                    <hr className={`w-[1140px] border`}
                         style={{borderColor: colorePrincipale}}
                     />
                     <span style={{color: colorePrincipale}}>Trend di ogni singola struttura in capo ad altre società</span>

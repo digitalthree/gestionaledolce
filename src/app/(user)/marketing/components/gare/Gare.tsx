@@ -4,6 +4,8 @@ import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import VerticalBarChart from "@/app/(user)/marketing/components/gare/components/VerticalBarChart";
 import {Gara} from "@/model/Gara";
 import {useGetGaraByAnno, useGetGare} from "@/store/rtkqApi";
+import HorizontalBarChartComponente
+    from "@/app/(user)/marketing/components/dashboardSaturazione/components/HorizontalBarChartComponent";
 
 export interface GareProps {
 
@@ -44,7 +46,7 @@ const Gare: React.FC<GareProps> = ({}) => {
                         <hr className="w-full border-[#B5C5E7] border"/>
                     </div>
                     <div className="grid grid-cols-7 gap-20 p-10">
-                        <div className="col-span-3">
+                        <div className="col-span-3 p-12">
                             <PieChart labels={['Gare in corso', 'Gare in scadenza', 'Gare vinte', 'Gare perse']}
                                       values={[gara.gareInCorso, gara.gareInScadenza, gara.gareVinte, gara.garePerse]}
                                       backgroundColor={['#DFE6F3', '#B5C5E7', '#4ECC8F', '#DF20E3',]}
@@ -105,15 +107,22 @@ const Gare: React.FC<GareProps> = ({}) => {
                         </div>
                     </div>
                     <div>
-                        <VerticalBarChart garePartecipate={garePartecipate} gareVinte={gareVinte}/>
+                        <div className=" flex flex-col">
+                            <div className="w-full flex flex-row justify-between items-center mb-10">
+                                <hr className="w-[1420px] border-[#B5C5E7] border"/>
+                                <span className="mr-2 text-[#B5C5E7]">Partecipazione Gare</span>
+                            </div>
+                            <VerticalBarChart garePartecipate={garePartecipate} gareVinte={gareVinte}/>
+                        </div>
+
                     </div>
-                    <div className="w-full flex flex-row items-center mt-5">
-                        <span className="mr-2 text-[#B5C5E7] text-sm">Nuovo</span>
+                    <div className="w-full flex flex-row items-center my-10">
+                        <span className="mr-2 text-[#B5C5E7]">Nuovo</span>
                         <hr className="w-full border-[#B5C5E7] border"/>
                     </div>
                     <div className="grid grid-cols-8 p-10 gap-10">
                         <div className="col-span-3">
-                            <div className="grid grid-cols-1 gap-10">
+                            <div className="grid grid-cols-1 gap-10 p-10">
                                 <div className="grid grid-cols-3 gap-[2px]">
                                     <div
                                         className="col-span-1 flex items-center justify-center py-20 text-[15px] bg-[#0070B3] text-white rounded-l-2xl text-center">Anno Nuovo
@@ -134,7 +143,7 @@ const Gare: React.FC<GareProps> = ({}) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-span-3 flex flex-row justify-center">
+                        <div className="col-span-3 flex flex-row justify-center p-10">
                             <PieChart labels={["Gare nuove partecipate", "Gare nuove vinte"]}
                                       values={[gara.gareNuovePartecipate, gara.gareNuoveVinte]}
                                       backgroundColor={["#0070B3", "#DFE6F3"]}

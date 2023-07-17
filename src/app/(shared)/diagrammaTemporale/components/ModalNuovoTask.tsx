@@ -85,7 +85,7 @@ const ModalNuovoTask: React.FC<ModalNuovoTaskProps> = ({tasks, setTasks}) => {
                                     progressSelectedColor: colore
                                 },
                                 displayOrder: tasks.length,
-                                id: `Task ${tasks.length-1}`,
+                                id: `Task ${tasks.length+1}`,
                                 progress: 100
                             }
                             setTasks((oldTasks: Task[]) => [...oldTasks, task])

@@ -34,7 +34,15 @@ const MontTrendComponent: React.FC<MontTrendComponentProps> = ({colorePrincipale
     }
 
     const options = {
-        plugins: {},
+        plugins: {
+            legend: {
+                position: 'bottom' as const,
+            },
+            title: {
+                display: false,
+                text: 'TREND SATURAZIONALE MENSILE IN PERCENTUALE - STRUTTURE',
+            },
+        },
         responsive: true,
         scales: {
             x: {

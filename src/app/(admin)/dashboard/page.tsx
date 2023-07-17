@@ -30,6 +30,10 @@ export default function Page() {
                     {/* Sidebar ends */}
                     <div className="w-full bg-white p-10">
                         {subMenu === 'ra' && <ResidenzaAnzianiAdmin/>}
+                        {subMenu === 'ca' && <ResidenzaAnzianiAdmin/>}
+                        {subMenu === 'ss' && <ResidenzaAnzianiAdmin/>}
+                        {subMenu === 'rd' && <ResidenzaAnzianiAdmin/>}
+                        {subMenu === 'cd' && <ResidenzaAnzianiAdmin/>}
                         {menu === 'gare' && <GareAdmin/>}
                         {menu === 'planning' && <DiagrammaTemporale editabile={true}/>}
                     </div>

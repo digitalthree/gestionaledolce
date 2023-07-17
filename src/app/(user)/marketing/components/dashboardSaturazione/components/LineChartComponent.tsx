@@ -36,10 +36,10 @@ export const options = {
     },
     plugins: {
         legend: {
-            position: 'top' as const,
+            position: 'bottom' as const,
         },
         title: {
-            display: true,
+            display: false,
             text: 'TREND SATURAZIONALE MENSILE IN PERCENTUALE - STRUTTURE',
         },
     },
