@@ -7,6 +7,8 @@ import ResidenzaAnzianiAdmin from "@/app/(admin)/dashboard/components/ResidenzaA
 import SideBar from "@/app/(shared)/SideBar";
 import GareAdmin from "@/app/(admin)/dashboard/components/GareAdmin";
 import DiagrammaTemporale from "@/app/(shared)/diagrammaTemporale/DiagrammaTemporale";
+import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
+import Gare from "@/app/(user)/marketing/components/gare/Gare";
 
 export default function Page() {
     const {user} = useUser()
@@ -21,21 +23,30 @@ export default function Page() {
     const [subMenu, setSubMenu] = useState<undefined | 'ra' | 'ca' | 'ss' | 'rd' | 'cd'>('ra');
     const [menu, setMenu] = useState<undefined | 'planning' | 'gare' | 'contratti'>(undefined);
 
+    const [visualizzazioneUser, setVisualizzazioneUser] = useState<boolean>(false)
+
     return (
         <>
             <div className="w-full h-screen bg-gray-200">
                 <div className="flex flex-no-wrap">
                     {/* Sidebar starts */}
-                    <SideBar subMenu={subMenu} setSubMenu={setSubMenu} menu={menu} setMenu={setMenu}/>
+                    <SideBar subMenu={subMenu} setSubMenu={setSubMenu} menu={menu} setMenu={setMenu} setVisualizzazioneUser={setVisualizzazioneUser} visualizzazioneUser={visualizzazioneUser}/>
                     {/* Sidebar ends */}
                     <div className="w-full bg-white p-10">
-                        {subMenu === 'ra' && <ResidenzaAnzianiAdmin/>}
-                        {subMenu === 'ca' && <ResidenzaAnzianiAdmin/>}
-                        {subMenu === 'ss' && <ResidenzaAnzianiAdmin/>}
-                        {subMenu === 'rd' && <ResidenzaAnzianiAdmin/>}
-                        {subMenu === 'cd' && <ResidenzaAnzianiAdmin/>}
-                        {menu === 'gare' && <GareAdmin/>}
-                        {menu === 'planning' && <DiagrammaTemporale editabile={true}/>}
+                        {subMenu === 'ra' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
+                        {subMenu === 'ca' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
+                        {subMenu === 'ss' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
+                        {subMenu === 'rd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
+                        {subMenu === 'cd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
+                        {menu === 'gare' && !visualizzazioneUser && <GareAdmin/>}
+                        {menu === 'planning' && !visualizzazioneUser && <DiagrammaTemporale editabile={true}/>}
+                        {subMenu === 'ra' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#e4eaad"/>}
+                        {subMenu === 'ca' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#e4eaad"/>}
+                        {subMenu === 'ss' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#c9bfe2"/>}
+                        {subMenu === 'rd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#a8cde2"/>}
+                        {subMenu === 'cd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#a8cde2"/>}
+                        {menu === 'gare' && visualizzazioneUser && <Gare/>}
+                        {menu === 'planning' && visualizzazioneUser && <DiagrammaTemporale editabile={false}/>}
                     </div>
                 </div>
             </div>

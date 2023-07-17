@@ -3,17 +3,20 @@ import Image from "next/image";
 import {MdArrowRight} from "react-icons/md";
 import {useUser} from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
+import {BiGroup, BiUser} from 'react-icons/bi'
 
 export interface SiseBarProps{
     subMenu: undefined | 'ra' | 'ca' | 'ss' | 'rd' | 'cd',
     setSubMenu: Function,
     menu: undefined | 'planning' | 'gare' | 'contratti',
-    setMenu: Function
+    setMenu: Function,
+    visualizzazioneUser?: boolean
+    setVisualizzazioneUser?: Function
 }
 
 const SiseBar: React.FC<SiseBarProps> = (
     {
-        subMenu, menu, setMenu, setSubMenu
+        subMenu, menu, setMenu, setSubMenu, setVisualizzazioneUser, visualizzazioneUser
     }
 ) => {
 
@@ -110,9 +113,28 @@ const SiseBar: React.FC<SiseBarProps> = (
                         }
                     </li>
                 </ul>
+                {user?.nickname === "admin" &&
+                    <div className="flex flex-col p-8" onClick={() =>setVisualizzazioneUser && setVisualizzazioneUser(!visualizzazioneUser)}>
+                        <hr className="w-full border border-white"/>
+                        <div className="font-extralight text-white my-2 text-sm flex justify-center">{visualizzazioneUser && visualizzazioneUser ?
+                            <div className="flex items-center">
+                                <span className="font-extralight text-white my-2 text-sm mr-4">user</span>
+                                <BiGroup size={30}/>
+                            </div>
+
+                            :
+                            <div className="flex items-center">
+                                <span className="font-extralight text-white my-2 text-sm mr-4">admin</span>
+                                <BiUser size={30}/>
+                            </div>
+
+                        }</div>
+                        <hr className="w-full border border-white"/>
+                    </div>
+                }
                 <div className="flex justify-center px-7 mt-5">
                     <div className="flex flex-col items-end">
-                        <textarea className="textarea bg-[#bdccea] text-white h-[250px]" placeholder="Messaggio..."></textarea>
+                        <textarea className="textarea bg-[#bdccea] text-white h-[200px]" placeholder="Messaggio..."></textarea>
                         <div className="tooltip" data-tip="Invia Messaggio">
                             <Image src={"/logoSend.png"} alt={"logo send"} width={30} height={30} className="mt-5 opacity-40 hover:opacity-100"/>
                         </div>
@@ -120,7 +142,7 @@ const SiseBar: React.FC<SiseBarProps> = (
                     </div>
 
                 </div>
-                <div className="flex flex-row justify-center mt-20">
+                <div className="flex flex-row justify-center mt-10">
                     <Link href="/api/auth/logout" className="text-[#B6C7E8] p-1 px-20 rounded bg-[#E4E9F5] hover:bg-[#df20e3] hover:text-white hover:cursor-pointer">Logout</Link>
                 </div>
             </div>
