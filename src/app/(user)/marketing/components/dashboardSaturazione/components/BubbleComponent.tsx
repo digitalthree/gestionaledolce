@@ -41,7 +41,7 @@ const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale}) => 
                      style={{backgroundColor: colorePrincipale}}
                 >
                     {calcoloPercentualeAttuale()}%
-                    <div className={`rounded-full p-2 m-1 w-20 h-20 flex items-center justify-center text-[15px] font-light absolute top-0 right-[-40px]`}
+                    <div className={`rounded-full opacity-80 p-2 m-1 w-20 h-20 flex items-center justify-center text-[15px] font-light absolute top-0 right-[-40px]`}
                          style={{backgroundColor: colorePrincipale}}
                     >{calcoloPercentualePrecedente()}%</div>
                 </div>
