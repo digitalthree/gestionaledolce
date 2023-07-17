@@ -34,36 +34,36 @@ const SiseBar: React.FC<SiseBarProps> = (
                     </div>
                     <li className="pl-6 cursor-pointer text-xl text-white mt-10">
                         <details className="collapse collapse-arrow" open>
-                            <summary className="collapse-title text-xl">
+                            <summary className={`collapse-title text-xl ${subMenu ? "font-semibold" : "font-extralight"}`}>
                                 SATURAZIONE
                             </summary>
                             <div className="collapse-content ml-4 text-sm">
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ra' && 'underline'}`}
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ra' && 'underline'} font-extralight`}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('ra')
                                    }}
                                 >residenza anziani</p>
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ca' && 'underline'}`}
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ca' && 'underline'} font-extralight`}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('ca')
                                    }}
                                 >centri diurni
                                     anziani</p>
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ss' && 'underline'}`}
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ss' && 'underline'} font-extralight`}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('ss')
                                    }}
                                 >servizi sanitari</p>
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'rd' && 'underline'}`}
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'rd' && 'underline'} font-extralight`}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('rd')
                                    }}
                                 >residenza disabili</p>
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'cd' && 'underline'}`}
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'cd' && 'underline'} font-extralight`}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('cd')
@@ -78,11 +78,11 @@ const SiseBar: React.FC<SiseBarProps> = (
                         setSubMenu(undefined)
                     }}>
                         {menu === 'planning' ?
-                            <div className="flex flex-row items-center">
+                            <div className="flex flex-row items-center font-semibold">
                                 <MdArrowRight/>
                                 PLANNING
                             </div> :
-                            <span>PLANNING</span>
+                            <span className="font-extralight">PLANNING</span>
                         }
                     </li>
                     <li className="pl-6 cursor-pointer text-xl text-white ml-4" onClick={() => {
@@ -90,11 +90,11 @@ const SiseBar: React.FC<SiseBarProps> = (
                         setSubMenu(undefined)
                     }}>
                         {menu === 'gare' ?
-                            <div className="flex flex-row items-center">
+                            <div className="flex flex-row items-center font-semibold">
                                 <MdArrowRight/>
                                 GARE
                             </div> :
-                            <span>GARE</span>
+                            <span className="font-extralight">GARE</span>
                         }
                     </li>
                     <li className="pl-6 cursor-pointer text-xl text-white ml-4" onClick={() => {
@@ -102,16 +102,26 @@ const SiseBar: React.FC<SiseBarProps> = (
                         setSubMenu(undefined)
                     }}>
                         {menu === 'contratti' ?
-                            <div className="flex flex-row items-center">
+                            <div className="flex flex-row items-center font-semibold">
                                 <MdArrowRight/>
                                 CONTRATTI
                             </div> :
-                            <span>CONTRATTI</span>
+                            <span className="font-extralight">CONTRATTI</span>
                         }
                     </li>
                 </ul>
-                <div className="flex flex-row justify-center mt-60">
-                    <Link href="/api/auth/logout" className="text-white uppercase hover:underline hover:cursor-pointer">Logout</Link>
+                <div className="flex justify-center px-7 mt-5">
+                    <div className="flex flex-col items-end">
+                        <textarea className="textarea bg-[#bdccea] text-white h-[250px]" placeholder="Messaggio..."></textarea>
+                        <div className="tooltip" data-tip="Invia Messaggio">
+                            <Image src={"/logoSend.png"} alt={"logo send"} width={30} height={30} className="mt-5 opacity-40 hover:opacity-100"/>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div className="flex flex-row justify-center mt-20">
+                    <Link href="/api/auth/logout" className="text-[#B6C7E8] p-1 px-20 rounded bg-[#E4E9F5] hover:bg-[#df20e3] hover:text-white hover:cursor-pointer">Logout</Link>
                 </div>
             </div>
         </>

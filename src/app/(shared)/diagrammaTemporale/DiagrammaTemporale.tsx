@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Gantt, Task, ViewMode} from "gantt-task-react";
 import {ViewSwitcher} from "@/app/(shared)/diagrammaTemporale/components/ViewSwitcher";
 import Profile from "@/app/(user)/marketing/components/UserProfile";
 import {StandardTooltipContent} from "gantt-task-react/dist/components/other/tooltip";
 import {BsFillCircleFill} from "react-icons/bs";
 import Legend from "@/app/(shared)/diagrammaTemporale/components/Legend";
+import {BiPlus} from "react-icons/bi";
+import ModalNuovoTask from "@/app/(shared)/diagrammaTemporale/components/ModalNuovoTask";
 
 export interface DiagrammaTemporaleProps {
     editabile: boolean
@@ -23,6 +25,10 @@ const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({editabile}) => {
     } else if (view === ViewMode.Week) {
         columnWidth = 250;
     }
+
+    useEffect(() => {
+        console.log(tasks)
+    }, [tasks])
 
     const handleTaskChange = (task: Task) => {
         console.log("On date change Id:" + task.id);
@@ -76,13 +82,16 @@ const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({editabile}) => {
     return (
         <>
             {editabile ?
-                <div>
+                <div className="overflow-y-scroll max-h-[800px]">
                     <Legend/>
-                    <ViewSwitcher
-                        onViewModeChange={viewMode => setView(viewMode)}
-                        onViewListChange={setIsChecked}
-                        isChecked={isChecked}
-                    />
+                    <div className="flex flex-row mb-3 items-center justify-between pr-5">
+                        <ViewSwitcher
+                            onViewModeChange={viewMode => setView(viewMode)}
+                            onViewListChange={setIsChecked}
+                            isChecked={isChecked}
+                        />
+                        <ModalNuovoTask tasks={tasks} setTasks={setTasks}/>
+                    </div>
                     <Gantt
                         tasks={tasks}
                         viewMode={view}
@@ -100,6 +109,55 @@ const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({editabile}) => {
                         fontSize={"12px"}
                         rowHeight={30}
                     />
+                    <div className="flex flex-row justify-center mt-20">
+                        <div className="grid grid-cols-3 gap-20">
+                            <div className="flex flex-col">
+                                <h3 className="text-[#0040b8] font-semibold">COMUNICAZIONE ISTITUZIONALE</h3>
+                                <span className="font-semibold">Eventi e attività:</span>
+                                <ul className="list-disc">
+                                    <li className="italic">Realizzazione materiale e diffusione con vari strumenti</li>
+                                    <li className="italic">News su www.grupposocietadolce.it</li>
+                                    <li className="italic">Coinvolgimento partners strategici</li>
+                                    <li className="italic">Post ripetuti su social network</li>
+                                    <li className="italic">Comunicato stampa ed eventuale conferenza stampa</li>
+                                    <li className="italic">Coinvolgimento organi di stampa</li>
+                                    <li className="italic">Pubblicazione su portale Zucchetti e mailing list Presidenza</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div className="flex flex-col">
+                                    <h3 className="text-[#39b54a] font-semibold">POSIZIONAMENTO TERRITORIALE</h3>
+                                    <span className="font-semibold">Iniziativa territoriale di settore:</span>
+                                    <ul className="list-disc">
+                                        <li className="italic">Realizzazione materiale e diffusione con vari strumenti</li>
+                                        <li className="italic">News su www.societadolce.it</li>
+                                        <li className="italic">Coinvolgimento partners/enti</li>
+                                        <li className="italic">Post su social network</li>
+                                        <li className="italic">Comunicato stampa</li>
+                                        <li className="italic">Coinvolgimento organi di stampa locali</li>
+                                        <li className="italic">Pubblicazione su portale Zucchetti</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="flex flex-col">
+                                    <h3 className="text-[#f7931e] font-semibold">PROMOZIONE COMMERCIALE</h3>
+                                    <span className="font-semibold">Piccola iniziativa locale:</span>
+                                    <ul className="list-disc">
+                                        <li className="italic">Post su social network</li>
+                                        <li className="italic">Eventuale news su www.societadolce.it</li>
+                                    </ul>
+                                    <span className="font-semibold">Campagna Pubblicitaria:</span>
+                                    <ul className="list-disc">
+                                        <li className="italic">Pianificazione concept, strumenti, tempistica, budget</li>
+                                        <li className="italic">Realizzazione materiale e diffusione con vari strumenti</li>
+                                        <li className="italic">Post su social network</li>
+                                        <li className="italic">Eventuale advertising su social network</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 :
                 <div>
@@ -144,9 +202,9 @@ export function initTasks() {
             displayOrder: 1,
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#0070B3",
+                progressColor: "#0040b8",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#0070B3'
+                progressSelectedColor: '#0040b8'
             },
 
         },
@@ -161,9 +219,9 @@ export function initTasks() {
             id: "Task 2",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#0070B3",
+                progressColor: "#0040b8",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#0070B3'
+                progressSelectedColor: '#0040b8'
             },
             progress: 100,
             type: "task",
@@ -180,9 +238,9 @@ export function initTasks() {
             id: "Task 3",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#0070B3",
+                progressColor: "#0040b8",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#0070B3'
+                progressSelectedColor: '#0040b8'
             },
             progress: 100,
             type: "task",
@@ -199,9 +257,9 @@ export function initTasks() {
             id: "Task 4",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#19f91d",
+                progressColor: "#39b54a",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#19f91d'
+                progressSelectedColor: '#39b54a'
             },
             progress: 100,
             type: "task",
@@ -218,9 +276,9 @@ export function initTasks() {
             id: "Task 5",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#f99419",
+                progressColor: "#f7931e",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#f99419'
+                progressSelectedColor: '#f7931e'
             },
             progress: 100,
             type: "task",
@@ -237,9 +295,9 @@ export function initTasks() {
             id: "Task 6",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#f99419",
+                progressColor: "#f7931e",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#f99419'
+                progressSelectedColor: '#f7931e'
             },
             progress: 100,
             type: "task",
@@ -256,9 +314,9 @@ export function initTasks() {
             id: "Task 7",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#0070B3",
+                progressColor: "#0040b8",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#0070B3'
+                progressSelectedColor: '#0040b8'
             },
             progress: 100,
             type: "task",
@@ -275,9 +333,9 @@ export function initTasks() {
             id: "Task 8",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#f99419",
+                progressColor: "#f7931e",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#f99419'
+                progressSelectedColor: '#f7931e'
             },
             progress: 100,
             type: "task",
@@ -294,9 +352,9 @@ export function initTasks() {
             id: "Task 9",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#0070B3",
+                progressColor: "#0040b8",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#0070B3'
+                progressSelectedColor: '#0040b8'
             },
             progress: 100,
             type: "task",
@@ -313,9 +371,9 @@ export function initTasks() {
             id: "Task 10",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#f99419",
+                progressColor: "#f7931e",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#f99419'
+                progressSelectedColor: '#f7931e'
             },
             progress: 100,
             type: "task",
@@ -332,9 +390,9 @@ export function initTasks() {
             id: "Task 11",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#f99419",
+                progressColor: "#f7931e",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#f99419'
+                progressSelectedColor: '#f7931e'
             },
             progress: 100,
             type: "task",
@@ -351,9 +409,9 @@ export function initTasks() {
             id: "Task 12",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#19f91d",
+                progressColor: "#39b54a",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#19f91d'
+                progressSelectedColor: '#39b54a'
             },
             progress: 100,
             type: "task",
@@ -370,9 +428,9 @@ export function initTasks() {
             id: "Task 13",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#19f91d",
+                progressColor: "#39b54a",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#19f91d'
+                progressSelectedColor: '#39b54a'
             },
             progress: 100,
             type: "task",
@@ -389,9 +447,9 @@ export function initTasks() {
             id: "Task 14",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#19f91d",
+                progressColor: "#39b54a",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#19f91d'
+                progressSelectedColor: '#39b54a'
             },
             progress: 100,
             type: "task",
@@ -408,9 +466,9 @@ export function initTasks() {
             id: "Task 15",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#f99419",
+                progressColor: "#f7931e",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#f99419'
+                progressSelectedColor: '#f7931e'
             },
             progress: 100,
             type: "task",
@@ -427,9 +485,9 @@ export function initTasks() {
             id: "Task 16",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#f99419",
+                progressColor: "#f7931e",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#f99419'
+                progressSelectedColor: '#f7931e'
             },
             progress: 100,
             type: "task",
@@ -446,9 +504,9 @@ export function initTasks() {
             id: "Task 17",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#19f91d",
+                progressColor: "#39b54a",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#19f91d'
+                progressSelectedColor: '#39b54a'
             },
             progress: 100,
             type: "task",
@@ -465,9 +523,9 @@ export function initTasks() {
             id: "Task 18",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#19f91d",
+                progressColor: "#39b54a",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#19f91d'
+                progressSelectedColor: '#39b54a'
             },
             progress: 100,
             type: "task",
@@ -484,9 +542,9 @@ export function initTasks() {
             id: "Task 19",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#0070B3",
+                progressColor: "#0040b8",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#0070B3'
+                progressSelectedColor: '#0040b8'
             },
             progress: 100,
             type: "task",
@@ -503,9 +561,9 @@ export function initTasks() {
             id: "Task 20",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#0070B3",
+                progressColor: "#0040b8",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#0070B3'
+                progressSelectedColor: '#0040b8'
             },
             progress: 100,
             type: "task",
@@ -522,9 +580,9 @@ export function initTasks() {
             id: "Task 21",
             styles: {
                 backgroundColor: "#bac0ce",
-                progressColor: "#19f91d",
+                progressColor: "#39b54a",
                 backgroundSelectedColor: "#bac0ce",
-                progressSelectedColor: '#19f91d'
+                progressSelectedColor: '#39b54a'
             },
             progress: 100,
             type: "task",

@@ -14,6 +14,17 @@ export const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
     const [filtriPeriodo, setFiltriPeriodo] = useState("Mese")
     return (
         <div className="ViewContainer">
+            <div className="Switch">
+                <label className="Switch_Toggle">
+                    <input
+                        type="checkbox"
+                        defaultChecked={isChecked}
+                        onClick={() => onViewListChange(!isChecked)}
+                    />
+                    <span className="Slider" />
+                </label>
+                Mostra lista
+            </div>
             <button
                 className={`Button`}
                 style={{backgroundColor: filtriPeriodo === "Settimana" ? "#C2CCE5" : ""}}
@@ -44,17 +55,6 @@ export const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
             >
                 Anno
             </button>
-            <div className="Switch">
-                <label className="Switch_Toggle">
-                    <input
-                        type="checkbox"
-                        defaultChecked={isChecked}
-                        onClick={() => onViewListChange(!isChecked)}
-                    />
-                    <span className="Slider" />
-                </label>
-                Mostra la lista delle strutture
-            </div>
         </div>
     );
 };

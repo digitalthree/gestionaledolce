@@ -21,11 +21,11 @@ export default function MainSection() {
                         {/* Remove class [ h-64 ] when adding a card block */}
                         <div className="p-5">
                             {menu === 'planning' && <DiagrammaTemporale editabile={false}/>}
-                            {menu === undefined && subMenu === 'ra' && <DashboardSaturazione colorePrincipale="#B5C5E7"/>}
-                            {menu === undefined && subMenu === 'ca' && <DashboardSaturazione colorePrincipale="#F5B434"/>}
-                            {menu === undefined && subMenu === 'ss' && <DashboardSaturazione colorePrincipale="#C295F7"/>}
-                            {menu === undefined && subMenu === 'rd' && <DashboardSaturazione colorePrincipale="#F7959C"/>}
-                            {menu === undefined && subMenu === 'cd' && <DashboardSaturazione colorePrincipale="#95F7C5"/>}
+                            {menu === undefined && subMenu === 'ra' && <DashboardSaturazione colorePrincipale="#e4eaad"/>}
+                            {menu === undefined && subMenu === 'ca' && <DashboardSaturazione colorePrincipale="#e4eaad"/>}
+                            {menu === undefined && subMenu === 'ss' && <DashboardSaturazione colorePrincipale="#c9bfe2"/>}
+                            {menu === undefined && subMenu === 'rd' && <DashboardSaturazione colorePrincipale="#a8cde2"/>}
+                            {menu === undefined && subMenu === 'cd' && <DashboardSaturazione colorePrincipale="#a8cde2"/>}
                             {menu == 'gare' && <Gare/>}
                         </div>
                     </div>
