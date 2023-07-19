@@ -24,49 +24,49 @@ const SiseBar: React.FC<SiseBarProps> = (
 
     return(
         <>
-            <div className="bg-[#B5C5E7] absolute lg:relative w-64 h-screen shadow hidden lg:block">
-                <ul className=" py-6">
-                    <div className="flex flex-row justify-between items-center px-5">
-                        <div className="h-24 w-24 flex items-center">
-                            <Image src="/img/logo_home.png" alt="logo" width={100} height={100}/>
+            <div className="bg-[#B5C5E7] absolute lg:relative w-[17%] h-screen shadow hidden lg:block">
+                <ul className="py-6">
+                    <div className="flex flex-col justify-between items-center">
+                        <div className="flex items-center">
+                            <Image src="/img/sdreportlogo.png" alt="logo" width={150} height={100}/>
                         </div>
-                        <div className="text-white">
-                            utente: <br/>
+                        <div className="text-white text-base mt-3">
+                            utente:
                             #{user?.nickname?.toUpperCase()}
                         </div>
                     </div>
-                    <li className="pl-6 cursor-pointer text-xl text-white mt-10">
+                    <li className="pl-6 cursor-pointer text-xl text-white mt-5">
                         <details className="collapse collapse-arrow" open>
-                            <summary className={`collapse-title text-xl ${subMenu ? "font-semibold" : "font-extralight"}`}>
+                            <summary className={`collapse-title text-2xl ${subMenu ? "font-semibold" : ""}`}>
                                 SATURAZIONE
                             </summary>
-                            <div className="collapse-content ml-4 text-sm">
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ra' && 'underline'} font-extralight`}
+                            <div className="collapse-content ml-4">
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ra' && 'underline'} `}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('ra')
                                    }}
                                 >residenza anziani</p>
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ca' && 'underline'} font-extralight`}
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ca' && 'underline'} `}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('ca')
                                    }}
                                 >centri diurni
                                     anziani</p>
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ss' && 'underline'} font-extralight`}
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ss' && 'underline'} `}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('ss')
                                    }}
                                 >servizi sanitari</p>
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'rd' && 'underline'} font-extralight`}
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'rd' && 'underline'} `}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('rd')
                                    }}
                                 >residenza disabili</p>
-                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'cd' && 'underline'} font-extralight`}
+                                <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'cd' && 'underline'} `}
                                    onClick={() => {
                                        setMenu(undefined)
                                        setSubMenu('cd')
@@ -76,7 +76,7 @@ const SiseBar: React.FC<SiseBarProps> = (
                             </div>
                         </details>
                     </li>
-                    <li className="pl-6 cursor-pointer text-xl text-white ml-4" onClick={() => {
+                    <li className="pl-6 cursor-pointer text-2xl text-white ml-4" onClick={() => {
                         setMenu('planning')
                         setSubMenu(undefined)
                     }}>
@@ -85,10 +85,10 @@ const SiseBar: React.FC<SiseBarProps> = (
                                 <MdArrowRight/>
                                 PLANNING
                             </div> :
-                            <span className="font-extralight">PLANNING</span>
+                            <span className="">PLANNING</span>
                         }
                     </li>
-                    <li className="pl-6 cursor-pointer text-xl text-white ml-4" onClick={() => {
+                    <li className="pl-6 cursor-pointer text-2xl text-white ml-4" onClick={() => {
                         setMenu('gare')
                         setSubMenu(undefined)
                     }}>
@@ -97,10 +97,10 @@ const SiseBar: React.FC<SiseBarProps> = (
                                 <MdArrowRight/>
                                 GARE
                             </div> :
-                            <span className="font-extralight">GARE</span>
+                            <span className="">GARE</span>
                         }
                     </li>
-                    <li className="pl-6 cursor-pointer text-xl text-white ml-4" onClick={() => {
+                    <li className="pl-6 cursor-pointer text-2xl text-white ml-4" onClick={() => {
                         setMenu('contratti')
                         setSubMenu(undefined)
                     }}>
@@ -109,22 +109,22 @@ const SiseBar: React.FC<SiseBarProps> = (
                                 <MdArrowRight/>
                                 CONTRATTI
                             </div> :
-                            <span className="font-extralight">CONTRATTI</span>
+                            <span className="">CONTRATTI</span>
                         }
                     </li>
                 </ul>
                 {user?.nickname === "admin" &&
                     <div className="flex flex-col p-8" onClick={() =>setVisualizzazioneUser && setVisualizzazioneUser(!visualizzazioneUser)}>
                         <hr className="w-full border border-white"/>
-                        <div className="font-extralight text-white my-2 text-sm flex justify-center">{visualizzazioneUser && visualizzazioneUser ?
+                        <div className=" text-white my-2 text-sm flex justify-center">{visualizzazioneUser && visualizzazioneUser ?
                             <div className="flex items-center">
-                                <span className="font-extralight text-white my-2 text-sm mr-4">user</span>
+                                <span className=" text-white my-2 text-sm mr-4">user</span>
                                 <BiGroup size={30}/>
                             </div>
 
                             :
                             <div className="flex items-center">
-                                <span className="font-extralight text-white my-2 text-sm mr-4">admin</span>
+                                <span className=" text-white my-2 text-sm mr-4">admin</span>
                                 <BiUser size={30}/>
                             </div>
 
@@ -142,7 +142,7 @@ const SiseBar: React.FC<SiseBarProps> = (
                     </div>
 
                 </div>
-                <div className="flex flex-row justify-center mt-10">
+                <div className="flex flex-row justify-center absolute right-1/2 left-1/2 bottom-3">
                     <Link href="/api/auth/logout" className="text-[#B6C7E8] p-1 px-20 rounded bg-[#E4E9F5] hover:bg-[#df20e3] hover:text-white hover:cursor-pointer">Logout</Link>
                 </div>
             </div>

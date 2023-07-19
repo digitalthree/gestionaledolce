@@ -34,6 +34,7 @@ export const options = {
     maintainAspectRatio: true,
     plugins: {
         legend: {
+            display: false,
             position: 'top' as const,
             labels: {
                 filter: function (item:any, chart:any){
@@ -65,7 +66,8 @@ const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> =
     }
     useEffect(() => {
         residenze.forEach(r => {
-            setLabels(labels => [...labels, `${r.struttura} - ${r.provincia} - ${r.servizio} - capienza totale: ${r.capienza}`])
+            setLabels(labels => [...labels, `${r.struttura} - ${r.provincia} - capienza totale: ${r.capienza}`])
+            //setLabels(labels => [...labels, `${r.provincia}`])
         })
         residenze.forEach(r => {
             setData1(data1 => [...data1, r.dati[r.dati.length-1].capienzaAttuale])
@@ -108,7 +110,7 @@ const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> =
                 borderColor: setColor(data1, data2),
                 backgroundColor: setColor(data1, data2),
             },
-            {
+            /*{
                 label: "Dato Stabile",
                 borderColor: colorePrincipale,
                 backgroundColor: colorePrincipale,
@@ -122,19 +124,19 @@ const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> =
                 label: "Dato In Diminuzione",
                 borderColor: "#DF20E3",
                 backgroundColor: "#DF20E3",
-            },
+            },*/
 
         ],
     };
 
     return (
-        <div className="flex flex-row justify-center h-[750px]">
+        <div className="flex flex-row justify-center">
             <Bar options={options as any} data={dataChart as any}/>
             <div className="flex grid grid-cols-3">
                 {data1.map((d, index) => {
                     return(
-                        <div key={d} className="mt-10 flex flex-row items-center col-span-3">
-                            <span className={`${d > data2[index] && 'text-[#4ECC8F]'} ${d < data2[index] && 'text-[#DF20E3]'} ${d === data2[index] && 'text-black'} font-bold`}>{Math.round(d)}</span>
+                        <div key={d} className="flex flex-row items-center col-span-3">
+                            <span className={`${d > data2[index] && 'text-[#4ECC8F]'} ${d < data2[index] && 'text-[#DF20E3]'} ${d === data2[index] && 'text-black'} font-bold text-sm`}>{Math.round(d)}</span>
                             {d > data2[index] && <ImArrowUp  className="ml-2 text-[#4ECC8F]"/>}
                             {d < data2[index] && <ImArrowDown  className="ml-2 text-[#DF20E3]"/>}
                             {d === data2[index] && <CgMathEqual className="ml-2" style={{color: colorePrincipale}}/>}

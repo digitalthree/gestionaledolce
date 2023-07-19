@@ -36,6 +36,7 @@ const MontTrendComponent: React.FC<MontTrendComponentProps> = ({colorePrincipale
     const options = {
         plugins: {
             legend: {
+                display: false,
                 position: 'bottom' as const,
             },
             title: {

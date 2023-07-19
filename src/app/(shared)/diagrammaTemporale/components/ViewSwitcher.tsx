@@ -13,7 +13,7 @@ export const ViewSwitcher: React.FC<ViewSwitcherProps> = ({
                                                           }) => {
     const [filtriPeriodo, setFiltriPeriodo] = useState("Mese")
     return (
-        <div className="ViewContainer">
+        <div className="flex justify-start items-center">
             <div className="Switch">
                 <label className="Switch_Toggle">
                     <input

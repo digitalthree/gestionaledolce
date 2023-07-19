@@ -21,6 +21,7 @@ export const options = {
     maintainAspectRatio: true,
     plugins: {
         legend: {
+            display: false,
             position: 'bottom' as const,
             labels:{
                 padding: 30

@@ -128,7 +128,7 @@ export default function ResidenzaAnzianiAdmin() {
                                 return(
                                     <>
                                         <tr key={r.struttura}>
-                                            <th><input type="number" className="w-[50px] p-1 border border-blue-200 text-[12px]"
+                                            <th><input type="number" className="w-[50px] p-[10px] border border-blue-200 text-[12px]"
 
                                             /></th>
                                             {datiReversed.map((d, index) => {

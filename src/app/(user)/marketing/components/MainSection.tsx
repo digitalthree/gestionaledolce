@@ -12,7 +12,7 @@ export default function MainSection() {
 
     return (
         <>
-            <div className="w-full h-screen bg-gray-200">
+            <div className="w-full h-screen bg-gray-200 overflow-hidden">
                 <div className="flex flex-no-wrap">
                     {/* Sidebar starts */}
                     <SideBar subMenu={subMenu} setSubMenu={setSubMenu} menu={menu} setMenu={setMenu}/>
@@ -21,11 +21,11 @@ export default function MainSection() {
                         {/* Remove class [ h-64 ] when adding a card block */}
                         <div className="p-5">
                             {menu === 'planning' && <DiagrammaTemporale editabile={false}/>}
-                            {menu === undefined && subMenu === 'ra' && <DashboardSaturazione colorePrincipale="#e4eaad"/>}
-                            {menu === undefined && subMenu === 'ca' && <DashboardSaturazione colorePrincipale="#e4eaad"/>}
-                            {menu === undefined && subMenu === 'ss' && <DashboardSaturazione colorePrincipale="#c9bfe2"/>}
-                            {menu === undefined && subMenu === 'rd' && <DashboardSaturazione colorePrincipale="#a8cde2"/>}
-                            {menu === undefined && subMenu === 'cd' && <DashboardSaturazione colorePrincipale="#a8cde2"/>}
+                            {menu === undefined && subMenu === 'ra' && <DashboardSaturazione colorePrincipale="#e4eaad" coloreSecondario="#e6eac3"/>}
+                            {menu === undefined && subMenu === 'ca' && <DashboardSaturazione colorePrincipale="#e4eaad" coloreSecondario="#e6eac3"/>}
+                            {menu === undefined && subMenu === 'ss' && <DashboardSaturazione colorePrincipale="#c9bfe2" coloreSecondario="#d7cfeb"/>}
+                            {menu === undefined && subMenu === 'rd' && <DashboardSaturazione colorePrincipale="#a8cde2" coloreSecondario="#bdd7e6"/>}
+                            {menu === undefined && subMenu === 'cd' && <DashboardSaturazione colorePrincipale="#a8cde2" coloreSecondario="#bdd7e6"/>}
                             {menu == 'gare' && <Gare/>}
                         </div>
                     </div>

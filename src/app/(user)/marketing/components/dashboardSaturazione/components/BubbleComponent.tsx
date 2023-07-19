@@ -4,10 +4,11 @@ import {useGetResidenze} from "@/store/rtkqApi";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
 
 export interface BubbleComponentProps{
-    colorePrincipale: string
+    colorePrincipale: string,
+    coloreSecondario: string
 }
 
-const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale}) => {
+const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale, coloreSecondario}) => {
 
 
     const {data, error, isLoading} = useGetResidenze()
@@ -36,15 +37,15 @@ const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale}) => 
 
     return(
         <div className="flex flex-col">
-            <div className="flex flex-row items-end justify-between">
-                <div className={`rounded-full p-2 m-1 w-60 h-60 flex items-center justify-center text-[60px] font-[100] relative text-white`}
+            <div className="flex flex-row items-end justify-between relative">
+                <div className={`rounded-full p-2 m-1 w-60 h-60 z-10 flex items-center justify-center text-[60px] font-[100] shadow-xl text-white font-bold`}
                      style={{backgroundColor: colorePrincipale}}
                 >
                     {calcoloPercentualeAttuale()}%
-                    <div className={`rounded-full opacity-80 p-2 m-1 w-20 h-20 flex items-center justify-center text-[15px] font-light absolute top-0 right-[-40px]`}
-                         style={{backgroundColor: colorePrincipale}}
-                    >{calcoloPercentualePrecedente()}%</div>
                 </div>
+                <div className={`rounded-full p-2 m-1 w-32 h-32 text-white flex items-center justify-center text-[25px] font-bold absolute top-[-35px] right-[0px]`}
+                     style={{backgroundColor: coloreSecondario}}
+                >{calcoloPercentualePrecedente()}%</div>
                 {calcoloPercentualeAttuale() > calcoloPercentualePrecedente() ?
                     <div className="flex flex-col">
                         <IoIosArrowUp size="50px" color={'#61cf9c'} className="mb-[-30px]"/>
