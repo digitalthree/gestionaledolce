@@ -103,7 +103,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrinci
                     <hr className={`w-[63%] border`}
                         style={{borderColor: '#808080'}}
                     />
-                    <span style={{color: '#808080'}} className="uppercase font-semibold"z>Trend di ogni singola struttura in capo ad altre società</span>
+                    <span style={{color: '#808080'}} className="uppercase font-semibold">Trend di ogni singola struttura in capo ad altre società</span>
                 </div>
                 <HorizontalBarChartComponente colorePrincipale={colorePrincipale}/>
             </div>

@@ -40,11 +40,11 @@ export default function Page() {
                         {subMenu === 'cd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
                         {menu === 'gare' && !visualizzazioneUser && <GareAdmin/>}
                         {menu === 'planning' && !visualizzazioneUser && <DiagrammaTemporale editabile={true}/>}
-                        {subMenu === 'ra' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#e4eaad"/>}
-                        {subMenu === 'ca' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#e4eaad"/>}
-                        {subMenu === 'ss' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#c9bfe2"/>}
-                        {subMenu === 'rd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#a8cde2"/>}
-                        {subMenu === 'cd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#a8cde2"/>}
+                        {subMenu === 'ra' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#e4eaad" coloreSecondario="#e6eac3"/>}
+                        {subMenu === 'ca' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#e4eaad" coloreSecondario="#e6eac3"/>}
+                        {subMenu === 'ss' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#c9bfe2" coloreSecondario="#d7cfeb"/>}
+                        {subMenu === 'rd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#a8cde2" coloreSecondario="#bdd7e6"/>}
+                        {subMenu === 'cd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#a8cde2" coloreSecondario="#bdd7e6"/>}
                         {menu === 'gare' && visualizzazioneUser && <Gare/>}
                         {menu === 'planning' && visualizzazioneUser && <DiagrammaTemporale editabile={false}/>}
                     </div>
