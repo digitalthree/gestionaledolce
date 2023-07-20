@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3ac4ea4f-9152-402b-88b9-5b2d0ca3671d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,8 +86,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
         <item itemvalue="npm.dev" />
+        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
@@ -115,7 +114,8 @@
       <workItem from="1689577293533" duration="21758000" />
       <workItem from="1689683551398" duration="6918000" />
       <workItem from="1689749453384" duration="19000" />
-      <workItem from="1689773480719" duration="3055000" />
+      <workItem from="1689773480719" duration="3182000" />
+      <workItem from="1689841965462" duration="10122000" />
     </task>
     <servers />
   </component>
