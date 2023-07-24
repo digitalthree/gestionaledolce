@@ -50,10 +50,11 @@ const labels = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', '
 
 
 export interface LineChartComponentsProps{
-    colorePrincipale: string
+    colorePrincipale: string,
+    coloreSecondario: string
 }
 
-const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipale}) => {
+const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipale, coloreSecondario}) => {
     const dataChart = {
         labels,
         datasets: [
@@ -66,8 +67,8 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
             {
                 label: 'Anno precedente',
                 data: labels.map(() => Math.random() * 100),
-                borderColor: '#DAE2F3',
-                backgroundColor: '#DAE2F3',
+                borderColor: coloreSecondario,
+                backgroundColor: coloreSecondario,
             }
         ],
     };

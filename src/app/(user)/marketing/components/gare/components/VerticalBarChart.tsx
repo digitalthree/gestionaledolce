@@ -57,7 +57,7 @@ const VerticalBarChart: React.FC<VerticalBarChartProps> = ({garePartecipate, gar
             {
                 label: 'Gare Vinte',
                 data: gareVinte,
-                backgroundColor: '#0070B3',
+                backgroundColor: '#0066cc',
             },
         ],
     };

@@ -1,19 +1,23 @@
-import {getAllServiziSocietaDolce, updateResidenzaInFauna} from "@/faunadb/Fauna";
+import {
+    getAllServiziSocietaDolce,
+    getAllStruttureSanitarie,
+    updateResidenzaInFauna,
+    updateStrutturaSanitariaInFauna
+} from "@/faunadb/Fauna";
 
 export default async function handler(req:any, res:any) {
     if(req.method === "GET"){
         try {
-            const residenze = await getAllServiziSocietaDolce();
-            return res.status(200).json(residenze);
+            const strutture = await getAllStruttureSanitarie();
+            return res.status(200).json(strutture);
         } catch (err) {
             console.error(err);
             res.status(500).json({ msg: 'Something went wrong.' });
         }
     }else if(req.method === "PUT"){
-        console.log(req.body)
         try {
-            const residenze = await updateResidenzaInFauna(req.body)
-            return res.status(200).json(residenze);
+            const strutture = await updateStrutturaSanitariaInFauna(req.body)
+            return res.status(200).json(strutture);
         } catch (err) {
             console.error(err);
             res.status(500).json({ msg: 'Something went wrong.' });

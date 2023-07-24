@@ -1,21 +1,27 @@
 import React from 'react';
-import BubbleComponent from "@/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent";
+import BubbleComponent, {
+    calcoloPercentualeAttuale, calcoloPercentualePrecedente
+} from "@/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent";
 import MonthTrendComponent
     from "@/app/(user)/marketing/components/dashboardSaturazione/components/MonthTrendComponent";
 import LineChartComponent from "@/app/(user)/marketing/components/dashboardSaturazione/components/LineChartComponent";
+import {MdRectangle} from "react-icons/md";
+import {InputResidenza} from "@/model/ResidenzaAnziani";
+import ResidenzaAnzianiAdmin from "@/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin";
 import HorizontalBarChartComponente
     from "@/app/(user)/marketing/components/dashboardSaturazione/components/HorizontalBarChartComponent";
-import {MdRectangle} from "react-icons/md";
 
 export interface DashboardSaturazioneProps {
     colorePrincipale: string,
-    coloreSecondario: string
+    coloreSecondario: string,
+    dati: InputResidenza[],
+    datiAltreSocieta: InputResidenza[]
 }
 
-const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrincipale, coloreSecondario}) => {
+const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrincipale, coloreSecondario, dati, datiAltreSocieta}) => {
 
     return (
-        <div className="overflow-auto max-h-[95vh]">
+        <div className="overflow-y-auto max-h-[95vh]">
             <div className="grid grid-cols-12 px-5 py-2 gap-10 sm:hidden 2xl:grid">
                 <div className="col-span-3 flex flex-col justify-between">
                         <div className="flex flex-row mb-5 items-baseline justify-between">
@@ -31,7 +37,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrinci
                             <hr className={`w-[55%] border`}
                                 style={{borderColor: '#808080'}}
                             />
-                            <span style={{color: '#808080'}} className="uppercase font-semibold">Trend mensile generale</span>
+                            <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale generale</span>
                         </div>
                     </div>
                 </div>
@@ -48,29 +54,37 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrinci
             </div>
             <div className="2xl:grid 2xl:grid-cols-12 2xl:px-10 2xl:gap-10 flex flex-col items-center">
                 <div className="2xl:col-span-3 mb-5">
-                    <BubbleComponent colorePrincipale={colorePrincipale} coloreSecondario={coloreSecondario}/>
+                    <BubbleComponent colorePrincipale={colorePrincipale} coloreSecondario={coloreSecondario} dati={dati}/>
                 </div>
                 <div className="2xl:col-span-5 mb-5">
-                    <MonthTrendComponent colorePrincipale={colorePrincipale}/>
+                    <MonthTrendComponent colorePrincipale={colorePrincipale} coloreSecondario={coloreSecondario} dati={dati}/>
                 </div>
                 <div className="2xl:col-span-4">
-                    <LineChartComponent colorePrincipale={colorePrincipale}/>
+                    <LineChartComponent colorePrincipale={colorePrincipale} coloreSecondario={coloreSecondario}/>
                 </div>
             </div>
             <div className="2xl:grid 2xl:grid-cols-12 2xl:px-10 2xl:gap-10 flex flex-col items-center">
                 <div className="2xl:col-span-3 mb-5 flex justify-center">
-                    {/*TODO: renderlo dinamico*/}
-                    <span>Andamento in diminuzione</span>
+                    {calcoloPercentualeAttuale(dati) < calcoloPercentualePrecedente(dati) &&
+                        <span className="text-[red]">Andamento in diminuzione</span>
+                    }
+                    {calcoloPercentualeAttuale(dati) > calcoloPercentualePrecedente(dati) &&
+                        <span className="text-[green]">Andamento in crescita</span>
+                    }
+                    {calcoloPercentualeAttuale(dati) === calcoloPercentualePrecedente(dati) &&
+                        <span>Andamento costante</span>
+                    }
+
                 </div>
                 <div className="2xl:col-span-5 mb-5">
-                    <div className="grid grid-cols-2 px-5">
+                    <div className="grid grid-cols-1 px-5">
+                        {/*<div className="flex flex-row justify-center items-center">
+                            <MdRectangle color={coloreSecondario} size={30}/>
+                            <span className="ml-2 text-sm">Settimana Precedente</span>
+                        </div>*/}
                         <div className="flex flex-row justify-center items-center">
-                            <MdRectangle color="#DAE2F3" size={30}/>
-                            <span className="ml-2 text-sm">Anno Precedente</span>
-                        </div>
-                        <div className="flex flex-row justify-center items-center">
-                            <MdRectangle color="#E4EAAD" size={30}/>
-                            <span className="ml-2 text-sm">Anno Corrente</span>
+                            <MdRectangle color={colorePrincipale} size={30}/>
+                            <span className="ml-2 text-sm">Trend Saturazionale Settimanale</span>
                         </div>
                     </div>
                 </div>
@@ -78,11 +92,11 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrinci
                     <div className="2xl:col-span-5 mb-5">
                         <div className="grid grid-cols-2 px-5">
                             <div className="flex flex-row justify-center items-center">
-                                <MdRectangle color="#DAE2F3" size={30}/>
+                                <MdRectangle color={coloreSecondario} size={30}/>
                                 <span className="ml-2 text-sm">Anno Precedente</span>
                             </div>
                             <div className="flex flex-row justify-center items-center">
-                                <MdRectangle color="#E4EAAD" size={30}/>
+                                <MdRectangle color={colorePrincipale} size={30}/>
                                 <span className="ml-2 text-sm">Anno Corrente</span>
                             </div>
                         </div>
@@ -91,21 +105,23 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({colorePrinci
             </div>
             <div className="px-5 flex flex-col">
                 <div className="flex flex-row mb-5 mt-10 items-baseline justify-between">
-                    <hr className={`w-[63%] border`}
+                    <hr className={`w-[65%] border`}
                         style={{borderColor: '#808080'}}
                     />
-                    <span style={{color: '#808080'}} className="uppercase font-semibold">Trend di ogni singola struttura in capo a Società Dolce</span>
+                    <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale strutture in capo a Società Dolce</span>
                 </div>
-                <HorizontalBarChartComponente colorePrincipale={colorePrincipale}/>
+                {/*<ResidenzaAnzianiAdmin dati={dati} editabile={false}/>*/}
+                <HorizontalBarChartComponente colorePrincipale={colorePrincipale} coloreSecondario={coloreSecondario} dati={dati}/>
             </div>
             <div className="px-5 flex flex-col">
                 <div className="flex flex-row mb-5 mt-10 items-baseline justify-between">
-                    <hr className={`w-[63%] border`}
+                    <hr className={`w-[64%] border`}
                         style={{borderColor: '#808080'}}
                     />
-                    <span style={{color: '#808080'}} className="uppercase font-semibold">Trend di ogni singola struttura in capo ad altre società</span>
+                    <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale strutture in capo ad altre società</span>
                 </div>
-                <HorizontalBarChartComponente colorePrincipale={colorePrincipale}/>
+                {/*<ResidenzaAnzianiAdmin dati={datiAltreSocieta} editabile={false}/>*/}
+                <HorizontalBarChartComponente colorePrincipale={colorePrincipale} coloreSecondario={coloreSecondario} dati={datiAltreSocieta}/>
             </div>
         </div>
     )

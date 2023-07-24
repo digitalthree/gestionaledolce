@@ -4,9 +4,6 @@ import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import VerticalBarChart from "@/app/(user)/marketing/components/gare/components/VerticalBarChart";
 import {Gara} from "@/model/Gara";
 import {useGetGaraByAnno, useGetGare} from "@/store/rtkqApi";
-import HorizontalBarChartComponente
-    from "@/app/(user)/marketing/components/dashboardSaturazione/components/HorizontalBarChartComponent";
-import {BiRectangle} from "react-icons/bi";
 import {MdRectangle} from "react-icons/md";
 
 export interface GareProps {
@@ -51,7 +48,7 @@ const Gare: React.FC<GareProps> = ({}) => {
                         <div className="col-span-3 p-20">
                             <PieChart labels={['Gare in corso', 'Gare in scadenza', 'Gare vinte', 'Gare perse']}
                                       values={[gara.gareInCorso, gara.gareInScadenza, gara.gareVinte, gara.garePerse]}
-                                      backgroundColor={['#DFE6F3', '#B5C5E7', '#4ECC8F', '#DF20E3',]}
+                                      backgroundColor={['#DFE6F3', '#B5C5E7', 'green', 'red',]}
                                       borderColor={['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF']}
                             />
                         </div>
@@ -59,11 +56,11 @@ const Gare: React.FC<GareProps> = ({}) => {
                             <div className="grid grid-cols-1 gap-14">
                                 <div className="grid grid-cols-3 gap-[2px]">
                                     <div
-                                        className="col-span-1 flex items-center justify-center p-6 bg-[#0070B3] text-white rounded-l-2xl text-center">Valore
+                                        className="col-span-1 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-l-2xl text-center">Valore
                                         della <br/> produzione
                                     </div>
                                     <div
-                                        className="col-span-2 flex items-center justify-center p-6 bg-[#0070B3] text-white rounded-r-2xl text-4xl font-medium">{gara.valoreDellaProduzione.toLocaleString('en-US')}€
+                                        className="col-span-2 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-r-2xl text-4xl font-medium">{gara.valoreDellaProduzione.toLocaleString('en-US')}€
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-3 gap-[2px]">
@@ -77,10 +74,10 @@ const Gare: React.FC<GareProps> = ({}) => {
                                 </div>
                                 <div className="grid grid-cols-3 gap-[2px]">
                                     <div
-                                        className="col-span-1 flex items-center justify-center p-6 bg-[#4ECC8F] text-white rounded-l-2xl text-center">Fatturato <br/> Confermato
+                                        className="col-span-1 flex items-center justify-center p-6 bg-[green] text-white rounded-l-2xl text-center">Fatturato <br/> Confermato
                                     </div>
                                     <div
-                                        className="col-span-2 flex items-center justify-center p-6 bg-[#4ECC8F] text-white rounded-r-2xl text-4xl font-medium">{gara.fatturatoConfermato.toLocaleString('en-US')}€
+                                        className="col-span-2 flex items-center justify-center p-6 bg-[green] text-white rounded-r-2xl text-4xl font-medium">{gara.fatturatoConfermato.toLocaleString('en-US')}€
                                     </div>
                                 </div>
 
@@ -98,11 +95,11 @@ const Gare: React.FC<GareProps> = ({}) => {
                                 <span className="ml-2 text-sm">Gare in scadenza</span>
                             </div>
                             <div className="flex flex-row items-center">
-                                <MdRectangle color="#4ECC8F" size={30}/>
+                                <MdRectangle color="green" size={30}/>
                                 <span className="ml-2 text-sm">Gare vinte</span>
                             </div>
                             <div className="flex flex-row items-center">
-                                <MdRectangle color="#DF20E3" size={30}/>
+                                <MdRectangle color="red" size={30}/>
                                 <span className="ml-2 text-sm">Gare perse</span>
                             </div>
                         </div>
@@ -110,19 +107,19 @@ const Gare: React.FC<GareProps> = ({}) => {
                             <p className="">
                                 Valore del fatturato confermato <br/> paragonato all’anno precedente
                             </p>
-                            <div className={`${((gara.valoreGareInScadenza/gara.fatturatoConfermato) > (garaAnnoPrec.valoreGareInScadenza/garaAnnoPrec.fatturatoConfermato)) ? "text-[#4ECC8F]": "text-[#DF20E3]"} text-6xl font-medium`}>
+                            <div className={`${((gara.valoreGareInScadenza/gara.fatturatoConfermato) > (garaAnnoPrec.valoreGareInScadenza/garaAnnoPrec.fatturatoConfermato)) ? "text-[green]": "text-[red]"} text-6xl font-medium`}>
                                 {(gara.valoreGareInScadenza/gara.fatturatoConfermato).toFixed(2)}%
                             </div>
                             { ((gara.valoreGareInScadenza/gara.fatturatoConfermato) > (garaAnnoPrec.valoreGareInScadenza/garaAnnoPrec.fatturatoConfermato)) ?
                                 <div className="flex flex-col">
-                                    <IoIosArrowUp size="40px" color="#4ECC8F" className="mb-[-25px]"/>
-                                    <IoIosArrowUp size="40px" color="#4ECC8F" className="mb-[-25px] opacity-60"/>
-                                    <IoIosArrowUp size="40px" color="#4ECC8F" className="opacity-40"/>
+                                    <IoIosArrowUp size="40px" color="green" className="mb-[-25px]"/>
+                                    <IoIosArrowUp size="40px" color="green" className="mb-[-25px] opacity-60"/>
+                                    <IoIosArrowUp size="40px" color="green" className="opacity-40"/>
                                 </div> :
                                 <div className="flex flex-col">
-                                    <IoIosArrowDown size="40px" color="#DF20E3" className="mb-[-25px] opacity-40"/>
-                                    <IoIosArrowDown size="40px" color="#DF20E3" className="mb-[-25px] opacity-60"/>
-                                    <IoIosArrowDown size="40px" color="#DF20E3" />
+                                    <IoIosArrowDown size="40px" color="red" className="mb-[-25px] opacity-40"/>
+                                    <IoIosArrowDown size="40px" color="red" className="mb-[-25px] opacity-60"/>
+                                    <IoIosArrowDown size="40px" color="red" />
                                 </div>
                             }
 
@@ -148,20 +145,20 @@ const Gare: React.FC<GareProps> = ({}) => {
                             <div className="grid grid-cols-1 gap-10 p-10">
                                 <div className="grid grid-cols-3 gap-[2px]">
                                     <div
-                                        className="col-span-1 flex items-center justify-center py-20 text-[15px] bg-[#0070B3] text-white rounded-l-2xl text-center">Anno Nuovo
+                                        className="col-span-1 flex items-center justify-center py-20 text-[15px] bg-[#0066cc] text-white rounded-l-2xl text-center">Anno Nuovo
                                         <br/> fatturato
                                     </div>
                                     <div
-                                        className="col-span-2 flex items-center justify-center p-6 bg-[#0070B3] text-white rounded-r-2xl text-4xl font-medium">{gara.annoNuovoFatturato.toLocaleString('en-US')}€
+                                        className="col-span-2 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-r-2xl text-4xl font-medium">{gara.annoNuovoFatturato.toLocaleString('en-US')}€
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-3 gap-[2px]">
                                     <div
-                                        className="col-span-1 flex items-center justify-center py-20 text-[15px] bg-[#0070B3] text-white rounded-l-2xl text-center">Portafoglio
+                                        className="col-span-1 flex items-center justify-center py-20 text-[15px] bg-[#0066cc] text-white rounded-l-2xl text-center">Portafoglio
                                         <br/> Acquisito
                                     </div>
                                     <div
-                                        className="col-span-2 flex items-center justify-center p-6 bg-[#0070B3] text-white rounded-r-2xl text-4xl font-medium">{gara.portafoglioAcquisto.toLocaleString('en-US')}€
+                                        className="col-span-2 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-r-2xl text-4xl font-medium">{gara.portafoglioAcquisto.toLocaleString('en-US')}€
                                     </div>
                                 </div>
                             </div>
@@ -169,24 +166,24 @@ const Gare: React.FC<GareProps> = ({}) => {
                         <div className="col-span-3 flex flex-row justify-center p-10">
                             <PieChart labels={["Gare nuove partecipate", "Gare nuove vinte"]}
                                       values={[gara.gareNuovePartecipate, gara.gareNuoveVinte]}
-                                      backgroundColor={["#0070B3", "#DFE6F3"]}
-                                      borderColor={["#0070B3", "#DFE6F3"]}
+                                      backgroundColor={["#0066cc", "#DFE6F3"]}
+                                      borderColor={["#0066cc", "#DFE6F3"]}
                             />
                         </div>
                         <div className="flex flex-col justify-center col-span-2">
-                            <span className="text-[#0070B3]">percentuale di gare vinte</span>
+                            <span className="text-[#0066cc]">percentuale di gare vinte</span>
                             <div className="flex flex-row">
-                                <span className="text-7xl text-[#0070B3]">{(gara.gareNuoveVinte*100)/gara.gareNuovePartecipate}%</span>
+                                <span className="text-7xl text-[#0066cc]">{(gara.gareNuoveVinte*100)/gara.gareNuovePartecipate}%</span>
                                 {gara.gareNuoveVinte > garaAnnoPrec.gareNuoveVinte ?
                                     <div className="flex flex-col">
-                                        <IoIosArrowUp size="40px" color="#0070B3" className="mb-[-25px]"/>
-                                        <IoIosArrowUp size="40px" color="#0070B3" className="mb-[-25px] opacity-60"/>
-                                        <IoIosArrowUp size="40px" color="#0070B3" className="opacity-40"/>
+                                        <IoIosArrowUp size="40px" color="#0066cc" className="mb-[-25px]"/>
+                                        <IoIosArrowUp size="40px" color="#0066cc" className="mb-[-25px] opacity-60"/>
+                                        <IoIosArrowUp size="40px" color="#0066cc" className="opacity-40"/>
                                     </div> :
                                     <div className="flex flex-col">
-                                        <IoIosArrowDown size="40px" color="#0070B3" className="mb-[-25px] opacity-40"/>
-                                        <IoIosArrowDown size="40px" color="#0070B3" className="mb-[-25px] opacity-60"/>
-                                        <IoIosArrowDown size="40px" color="#0070B3" />
+                                        <IoIosArrowDown size="40px" color="#0066cc" className="mb-[-25px] opacity-40"/>
+                                        <IoIosArrowDown size="40px" color="#0066cc" className="mb-[-25px] opacity-60"/>
+                                        <IoIosArrowDown size="40px" color="#0066cc" />
                                     </div>
                                 }
 

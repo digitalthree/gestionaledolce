@@ -51,42 +51,44 @@ export const options = {
 
 
 export interface HorizontalBarChartComponenteProps{
-    colorePrincipale: string
+    colorePrincipale: string,
+    coloreSecondario: string,
+    dati: InputResidenza[]
 }
 
-const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> = ({colorePrincipale}) => {
+const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> = ({colorePrincipale, coloreSecondario, dati}) => {
     const [labels, setLabels] = useState<string[]>([])
     const [data1, setData1] = useState<number[]>([])
     const [data2, setData2] = useState<number[]>([])
     const [data3, setData3] = useState<number[]>([])
-    const res = useGetResidenze()
-    let residenze: InputResidenza[] = []
-    if(res.data){
-        residenze = res.data
-    }
+
     useEffect(() => {
-        residenze.forEach(r => {
-            setLabels(labels => [...labels, `${r.struttura} - ${r.provincia} - capienza totale: ${r.capienza}`])
-            //setLabels(labels => [...labels, `${r.provincia}`])
-        })
-        residenze.forEach(r => {
-            setData1(data1 => [...data1, r.dati[r.dati.length-1].capienzaAttuale])
-        })
-        residenze.forEach(r => {
-            setData2(data2 => [...data2, r.dati[r.dati.length-2].capienzaAttuale])
-        })
-        residenze.forEach(r => {
-            setData3(data3 => [...data3, r.capienza])
-        })
-    }, [residenze])
+        console.log(dati)
+        if(dati && dati.length > 0){
+            dati.forEach(r => {
+                setLabels(labels => [...labels, `${r.struttura} - ${r.provincia} - capienza totale: ${r.capienza}`])
+                //setLabels(labels => [...labels, `${r.provincia}`])
+            })
+            dati.forEach(r => {
+                setData1(data1 => [...data1, r.dati[r.dati.length-1].capienzaAttuale])
+            })
+            dati.forEach(r => {
+                setData2(data2 => [...data2, r.dati[r.dati.length-2].capienzaAttuale])
+            })
+            dati.forEach(r => {
+                setData3(data3 => [...data3, r.capienza])
+            })
+        }
+
+    }, [dati])
 
     function setColor(data1:number[], data2:number[]){
         let color: string[] = []
         data1.forEach((d1, index) => {
             if(d1 > data2[index]){
-                color.push("#4ECC8F")
+                color.push("green")
             }else if(d1 < data2[index]){
-                color.push("#DF20E3")
+                color.push('red')
             }else{
                 color.push(colorePrincipale)
             }
@@ -101,8 +103,8 @@ const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> =
             {
                 label: 'Mese precedente',
                 data: data2,
-                borderColor: '#DAE2F3',
-                backgroundColor: '#DAE2F3',
+                borderColor: coloreSecondario,
+                backgroundColor: coloreSecondario,
             },
             {
                 label: "Dato Attuale",
@@ -136,10 +138,7 @@ const HorizontalBarChartComponente:React.FC<HorizontalBarChartComponenteProps> =
                 {data1.map((d, index) => {
                     return(
                         <div key={d} className="flex flex-row items-center col-span-3">
-                            <span className={`${d > data2[index] && 'text-[#4ECC8F]'} ${d < data2[index] && 'text-[#DF20E3]'} ${d === data2[index] && 'text-black'} font-bold text-sm`}>{Math.round(d)}</span>
-                            {d > data2[index] && <ImArrowUp  className="ml-2 text-[#4ECC8F]"/>}
-                            {d < data2[index] && <ImArrowDown  className="ml-2 text-[#DF20E3]"/>}
-                            {d === data2[index] && <CgMathEqual className="ml-2" style={{color: colorePrincipale}}/>}
+                            <span className={`${d > data2[index] && 'text-[green]'} ${d < data2[index] && 'text-[red]'} ${d === data2[index] && 'text-black'} font-bold text-sm`}>{Math.round(d)}</span>
                         </div>
                     )
                 })}

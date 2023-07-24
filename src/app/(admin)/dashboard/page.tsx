@@ -9,6 +9,13 @@ import GareAdmin from "@/app/(admin)/dashboard/components/GareAdmin";
 import DiagrammaTemporale from "@/app/(shared)/diagrammaTemporale/DiagrammaTemporale";
 import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
 import Gare from "@/app/(user)/marketing/components/gare/Gare";
+import {
+    useGetCentriDiurniAnziani,
+    useGetResidenze,
+    useGetResidenzeAltraSocieta,
+    useGetStruttureSanitarie
+} from "@/store/rtkqApi";
+import {InputResidenza} from "@/model/ResidenzaAnziani";
 
 export default function Page() {
     const {user} = useUser()
@@ -25,6 +32,33 @@ export default function Page() {
 
     const [visualizzazioneUser, setVisualizzazioneUser] = useState<boolean>(false)
 
+    const res = useGetResidenze()
+
+    let residenze:InputResidenza[] = []
+    if(res.data){
+        residenze = res.data
+    }
+
+    const res2 = useGetCentriDiurniAnziani()
+
+    let centri:InputResidenza[] = []
+    if(res2.data){
+        centri = res2.data
+    }
+
+    const res3 = useGetStruttureSanitarie()
+
+    let strutture:InputResidenza[] = []
+    if(res3.data){
+        strutture = res3.data
+    }
+
+    const res4 = useGetResidenzeAltraSocieta()
+    let residenzeAltreSocieta: InputResidenza[] = []
+    if(res4.data){
+        residenzeAltreSocieta = res4.data
+    }
+
     return (
         <>
             <div className="w-full h-screen bg-gray-200">
@@ -33,18 +67,18 @@ export default function Page() {
                     <SideBar subMenu={subMenu} setSubMenu={setSubMenu} menu={menu} setMenu={setMenu} setVisualizzazioneUser={setVisualizzazioneUser} visualizzazioneUser={visualizzazioneUser}/>
                     {/* Sidebar ends */}
                     <div className="w-full bg-white p-10">
-                        {subMenu === 'ra' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
-                        {subMenu === 'ca' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
-                        {subMenu === 'ss' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
-                        {subMenu === 'rd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
-                        {subMenu === 'cd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin/>}
+                        {subMenu === 'ra' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true}/>}
+                        {subMenu === 'ca' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={centri} editabile={true}/>}
+                        {subMenu === 'ss' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={strutture} editabile={true}/>}
+                        {subMenu === 'rd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true}/>}
+                        {subMenu === 'cd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true}/>}
                         {menu === 'gare' && !visualizzazioneUser && <GareAdmin/>}
                         {menu === 'planning' && !visualizzazioneUser && <DiagrammaTemporale editabile={true}/>}
-                        {subMenu === 'ra' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#e4eaad" coloreSecondario="#e6eac3"/>}
-                        {subMenu === 'ca' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#e4eaad" coloreSecondario="#e6eac3"/>}
-                        {subMenu === 'ss' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#c9bfe2" coloreSecondario="#d7cfeb"/>}
-                        {subMenu === 'rd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#a8cde2" coloreSecondario="#bdd7e6"/>}
-                        {subMenu === 'cd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#a8cde2" coloreSecondario="#bdd7e6"/>}
+                        {subMenu === 'ra' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta}/>}
+                        {subMenu === 'ca' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={centri} datiAltreSocieta={residenzeAltreSocieta}/>}
+                        {subMenu === 'ss' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={strutture} datiAltreSocieta={residenzeAltreSocieta}/>}
+                        {subMenu === 'rd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta}/>}
+                        {subMenu === 'cd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta}/>}
                         {menu === 'gare' && visualizzazioneUser && <Gare/>}
                         {menu === 'planning' && visualizzazioneUser && <DiagrammaTemporale editabile={false}/>}
                     </div>

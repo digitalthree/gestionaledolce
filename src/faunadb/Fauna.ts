@@ -85,6 +85,86 @@ export const updateResidenzaAltreSocietaInFauna = async (objectToUpdate: Residen
     return data
 }
 
+export const getAllCentriDiurniAnziani = async () => {
+    const data =  await faunaClient.query(
+        q.Select("data",
+            q.Map(
+                q.Paginate(q.Match(q.Index("allCentriDiurniAnziani"))),
+                q.Lambda("centro", {
+                    faunaDocumentId: q.Select(
+                        ["ref", "id"],
+                        q.Get(
+                            q.Var("centro")
+                        )
+                    ),
+                    centro: q.Select(
+                        ["data"],
+                        q.Get(
+                            q.Var("centro")
+                        )
+                    )
+                })
+            )
+        )
+    );
+    return data.map((d: any) => {
+        d.centro.faunaDocumentId = d.faunaDocumentId
+        delete d.faunaDocumentId
+        return d.centro
+    })
+}
+
+export const updateCentroDiurnoAnzianiInFauna = async (objectToUpdate: ResidenzaAnziani) => {
+    const data = await faunaClient.query(
+        q.Update(q.Ref(q.Collection('CentriDiurniAnziani'), objectToUpdate.faunaDocumentId as string), {
+            data: {
+                ...objectToUpdate
+            } as ResidenzaAnziani
+        })
+    )
+    return data
+}
+
+export const getAllStruttureSanitarie = async () => {
+    const data =  await faunaClient.query(
+        q.Select("data",
+            q.Map(
+                q.Paginate(q.Match(q.Index("allStruttureSanitarie"))),
+                q.Lambda("struttura", {
+                    faunaDocumentId: q.Select(
+                        ["ref", "id"],
+                        q.Get(
+                            q.Var("struttura")
+                        )
+                    ),
+                    struttura: q.Select(
+                        ["data"],
+                        q.Get(
+                            q.Var("struttura")
+                        )
+                    )
+                })
+            )
+        )
+    );
+    return data.map((d: any) => {
+        d.struttura.faunaDocumentId = d.faunaDocumentId
+        delete d.faunaDocumentId
+        return d.struttura
+    })
+}
+
+export const updateStrutturaSanitariaInFauna = async (objectToUpdate: ResidenzaAnziani) => {
+    const data = await faunaClient.query(
+        q.Update(q.Ref(q.Collection('StruttureSanitarie'), objectToUpdate.faunaDocumentId as string), {
+            data: {
+                ...objectToUpdate
+            } as ResidenzaAnziani
+        })
+    )
+    return data
+}
+
 export const getAllGareInFauna = async () => {
     const data =  await faunaClient.query(
         q.Select("data",
