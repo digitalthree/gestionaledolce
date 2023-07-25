@@ -133,12 +133,6 @@ const SiseBar: React.FC<SiseBarProps> = (
                         <hr className="w-full border border-white"/>
                     </div>
                 }
-                <div className="flex justify-center">
-                    <button className="btn btn-sm px-7 border-white bg-transparent hover:bg-[#2866CC]">
-                        <TbFileExport size={25} color="white"/>
-                        <span className="text-white">Scarica Report</span>
-                    </button>
-                </div>
                 {/*<div className="flex justify-center px-7 mt-5">
                     <div className="flex flex-col items-end">
                         <textarea className="textarea bg-[#bdccea] text-white h-[200px]" placeholder="Messaggio..."></textarea>
@@ -150,7 +144,7 @@ const SiseBar: React.FC<SiseBarProps> = (
 
                 </div>*/}
                 <div className="flex flex-row justify-center absolute right-1/2 left-1/2 bottom-3">
-                    <Link href="/api/auth/logout" className="text-[#B6C7E8] p-1 px-20 rounded bg-[#E4E9F5] hover:bg-[#df20e3] hover:text-white hover:cursor-pointer">Logout</Link>
+                    <Link href="/api/auth/logout" className="text-[#B6C7E8] p-1 px-20 rounded bg-[#E4E9F5] hover:bg-[red] hover:text-white hover:cursor-pointer">Logout</Link>
                 </div>
             </div>
         </>

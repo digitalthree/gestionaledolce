@@ -61,12 +61,12 @@ export default function Page() {
 
     return (
         <>
-            <div className="w-full h-screen bg-gray-200">
+            <div className="w-full h-screen bg-gray-200 overflow-hidden">
                 <div className="flex flex-no-wrap">
                     {/* Sidebar starts */}
                     <SideBar subMenu={subMenu} setSubMenu={setSubMenu} menu={menu} setMenu={setMenu} setVisualizzazioneUser={setVisualizzazioneUser} visualizzazioneUser={visualizzazioneUser}/>
                     {/* Sidebar ends */}
-                    <div className="w-full bg-white p-10">
+                    <div className="w-full bg-white p-10 overflow-hidden">
                         {subMenu === 'ra' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true}/>}
                         {subMenu === 'ca' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={centri} editabile={true}/>}
                         {subMenu === 'ss' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={strutture} editabile={true}/>}

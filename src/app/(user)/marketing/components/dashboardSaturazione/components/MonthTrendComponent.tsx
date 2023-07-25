@@ -14,6 +14,7 @@ import {InputResidenza} from "@/model/ResidenzaAnziani";
 import {
     calcoloCapienzaComplessiva
 } from "@/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent";
+import {set} from "zod";
 
 ChartJS.register(
     CategoryScale,
@@ -32,35 +33,18 @@ export interface MontTrendComponentProps {
 
 const MontTrendComponent: React.FC<MontTrendComponentProps> = ({colorePrincipale, coloreSecondario, dati}) => {
 
-    const options = {
-        plugins: {
-            legend: {
-                display: false,
-                position: 'bottom' as const,
-            },
-            title: {
-                display: false,
-                text: 'TREND SATURAZIONALE MENSILE IN PERCENTUALE - STRUTTURE',
-            },
-        },
-        responsive: true,
-        scales: {
-            x: {
-                stacked: true,
-                beginAtZero: true,
-            },
-            y: {
-                stacked: false,
-                beginAtZero: true
-            },
-        },
-    };
+    const [data, setData] = useState<number[]>([])
+
+
 
     const [allValue, setAllValue] = useState<{ data: string, capienzaAttuale: number }[]>([])
     const [capienza, setCapienza] = useState<Object>({} as Object)
+    const [labels, setLabels] = useState<string[]>([])
 
     useEffect(() => {
         if (dati.length > 0) {
+            setAllValue([])
+            setLabels(dati[0].dati.map(d => d.data).reverse())
             dati.forEach(d => {
                 d.dati.forEach(d1 => {
                     setAllValue((old) => [...old, d1])
@@ -86,44 +70,63 @@ const MontTrendComponent: React.FC<MontTrendComponentProps> = ({colorePrincipale
         }
     }, [allValue])
 
+    useEffect(() => {
+        if(labels.length > 0){
+            let sum:number = 0
+            setData(labels.map(l => {
+                if(Object.values(capienza).length > 0){
+                    sum = 0;
+                    (capienza[l as keyof typeof capienza] as unknown as number[]).forEach(c => {
+                        sum = sum + c
+                    })
+                    return sum
+                }
+                sum = 0
+            }) as number[])
+        }
 
-    let labels: string[] = (dati.length > 0) ? dati[0].dati.map(d => d.data) : []
+    }, [capienza])
+
     //labels = (labels.length > 0) && labels.reverse()
     /*if (labels.length > 0 && labels.length % 2 !== 0) {
         labels.pop()
     }*/
 
+    const options = {
+        plugins: {
+            legend: {
+                display: false,
+                position: 'bottom' as const,
+            },
+            title: {
+                display: false,
+                text: 'TREND SATURAZIONALE MENSILE IN PERCENTUALE - STRUTTURE',
+            },
+        },
+        responsive: true,
+        scales: {
+            x: {
+                stacked: true,
+                beginAtZero: true,
+            },
+            y: {
+                stacked: false,
+                beginAtZero: false,
+                min: Math.min(...data.map(d => d - 1)),
+                max: Math.max(...data.map(d => d + 1)),
+            },
+        },
+    };
+
+
     const dataChart = {
         labels,
         datasets: [
             {
-                label: 'Settimana corrente',
-                data: labels.length > 0 && labels.map(l => {
-                    let sum = 0
-                    if(Object.values(capienza).length > 0){
-                        (capienza[l as keyof typeof capienza] as unknown as number[]).forEach(c => {
-                            sum = sum + c
-                        })
-                        return sum
-                    }
-                }),
+                label: 'Trend Saturazionale Settimanale',
+                data: data,
                 backgroundColor: colorePrincipale,
             },
-            /*{
-                label: 'Settimana precedente',
-                data: labels.length > 0 && labels.map((l, index) => {
-                    let mean = 0
-                    if(Object.values(capienza).length > 0){
-                        Object.values(capienza)[index+1].forEach(c => {
-                            mean = mean + c
-                        })
-                        return mean/capienza[l].length
-                    }
-                    /!*let mean = 0
-                    *!/
-                }),
-                backgroundColor: coloreSecondario,
-            }*/
         ],
     };
     return (

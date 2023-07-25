@@ -39,11 +39,11 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
             }])
             let datiCopy = [...ic.dati]
             datiCopy.reverse().forEach((d, index) => {
-                    setDatiReversed((old) => [...old, {
-                        id: ic.faunaDocumentId as string,
-                        data: d.data,
-                        capienzaAttuale: d.capienzaAttuale
-                    }])
+                setDatiReversed((old) => [...old, {
+                    id: ic.faunaDocumentId as string,
+                    data: d.data,
+                    capienzaAttuale: d.capienzaAttuale
+                }])
             })
         })
     }, [residenze])
@@ -83,7 +83,8 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                             }
                             {residenze.length !== 0 &&
                                 <>
-                                    {residenze[0].dati.map((d, index) => <th key={d.data}>{residenze[0].dati[residenze[0].dati.length - (1+index)].data}</th>)}
+                                    {residenze[0].dati.map((d, index) => <th
+                                        key={d.data}>{residenze[0].dati[residenze[0].dati.length - (1 + index)].data}</th>)}
 
                                 </>
                             }
@@ -130,7 +131,10 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                                                         <input type="number"
                                                                disabled={!editabile}
                                                                value={d.id === r.faunaDocumentId ? d.capienzaAttuale : 0}
-                                                               className="w-[60px] p-1 border border-blue-200"
+                                                               className={`w-[60px] p-1 border-2 border-blue-200 text-center
+                                                                            ${indexd === residenze[0].dati.length * (index) && r.dati[0].capienzaAttuale > r.dati[1].capienzaAttuale && 'text-[green] border-[green]'}
+                                                                            ${indexd === residenze[0].dati.length * (index) && r.dati[0].capienzaAttuale < r.dati[1].capienzaAttuale && 'text-[red] border-[red]'}
+                                                                            `}
                                                                onChange={(e) => {
                                                                    setDatiReversed(
                                                                        datiReversed.map(dr => {
@@ -175,7 +179,8 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                                 setNewResidenze(
                                     newResidenze.map((r, index) =>
                                         r.faunaDocumentId === newValue[index].id
-                                            ? {...r,
+                                            ? {
+                                                ...r,
                                                 dati: [...r.dati, {
                                                     capienzaAttuale: newValue[index].capienzaAttuale,
                                                     data: newValue[index].data

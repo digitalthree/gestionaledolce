@@ -49,28 +49,6 @@ const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale, colo
                          style={{backgroundColor: coloreSecondario}}
                     >{calcoloPercentualePrecedente(dati)}%</div>
                 </div>
-                {calcoloPercentualeAttuale(dati) > calcoloPercentualePrecedente(dati) &&
-                    <div className="flex flex-col">
-                        <IoIosArrowUp size="50px" color={'green'} className="mb-[-30px]"/>
-                        <IoIosArrowUp size="50px" color={'green'} className="mb-[-30px] opacity-60"/>
-                        <IoIosArrowUp size="50px" color={'green'} className="opacity-40"/>
-                    </div>
-                }
-                {calcoloPercentualeAttuale(dati) < calcoloPercentualePrecedente(dati) &&
-                    <div className="flex flex-col">
-                        <IoIosArrowDown size="50px" color={'red'} className="mb-[-30px] opacity-40"/>
-                        <IoIosArrowDown size="50px" color={'red'} className="mb-[-30px] opacity-60"/>
-                        <IoIosArrowDown size="50px" color={'red'}/>
-                    </div>
-                }
-                {calcoloPercentualeAttuale(dati) === calcoloPercentualePrecedente(dati) &&
-                    <div className="flex flex-col">
-                        <FaEquals size="50px" color={'#B5C5E7'}/>
-                    </div>
-                }
-            </div>
-            <div className="mt-3 flex justify-start">
-                <span>Capienza Complessiva: <span className="p-2 rounded bg-[#2866CC] text-white font-semibold">{calcoloCapienzaComplessiva(dati)}</span></span>
             </div>
         </div>
     )

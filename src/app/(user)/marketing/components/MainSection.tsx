@@ -50,9 +50,7 @@ export default function MainSection() {
                     {/* Sidebar starts */}
                     <SideBar subMenu={subMenu} setSubMenu={setSubMenu} menu={menu} setMenu={setMenu}/>
                     {/* Sidebar ends */}
-                    <div className="w-full bg-white">
-                        {/* Remove class [ h-64 ] when adding a card block */}
-                        <div className="p-5">
+                    <div className="w-full bg-white overflow-hidden p-10">
                             {menu === 'planning' && <DiagrammaTemporale editabile={false}/>}
                             {menu === undefined && subMenu === 'ra' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta}/>}
                             {menu === undefined && subMenu === 'ca' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={centri} datiAltreSocieta={residenzeAltreSocieta}/>}
@@ -60,7 +58,6 @@ export default function MainSection() {
                             {menu === undefined && subMenu === 'rd' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta}/>}
                             {menu === undefined && subMenu === 'cd' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta}/>}
                             {menu == 'gare' && <Gare/>}
-                        </div>
                     </div>
                 </div>
             </div>

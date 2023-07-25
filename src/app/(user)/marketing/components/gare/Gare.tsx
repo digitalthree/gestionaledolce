@@ -5,6 +5,7 @@ import VerticalBarChart from "@/app/(user)/marketing/components/gare/components/
 import {Gara} from "@/model/Gara";
 import {useGetGaraByAnno, useGetGare} from "@/store/rtkqApi";
 import {MdRectangle} from "react-icons/md";
+import {TbFileExport} from "react-icons/tb";
 
 export interface GareProps {
 
@@ -192,6 +193,12 @@ const Gare: React.FC<GareProps> = ({}) => {
                     </div>
                 </>
             }
+            <div className="flex justify-center">
+                <button className="btn btn-sm w-full px-7 mt-10 mb-5 border-white bg-[#2866CC] hover:bg-[#2866CC] hover:opacity-70">
+                    <TbFileExport size={25} color="white"/>
+                    <span className="text-white">Scarica Report</span>
+                </button>
+            </div>
         </div>
     )
 }
