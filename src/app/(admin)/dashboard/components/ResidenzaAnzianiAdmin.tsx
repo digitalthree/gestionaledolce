@@ -132,8 +132,8 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                                                                disabled={!editabile}
                                                                value={d.id === r.faunaDocumentId ? d.capienzaAttuale : 0}
                                                                className={`w-[60px] p-1 border-2 border-blue-200 text-center
-                                                                            ${indexd === residenze[0].dati.length * (index) && r.dati[0].capienzaAttuale > r.dati[1].capienzaAttuale && 'text-[green] border-[green]'}
-                                                                            ${indexd === residenze[0].dati.length * (index) && r.dati[0].capienzaAttuale < r.dati[1].capienzaAttuale && 'text-[red] border-[red]'}
+                                                                            ${indexd === residenze[0].dati.length * (index) && r.dati[r.dati.length - 1].capienzaAttuale > r.dati[r.dati.length - 2].capienzaAttuale && 'text-[green] border-green-700'}
+                                                                            ${indexd === residenze[0].dati.length * (index) && r.dati[r.dati.length - 1].capienzaAttuale < r.dati[r.dati.length - 2].capienzaAttuale && 'text-[red] border-red-600'}
                                                                             `}
                                                                onChange={(e) => {
                                                                    setDatiReversed(
