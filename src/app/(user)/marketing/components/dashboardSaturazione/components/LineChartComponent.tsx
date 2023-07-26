@@ -1,21 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {
-    Chart as ChartJS,
     CategoryScale,
+    Chart as ChartJS,
+    Legend,
     LinearScale,
-    PointElement,
     LineElement,
+    PointElement,
     Title,
     Tooltip,
-    Legend,
 } from 'chart.js';
 import {Line} from 'react-chartjs-2';
-import {useGetResidenze} from "@/store/rtkqApi";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
-import {values} from "faunadb";
 import {visit} from "yaml/dist/parse/cst-visit";
-import itemAtPath = visit.itemAtPath;
-import {urlObjectKeys} from "next/dist/shared/lib/router/utils/format-url";
 
 ChartJS.register(
     CategoryScale,
@@ -38,8 +34,15 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
 
     const options = {
         responsive: true,
-        scale: {
-            y: {}
+        scales: {
+            y: {
+                ticks: {
+                    stepSize: 1,
+                    callback: function(value:number, index:number, values:number[]) {
+                        return value + " %";
+                    }
+                }
+            }
         },
         plugins: {
             legend: {
@@ -49,7 +52,7 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
             title: {
                 display: false,
                 text: 'TREND SATURAZIONALE MENSILE IN PERCENTUALE - STRUTTURE',
-            },
+            }
         },
     };
 
@@ -69,10 +72,10 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
                 let date = new Date(dat[2] + '/' + dat[1] + '/' + (parseInt(dat[0])).toLocaleString());
                 labels.forEach((l, index) => {
                     updatedValuesArray = updatedValuesArray.map(item =>
-                        item.month === l && date.getMonth() === index ? {month: item.month, values: [...item.values, d1.capienzaAttuale]} : item
+                        item.month === l && date.getMonth() === index ? {month: item.month, values: [...item.values, (d1.capienzaAttuale*100)/d.capienza]} : item
                     )
                     setValuesArray(updatedValuesArray.map(item =>
-                        item.month === l && date.getMonth() === index ? {month: item.month, values: [...item.values, d1.capienzaAttuale]} : item
+                        item.month === l && date.getMonth() === index ? {month: item.month, values: [...item.values, (d1.capienzaAttuale*100)/d.capienza]} : item
                     ))
                 })
             })
@@ -82,16 +85,10 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
     useEffect(() => {
         valuesArray.forEach(va => {
             if(va.values.length > 0){
-                setSumValue((old) => [...old, va.values.reduce((acc, currentValue) => acc+currentValue, 0)])
+                setSumValue((old) => [...old, va.values.reduce((acc, currentValue) => acc+currentValue, 0)/va.values.length])
             }
         })
     }, [valuesArray])
-
-    useEffect(() => {
-        console.log(sumValue)
-    }, [sumValue])
-
-
 
 
     const dataChart = {

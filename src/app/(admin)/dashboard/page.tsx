@@ -67,18 +67,18 @@ export default function Page() {
                     <SideBar subMenu={subMenu} setSubMenu={setSubMenu} menu={menu} setMenu={setMenu} setVisualizzazioneUser={setVisualizzazioneUser} visualizzazioneUser={visualizzazioneUser}/>
                     {/* Sidebar ends */}
                     <div className="w-full bg-white p-10 overflow-hidden">
-                        {subMenu === 'ra' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true}/>}
-                        {subMenu === 'ca' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={centri} editabile={true}/>}
-                        {subMenu === 'ss' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={strutture} editabile={true}/>}
-                        {subMenu === 'rd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true}/>}
-                        {subMenu === 'cd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true}/>}
+                        {subMenu === 'ra' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true} selectedMenuItem={subMenu}/>}
+                        {subMenu === 'ca' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={centri} editabile={true} selectedMenuItem={subMenu}/>}
+                        {subMenu === 'ss' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={strutture} editabile={true} selectedMenuItem={subMenu}/>}
+                        {subMenu === 'rd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true} selectedMenuItem={subMenu}/>}
+                        {subMenu === 'cd' && !visualizzazioneUser && <ResidenzaAnzianiAdmin dati={residenze} editabile={true} selectedMenuItem={subMenu}/>}
                         {menu === 'gare' && !visualizzazioneUser && <GareAdmin/>}
                         {menu === 'planning' && !visualizzazioneUser && <DiagrammaTemporale editabile={true}/>}
-                        {subMenu === 'ra' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta}/>}
-                        {subMenu === 'ca' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={centri} datiAltreSocieta={residenzeAltreSocieta}/>}
-                        {subMenu === 'ss' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={strutture} datiAltreSocieta={residenzeAltreSocieta}/>}
-                        {subMenu === 'rd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta}/>}
-                        {subMenu === 'cd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta}/>}
+                        {subMenu === 'ra' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
+                        {subMenu === 'ca' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={centri} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
+                        {subMenu === 'ss' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={strutture} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
+                        {subMenu === 'rd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
+                        {subMenu === 'cd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
                         {menu === 'gare' && visualizzazioneUser && <Gare/>}
                         {menu === 'planning' && visualizzazioneUser && <DiagrammaTemporale editabile={false}/>}
                     </div>

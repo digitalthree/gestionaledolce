@@ -20,14 +20,16 @@ export interface DashboardSaturazioneProps {
     colorePrincipale: string,
     coloreSecondario: string,
     dati: InputResidenza[],
-    datiAltreSocieta: InputResidenza[]
+    datiAltreSocieta: InputResidenza[],
+    selectedMenuItem: undefined | 'ra' | 'ca' | 'ss' | 'rd' | 'cd'
 }
 
 const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
                                                                        colorePrincipale,
                                                                        coloreSecondario,
                                                                        dati,
-                                                                       datiAltreSocieta
+                                                                       datiAltreSocieta,
+    selectedMenuItem
                                                                    }) => {
 
     const [visualizzazione, setVisualizzazione] = useState<boolean>(false)
@@ -186,7 +188,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
                     />
                     <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale strutture in capo a Società Dolce</span>
                 </div>
-                {!visualizzazione ? <ResidenzaAnzianiAdmin dati={dati} editabile={false}/>
+                {!visualizzazione ? <ResidenzaAnzianiAdmin dati={dati} editabile={false} selectedMenuItem={selectedMenuItem}/>
                     : <HorizontalBarChartComponente colorePrincipale={colorePrincipale}
                                                     coloreSecondario={coloreSecondario} dati={dati}/>
                 }
@@ -215,7 +217,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
                     />
                     <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale strutture in capo ad altre società</span>
                 </div>
-                {!visualizzazione2 ? <ResidenzaAnzianiAdmin dati={datiAltreSocieta} editabile={false}/>
+                {!visualizzazione2 ? <ResidenzaAnzianiAdmin dati={datiAltreSocieta} editabile={false} selectedMenuItem={selectedMenuItem}/>
                     : <HorizontalBarChartComponente colorePrincipale={colorePrincipale}
                                                     coloreSecondario={coloreSecondario} dati={datiAltreSocieta}/>
                 }

@@ -1,18 +1,26 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {useGetResidenze, useUpdateResidenzaMutation} from "@/store/rtkqApi";
+import {
+    useGetResidenze,
+    useUpdateCentroDiurnoAnzianiMutation,
+    useUpdateResidenzaMutation,
+    useUpdateStrutturaSanitariaMutation
+} from "@/store/rtkqApi";
 import {InputDati, InputResidenza} from "@/model/ResidenzaAnziani";
 import {BiPlus, BiSave} from "react-icons/bi";
 import {BsFillTrash2Fill} from "react-icons/bs";
 
 export interface ResidenzaAnzianiAdminProps {
     dati: InputResidenza[],
-    editabile: boolean
+    editabile: boolean,
+    selectedMenuItem: undefined | 'ra' | 'ca' | 'ss' | 'rd' | 'cd'
 }
 
-const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, editabile}) => {
+const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, editabile, selectedMenuItem}) => {
 
     const [updateResidenza] = useUpdateResidenzaMutation()
+    const [updateStrutturaSanitaria] = useUpdateStrutturaSanitariaMutation()
+    const [updateCentroDiurnoAnziani] = useUpdateCentroDiurnoAnzianiMutation()
     const [newValue, setNewValue] = useState<{ id: string, data: string, capienzaAttuale: number }[]>([])
     const [datiReversed, setDatiReversed] = useState<{ id: string, data: string, capienzaAttuale: number }[]>([])
     const [residenze, setResidenze] = useState<InputResidenza[]>([])
@@ -24,13 +32,16 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
             setResidenze(dati)
             setNewResidenze(dati)
             let d = dati[0].dati[dati[0].dati.length - 1].data.split("/");
-            let dat = new Date(d[2] + '/' + d[1] + '/' + (parseInt(d[0]) + 7).toLocaleString());
+            let dat = new Date(new Date(d[2] + '/' + d[1] + '/' + (parseInt(d[0])).toLocaleString()).getTime() + (86400000*7));
             setNewDate(dat)
         }
     }, [dati])
 
 
     useEffect(() => {
+        console.log('qui')
+        setNewValue([])
+        setDatiReversed([])
         residenze.forEach(ic => {
             setNewValue((old) => [...old, {
                 id: ic.faunaDocumentId as string,
@@ -52,7 +63,18 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
         if (newResidenze.length > 0) {
             newResidenze.forEach((nr, index) => {
                 if (nr.dati.length > dati[index].dati.length) {
-                    updateResidenza(nr)
+                    if(selectedMenuItem === 'ra'){
+                        updateResidenza(nr).then(res => {
+
+                        })
+                    }
+                    if(selectedMenuItem === 'cd'){
+                        updateCentroDiurnoAnziani(nr)
+                    }
+                    if(selectedMenuItem === 'ss'){
+                        updateStrutturaSanitaria(nr)
+                    }
+
                 }
             })
         }
@@ -138,7 +160,7 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                                                                onChange={(e) => {
                                                                    setDatiReversed(
                                                                        datiReversed.map(dr => {
-                                                                           if (dr.id === r.faunaDocumentId) {
+                                                                           if (dr.id === d.id) {
                                                                                if (dr.data === d.data) {
                                                                                    return {
                                                                                        ...dr,
@@ -193,7 +215,38 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                             }}
                     >
                         <BiSave size={20}/>
-                        Salva Dati
+                        Salva Dati del {newDate.toLocaleDateString()}
+                    </button>
+                    <button className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#4ecc8f] mb-2"
+                            onClick={() => {
+                                let datiCopi:{id: string, data: string, capienzaAttuale: number}[] = [...datiReversed]
+                                let res: InputResidenza[] = residenze.map(or => {
+                                    return {...or, dati: []}
+                                })
+                                datiCopi.reverse().forEach(d => {
+                                    res.forEach(r => {
+                                        if(r.faunaDocumentId === d.id){
+                                            r.dati.push({data: d.data, capienzaAttuale: d.capienzaAttuale})
+                                        }
+                                    })
+                                })
+                                res.forEach((r, index) => {
+                                    if (r.dati.length === dati[index].dati.length) {
+                                        if(selectedMenuItem === 'ra'){
+                                            updateResidenza(r)
+                                        }
+                                        if(selectedMenuItem === 'cd'){
+                                            updateCentroDiurnoAnziani(r)
+                                        }
+                                        if(selectedMenuItem === 'ss'){
+                                            updateStrutturaSanitaria(r)
+                                        }
+                                    }
+                                })
+                            }}
+                    >
+                        <BiSave size={20}/>
+                        Aggiorna Dati Precedenti
                     </button>
                     <label htmlFor="my_modal_7"
                            className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#B5C5E7]">
