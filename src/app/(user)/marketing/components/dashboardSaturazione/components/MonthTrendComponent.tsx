@@ -123,7 +123,7 @@ const MontTrendComponent: React.FC<MontTrendComponentProps> = ({colorePrincipale
         labels,
         datasets: [
             {
-                label: 'Trend Saturazionale Settimanale',
+                label: 'Posti Occupati',
                 data: data,
                 backgroundColor: colorePrincipale,
             },

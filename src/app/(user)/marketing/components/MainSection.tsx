@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import DiagrammaTemporale from "@/app/(shared)/diagrammaTemporale/DiagrammaTemporale";
 import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
 import SideBar from "@/app/(shared)/SideBar";
-import {useDispatch} from "react-redux";
 import Gare from "@/app/(user)/marketing/components/gare/Gare";
 import {
     useGetCentriDiurniAnziani,
@@ -58,6 +57,7 @@ export default function MainSection() {
                             {menu === undefined && subMenu === 'rd' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
                             {menu === undefined && subMenu === 'cd' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
                             {menu == 'gare' && <Gare/>}
+                            {menu == 'contratti' && <div className="absolute top-1/2 left-1/2">Sezione in aggiornamento</div>}
                     </div>
                 </div>
             </div>

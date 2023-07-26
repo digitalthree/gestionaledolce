@@ -81,6 +81,7 @@ export default function Page() {
                         {subMenu === 'cd' && visualizzazioneUser && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
                         {menu === 'gare' && visualizzazioneUser && <Gare/>}
                         {menu === 'planning' && visualizzazioneUser && <DiagrammaTemporale editabile={false}/>}
+                        {menu == 'contratti' && <div className="absolute top-1/2 left-1/2">Sezione in aggiornamento</div>}
                     </div>
                 </div>
             </div>
