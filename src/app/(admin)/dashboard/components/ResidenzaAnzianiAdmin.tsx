@@ -87,7 +87,7 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
             {editabile &&
                 <h2 className="mb-5 font-semibold text-[#b5c5e7]">SERVIZI IN CAPO A SOCIETA DOLCE</h2>
             }
-            <div className="flex flex-row overflow-y-scroll max-h-[82vh]">
+            <div className="flex flex-row overflow-y-scroll max-h-[78vh]">
                 <div className="overflow-x-auto">
                     <table className="table table-md">
                         <thead className="sticky top-0 bg-blue-100">
