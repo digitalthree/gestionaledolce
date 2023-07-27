@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import DiagrammaTemporale from "@/app/(shared)/diagrammaTemporale/DiagrammaTemporale";
 import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
-import SideBar from "@/app/(shared)/SideBar";
+import SideBar from "@/app/(shared)/sideBar/SideBar";
 import Gare from "@/app/(user)/marketing/components/gare/Gare";
 import {
     useGetCentriDiurniAnziani,

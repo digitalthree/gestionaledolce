@@ -5,6 +5,7 @@ import {useUser} from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import {BiGroup, BiUser} from 'react-icons/bi'
 import {TbFileExport} from "react-icons/tb";
+import News from "@/app/(shared)/sideBar/components/News";
 
 export interface SiseBarProps{
     subMenu: undefined | 'ra' | 'ca' | 'ss' | 'rd' | 'cd',
@@ -25,20 +26,20 @@ const SiseBar: React.FC<SiseBarProps> = (
 
     return(
         <>
-            <div className="bg-[#B5C5E7] absolute lg:relative w-[17%] h-screen shadow hidden lg:block">
+            <div className="bg-[#B5C5E7] absolute lg:relative w-[18%] h-screen shadow hidden lg:block">
                 <ul className="py-6">
                     <div className="flex flex-col justify-between items-center">
                         <div className="flex items-center">
                             <Image src="/img/sdreportlogowhite.png" alt="logo" width={150} height={100}/>
                         </div>
-                        <div className="text-white text-base mt-3">
+                        <div className="text-white text-base mt-2">
                             utente:
                             #{user?.nickname?.toUpperCase()}
                         </div>
                     </div>
-                    <li className="pl-6 cursor-pointer text-xl text-white mt-5">
+                    <li className="pl-6 cursor-pointer text-lg text-white mt-3">
                         <details className="collapse collapse-arrow" open>
-                            <summary className={`collapse-title text-2xl ${subMenu ? "font-semibold" : ""}`}>
+                            <summary className={`collapse-title text-xl ${subMenu ? "font-semibold" : ""}`}>
                                 SATURAZIONE
                             </summary>
                             <div className="collapse-content ml-4">
@@ -77,7 +78,7 @@ const SiseBar: React.FC<SiseBarProps> = (
                             </div>
                         </details>
                     </li>
-                    <li className="pl-6 cursor-pointer text-2xl text-white ml-4" onClick={() => {
+                    <li className="pl-6 cursor-pointer text-xl text-white ml-4" onClick={() => {
                         setMenu('planning')
                         setSubMenu(undefined)
                     }}>
@@ -89,7 +90,7 @@ const SiseBar: React.FC<SiseBarProps> = (
                             <span className="">PLANNING</span>
                         }
                     </li>
-                    <li className="pl-6 cursor-pointer text-2xl text-white ml-4" onClick={() => {
+                    <li className="pl-6 cursor-pointer text-xl text-white ml-4" onClick={() => {
                         setMenu('gare')
                         setSubMenu(undefined)
                     }}>
@@ -101,7 +102,7 @@ const SiseBar: React.FC<SiseBarProps> = (
                             <span className="">GARE</span>
                         }
                     </li>
-                    <li className="pl-6 cursor-pointer text-2xl text-white ml-4" onClick={() => {
+                    <li className="pl-6 cursor-pointer text-xl text-white ml-4" onClick={() => {
                         setMenu('contratti')
                         setSubMenu(undefined)
                     }}>
@@ -115,7 +116,7 @@ const SiseBar: React.FC<SiseBarProps> = (
                     </li>
                 </ul>
                 {user?.nickname === "admin" &&
-                    <div className="flex flex-col p-8" onClick={() =>setVisualizzazioneUser && setVisualizzazioneUser(!visualizzazioneUser)}>
+                    <div className="flex flex-col px-8 py-4" onClick={() =>setVisualizzazioneUser && setVisualizzazioneUser(!visualizzazioneUser)}>
                         <hr className="w-full border border-white"/>
                         <div className=" text-white my-2 text-sm flex justify-center">{visualizzazioneUser && visualizzazioneUser ?
                             <div className="flex items-center">
@@ -133,16 +134,9 @@ const SiseBar: React.FC<SiseBarProps> = (
                         <hr className="w-full border border-white"/>
                     </div>
                 }
-                {/*<div className="flex justify-center px-7 mt-5">
-                    <div className="flex flex-col items-end">
-                        <textarea className="textarea bg-[#bdccea] text-white h-[200px]" placeholder="Messaggio..."></textarea>
-                        <div className="tooltip" data-tip="Invia Messaggio">
-                            <Image src={"/logoSend.png"} alt={"logo send"} width={30} height={30} className="mt-5 opacity-40 hover:opacity-100"/>
-                        </div>
-
-                    </div>
-
-                </div>*/}
+                <div className="flex justify-center px-7 mt-5">
+                    <News editabile={user?.nickname === 'admin'}/>
+                </div>
                 <div className="flex flex-row justify-center absolute right-1/2 left-1/2 bottom-3">
                     <Link href="/api/auth/logout" className="text-[#B6C7E8] p-1 px-20 rounded bg-[#E4E9F5] hover:bg-[red] hover:text-white hover:cursor-pointer">Logout</Link>
                 </div>

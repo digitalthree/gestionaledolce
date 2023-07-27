@@ -131,10 +131,10 @@ const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({editabile}) => {
                     <BottomLegend/>
                     {!editabile &&
                         <div className="flex justify-center">
-                            <button className="btn btn-sm w-full px-7 mt-10 mb-5 border-white bg-[#2866CC] hover:bg-[#2866CC] hover:opacity-70">
+                            <a href="/img/reportTipo.pdf" download className="btn btn-sm w-full px-7 mt-10 mb-5 border-white bg-[#2866CC] hover:bg-[#2866CC] hover:opacity-70">
                                 <TbFileExport size={25} color="white"/>
                                 <span className="text-white">Scarica Report</span>
-                            </button>
+                            </a>
                         </div>
                     }
                 </div>

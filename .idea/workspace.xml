@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ac4ea4f-9152-402b-88b9-5b2d0ca3671d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/public/img/reportTipo.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(shared)/sideBar/components/News.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(shared)/SideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(shared)/sideBar/SideBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/DiagrammaTemporale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/DiagrammaTemporale.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/MainSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/MainSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/MonthTrendComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/MonthTrendComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,11 +67,11 @@
       <recent name="$PROJECT_DIR$/public/img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/(shared)/sideBar" />
+      <recent name="$PROJECT_DIR$/public/img" />
       <recent name="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/components" />
       <recent name="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale" />
       <recent name="$PROJECT_DIR$/src/app/(shared)" />
-      <recent name="$PROJECT_DIR$/src/app/(user)/marketing/components" />
-      <recent name="$PROJECT_DIR$/src/app/(admin)/dashboard/components/dashboardSaturazione" />
     </key>
   </component>
   <component name="RunManager" selected="npm.dev">
@@ -126,7 +131,8 @@
       <workItem from="1690181738386" duration="34958000" />
       <workItem from="1690267193139" duration="11000" />
       <workItem from="1690274537382" duration="8280000" />
-      <workItem from="1690357686149" duration="10901000" />
+      <workItem from="1690357686149" duration="11146000" />
+      <workItem from="1690445171148" duration="9190000" />
     </task>
     <servers />
   </component>

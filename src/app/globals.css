@@ -102,3 +102,9 @@ input:checked + .Slider:before {
    color: white;
    opacity: .7; /* Firefox */
  }
+#textAreaNews::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #B5C5E7;
+}
+input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #B5C5E7;
+}

@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {useUser} from "@auth0/nextjs-auth0/client";
 import {Gantt, Task} from "gantt-task-react";
 import ResidenzaAnzianiAdmin from "@/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin";
-import SideBar from "@/app/(shared)/SideBar";
+import SideBar from "@/app/(shared)/sideBar/SideBar";
 import GareAdmin from "@/app/(admin)/dashboard/components/GareAdmin";
 import DiagrammaTemporale from "@/app/(shared)/diagrammaTemporale/DiagrammaTemporale";
 import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
