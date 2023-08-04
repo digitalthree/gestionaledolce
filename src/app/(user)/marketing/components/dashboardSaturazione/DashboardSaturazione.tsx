@@ -59,16 +59,16 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
                         <hr className={`w-[30%] border`}
                             style={{borderColor: '#808080'}}
                         />
-                        <span style={{color: '#808080'}} className="uppercase font-semibold">Saturazione generale</span>
+                        <span style={{color: '#808080'}} className="uppercase font-semibold">Saturazione Settimanale</span>
                     </div>
                 </div>
                 <div className="col-span-5">
                     <div className="flex flex-col">
                         <div className="flex flex-row mb-5 items-baseline justify-between">
-                            <hr className={`w-[55%] border`}
+                            <hr className={`w-[65%] border`}
                                 style={{borderColor: '#808080'}}
                             />
-                            <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale generale</span>
+                            <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale</span>
                         </div>
                     </div>
                 </div>

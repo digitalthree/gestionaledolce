@@ -7,7 +7,7 @@ import {BiGroup, BiUser} from 'react-icons/bi'
 import {TbFileExport} from "react-icons/tb";
 import News from "@/app/(shared)/sideBar/components/News";
 
-export interface SiseBarProps{
+export interface SideBarProps{
     subMenu: undefined | 'ra' | 'ca' | 'ss' | 'rd' | 'cd',
     setSubMenu: Function,
     menu: undefined | 'planning' | 'gare' | 'contratti',
@@ -16,7 +16,7 @@ export interface SiseBarProps{
     setVisualizzazioneUser?: Function
 }
 
-const SiseBar: React.FC<SiseBarProps> = (
+const SiseBar: React.FC<SideBarProps> = (
     {
         subMenu, menu, setMenu, setSubMenu, setVisualizzazioneUser, visualizzazioneUser
     }
@@ -26,7 +26,7 @@ const SiseBar: React.FC<SiseBarProps> = (
 
     return(
         <>
-            <div className="bg-[#B5C5E7] absolute lg:relative w-[18%] h-screen shadow hidden lg:block">
+            <div className="bg-[#B5C5E7] absolute lg:relative w-[20%] h-screen shadow hidden lg:block">
                 <ul className="py-6">
                     <div className="flex flex-col justify-between items-center">
                         <div className="flex items-center">
@@ -35,6 +35,9 @@ const SiseBar: React.FC<SiseBarProps> = (
                         <div className="text-white text-base mt-2">
                             utente:
                             #{user?.nickname?.toUpperCase()}
+                        </div>
+                        <div className="text-[#4A5FA8] text-base mt-2">
+                            Ufficio Commerciale
                         </div>
                     </div>
                     <li className="pl-6 cursor-pointer text-lg text-white mt-3">
@@ -116,7 +119,7 @@ const SiseBar: React.FC<SiseBarProps> = (
                     </li>
                 </ul>
                 {user?.nickname === "admin" &&
-                    <div className="flex flex-col px-8 py-4" onClick={() =>setVisualizzazioneUser && setVisualizzazioneUser(!visualizzazioneUser)}>
+                    <div className="flex flex-col px-8" onClick={() =>setVisualizzazioneUser && setVisualizzazioneUser(!visualizzazioneUser)}>
                         <hr className="w-full border border-white"/>
                         <div className=" text-white my-2 text-sm flex justify-center">{visualizzazioneUser && visualizzazioneUser ?
                             <div className="flex items-center">

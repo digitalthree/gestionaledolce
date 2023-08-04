@@ -6,6 +6,7 @@ import {Gara} from "@/model/Gara";
 import {useGetGaraByAnno, useGetGare} from "@/store/rtkqApi";
 import {MdRectangle} from "react-icons/md";
 import {TbFileExport} from "react-icons/tb";
+import Image from "next/image";
 
 export interface GareProps {
 
@@ -46,72 +47,75 @@ const Gare: React.FC<GareProps> = ({}) => {
                         <hr className="w-full border-[#B5C5E7] border"/>
                     </div>
                     <div className="grid grid-cols-7 gap-20 p-10">
-                        <div className="col-span-3 p-20">
-                            <PieChart labels={['Gare in corso', 'Gare in scadenza', 'Gare vinte', 'Gare perse']}
-                                      values={[gara.gareInCorso, gara.gareInScadenza, gara.gareVinte, gara.garePerse]}
-                                      backgroundColor={['#DFE6F3', '#B5C5E7', 'green', 'red',]}
-                                      borderColor={['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF']}
-                            />
-                        </div>
-                        <div className="col-span-4 pt-20">
-                            <div className="grid grid-cols-1 gap-14">
-                                <div className="grid grid-cols-3 gap-[2px]">
+                        <div className="col-span-4">
+                            <div className="grid grid-cols-1 gap-4">
+                                <div className="grid grid-cols-12 gap-[2px]">
                                     <div
-                                        className="col-span-1 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-l-2xl text-center">Valore
+                                        className="col-span-3 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-l-2xl text-center">Valore
                                         della <br/> produzione
                                     </div>
                                     <div
-                                        className="col-span-2 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-r-2xl text-4xl font-medium">{gara.valoreDellaProduzione.toLocaleString('en-US')}€
+                                        className="col-span-9 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-r-2xl text-4xl font-medium">{gara.valoreDellaProduzione.toLocaleString('en-US')}€
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-3 gap-[2px]">
+                                <div className="grid grid-cols-12 gap-[2px]">
                                     <div
-                                        className="col-span-1 flex items-center justify-center p-6 bg-[#B5C5E7] text-white rounded-l-2xl text-center">Valore
+                                        className="col-span-3 flex items-center justify-center p-6 bg-[#B5C5E7] text-white rounded-l-2xl text-center">Valore
                                         gare <br/> in scadenza
                                     </div>
-                                    <div
-                                        className="col-span-2 flex items-center justify-center p-6 bg-[#B5C5E7] text-white rounded-r-2xl text-4xl font-medium">{gara.valoreGareInScadenza.toLocaleString('en-US')}€
+                                    <div className="col-span-4 flex items-center justify-center p-6 bg-[#B5C5E7] text-white text-center text-4xl font-semibold">
+                                        {gara.valoreGareInScadenza.toLocaleString('en-US')}€
+                                    </div>
+                                    <div className="col-span-5 flex flex-col">
+                                        <div className="flex flex-row bg-[#B5C5E7] items-center justify-center p-6 text-white rounded-r-2xl font-medium mb-1 justify-between"><span>Fatturato <br/> Confermato</span><span className="text-2xl">20,524,334€</span></div>
+                                        <div className="flex flex-row bg-[#DFE6F3] items-center justify-center p-6 text-white rounded-r-2xl font-medium mb-1 justify-between"><span>Fatturato non <br/> Confermato</span><span className="text-2xl">1,150,580€</span></div>
+                                        <div className="flex flex-row bg-[#B5C5E7] items-center justify-center p-6 text-white rounded-r-2xl font-medium justify-between"><span>Aggiudicazione <br/> in corso</span><span className="text-2xl">2,552,261€</span></div>
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-3 gap-[2px]">
+                                <div className="grid grid-cols-12 gap-[2px]">
                                     <div
-                                        className="col-span-1 flex items-center justify-center p-6 bg-[green] text-white rounded-l-2xl text-center">Fatturato <br/> Confermato
+                                        className="col-span-3 flex items-center justify-center p-6 bg-[green] text-white rounded-l-2xl text-center">Fatturato <br/> Confermato
                                     </div>
                                     <div
-                                        className="col-span-2 flex items-center justify-center p-6 bg-[green] text-white rounded-r-2xl text-4xl font-medium">{gara.fatturatoConfermato.toLocaleString('en-US')}€
+                                        className="col-span-9 flex items-center justify-center p-6 bg-[green] text-white rounded-r-2xl text-4xl font-medium">{gara.fatturatoConfermato.toLocaleString('en-US')}€
                                     </div>
                                 </div>
 
                             </div>
                         </div>
+                        <div className="col-span-3 p-10">
+                            <PieChart labels={['Gare in corso', 'Gare in scadenza', 'Gare vinte', 'Gare perse']}
+                                      values={[gara.gareInCorso, gara.gareInScadenza, gara.gareVinte]}
+                                      backgroundColor={['#c0cbec', '#d2dbf2', '#DFE6F3']}
+                                      borderColor={['#FFFFFF', '#FFFFFF', '#FFFFFF']}
+                            />
+                        </div>
                     </div>
                     <div className="grid grid-cols-2 mb-10">
-                        <div className="grid grid-cols-4 px-5">
-                            <div className="flex flex-row items-center">
+                        <div className="grid grid-cols-3 pl-20">
+                            <hr className="col-span-3 border border-[#B5C5E7]"/>
+                            <div className="flex flex-row items-center justify-center mb-2">
+                                <MdRectangle color="#c0cbec" size={30}/>
+                                <span className="ml-2 text-sm">Fatturato Confermato</span>
+                            </div>
+                            <div className="flex flex-row items-center justify-center mb-2">
+                                <MdRectangle color="#d2dbf2" size={30}/>
+                                <span className="ml-2 text-sm">Fatturato non Confermato</span>
+                            </div>
+                            <div className="flex flex-row items-center justify-center mb-2">
                                 <MdRectangle color="#DFE6F3" size={30}/>
-                                <span className="ml-2 text-sm">Gare in corso</span>
+                                <span className="ml-2 text-sm">Aggiudicazione in corso</span>
                             </div>
-                            <div className="flex flex-row items-center">
-                                <MdRectangle color="#B5C5E7" size={30}/>
-                                <span className="ml-2 text-sm">Gare in scadenza</span>
-                            </div>
-                            <div className="flex flex-row items-center">
-                                <MdRectangle color="green" size={30}/>
-                                <span className="ml-2 text-sm">Gare vinte</span>
-                            </div>
-                            <div className="flex flex-row items-center">
-                                <MdRectangle color="red" size={30}/>
-                                <span className="ml-2 text-sm">Gare perse</span>
-                            </div>
+                            <hr className="col-span-3 border border-[#B5C5E7]"/>
                         </div>
                         <div className="flex flex-row px-20 items-center justify-around">
                             <p className="">
-                                Valore del fatturato confermato <br/> paragonato all’anno precedente
+                                Valore del fatturato in scadenza
                             </p>
-                            <div className={`${((gara.valoreGareInScadenza/gara.fatturatoConfermato) > (garaAnnoPrec.valoreGareInScadenza/garaAnnoPrec.fatturatoConfermato)) ? "text-[green]": "text-[red]"} text-6xl font-medium`}>
-                                {(gara.valoreGareInScadenza/gara.fatturatoConfermato).toFixed(2)}%
+                            <div className={`${((gara.valoreGareInScadenza/gara.valoreDellaProduzione) > (garaAnnoPrec.valoreGareInScadenza/garaAnnoPrec.valoreDellaProduzione)) ? "text-[green]": "text-[red]"} text-6xl font-medium`}>
+                                {((gara.valoreGareInScadenza/gara.valoreDellaProduzione)*100).toFixed(2)}%
                             </div>
-                            { ((gara.valoreGareInScadenza/gara.fatturatoConfermato) > (garaAnnoPrec.valoreGareInScadenza/garaAnnoPrec.fatturatoConfermato)) ?
+                            { ((gara.valoreGareInScadenza/gara.valoreDellaProduzione) > (garaAnnoPrec.valoreGareInScadenza/garaAnnoPrec.valoreDellaProduzione)) ?
                                 <div className="flex flex-col">
                                     <IoIosArrowUp size="40px" color="green" className="mb-[-25px]"/>
                                     <IoIosArrowUp size="40px" color="green" className="mb-[-25px] opacity-60"/>
@@ -127,7 +131,10 @@ const Gare: React.FC<GareProps> = ({}) => {
 
                         </div>
                     </div>
-                    <div>
+                    <div className="flex justify-center">
+                        <Image src={"/img/immagineGara.png"} alt={"immagine gara"} width={1920} height={500}/>
+                    </div>
+                    {/*<div>
                         <div className=" flex flex-col justify-center">
                             <div className="w-full flex flex-row justify-between items-center mb-10">
                                 <hr className="w-[88%] border-[#B5C5E7] border"/>
@@ -190,7 +197,7 @@ const Gare: React.FC<GareProps> = ({}) => {
 
                             </div>
                         </div>
-                    </div>
+                    </div>*/}
                 </>
             }
             <div className="flex justify-center">

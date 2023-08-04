@@ -1,32 +1,39 @@
 import React, {useEffect, useState} from "react";
 import {
-    useUpdateCentroDiurnoAnzianiMutation,
+    useUpdateCentroDiurnoAnzianiMutation, useUpdateResidenzaAltraSocietaMutation,
     useUpdateResidenzaMutation,
     useUpdateStrutturaSanitariaMutation
 } from "@/store/rtkqApi";
 import {InputDati, InputResidenza} from "@/model/ResidenzaAnziani";
 import {BiPlus, BiSave} from "react-icons/bi";
 import {BsFillTrash2Fill} from "react-icons/bs";
+import {
+    calcoloCapienzaComplessiva
+} from "@/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent";
 
 export interface ResidenzaAnzianiAdminProps {
     dati: InputResidenza[],
     editabile: boolean,
-    selectedMenuItem: undefined | 'ra' | 'ca' | 'ss' | 'rd' | 'cd'
+    selectedMenuItem: undefined | 'ra' | 'ca' | 'ss' | 'rd' | 'cd',
+    altreSocieta?: boolean
 }
 
-const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, editabile, selectedMenuItem}) => {
+const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, editabile, selectedMenuItem, altreSocieta}) => {
 
     const [updateResidenza] = useUpdateResidenzaMutation()
     const [updateStrutturaSanitaria] = useUpdateStrutturaSanitariaMutation()
     const [updateCentroDiurnoAnziani] = useUpdateCentroDiurnoAnzianiMutation()
-    const [newValue, setNewValue] = useState<{ id: string, data: string, capienzaAttuale: number }[]>([])
-    const [datiReversed, setDatiReversed] = useState<{ id: string, data: string, capienzaAttuale: number }[]>([])
+    const [updateResidenzaAltraSocieta] = useUpdateResidenzaAltraSocietaMutation()
+    const [newValue, setNewValue] = useState<{ id: string, data: string, capienzaAttuale: number, capienzaComplessiva: number }[]>([])
+    const [datiReversed, setDatiReversed] = useState<{ id: string, data: string, capienzaAttuale: number, capienzaComplessiva: number }[]>([])
     const [residenze, setResidenze] = useState<InputResidenza[]>([])
     const [newResidenze, setNewResidenze] = useState<InputResidenza[]>([])
     const [newDate, setNewDate] = useState<Date>(new Date())
+    const [capienzaComplessiva, setCapienzaComplessiva] = useState<number>(calcoloCapienzaComplessiva(dati))
 
     useEffect(() => {
         if (dati.length > 0) {
+            setCapienzaComplessiva(calcoloCapienzaComplessiva(dati))
             setResidenze(dati)
             setNewResidenze(dati)
             let d = dati[0].dati[dati[0].dati.length - 1].data.split("/");
@@ -37,21 +44,22 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
 
 
     useEffect(() => {
-        console.log('qui')
         setNewValue([])
         setDatiReversed([])
         residenze.forEach(ic => {
             setNewValue((old) => [...old, {
                 id: ic.faunaDocumentId as string,
                 data: newDate.toLocaleDateString(),
-                capienzaAttuale: 0
+                capienzaAttuale: 0,
+                capienzaComplessiva: capienzaComplessiva
             }])
             let datiCopy = [...ic.dati]
             datiCopy.reverse().forEach((d, index) => {
                 setDatiReversed((old) => [...old, {
                     id: ic.faunaDocumentId as string,
                     data: d.data,
-                    capienzaAttuale: d.capienzaAttuale
+                    capienzaAttuale: d.capienzaAttuale,
+                    capienzaComplessiva: d.capienzaComplessiva
                 }])
             })
         })
@@ -61,10 +69,11 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
         if (newResidenze.length > 0) {
             newResidenze.forEach((nr, index) => {
                 if (nr.dati.length > dati[index].dati.length) {
-                    if(selectedMenuItem === 'ra'){
-                        updateResidenza(nr).then(res => {
-
-                        })
+                    if(selectedMenuItem === 'ra' && !altreSocieta){
+                        updateResidenza(nr)
+                    }
+                    if(selectedMenuItem === 'ra' && altreSocieta){
+                        updateResidenzaAltraSocieta(nr)
                     }
                     if(selectedMenuItem === 'cd'){
                         updateCentroDiurnoAnziani(nr)
@@ -82,8 +91,11 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
 
     return (
         <div className={`${!editabile && 'flex justify-center'}`}>
-            {editabile &&
+            {editabile && !altreSocieta &&
                 <h2 className="mb-5 font-semibold text-[#b5c5e7]">SERVIZI IN CAPO A SOCIETA DOLCE</h2>
+            }
+            {editabile && altreSocieta &&
+                <h2 className="mt-5 mb-5 font-semibold text-[#b5c5e7]">SERVIZI IN CAPO AD ALTRE SOCIETA</h2>
             }
             <div className="flex flex-row overflow-y-scroll max-h-[78vh]">
                 <div className="overflow-x-auto">
@@ -96,6 +108,7 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                             <th>Provincia</th>
                             <th>Servizio</th>
                             <th>Struttura</th>
+                            <th>Nota</th>
                             <th>Capienza</th>
                             <th>Percentuale</th>
                             {residenze.length > 0 && editabile &&
@@ -121,7 +134,40 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                                     <td>{r.provincia}</td>
                                     <td>{r.servizio}</td>
                                     <td>{r.struttura}</td>
-                                    <td>{r.capienza}</td>
+                                    {editabile ?
+                                        <td>
+                                            <input type="text"
+                                                   className="w-[200px] p-1 border border-blue-200"
+                                                   value={r.nota}
+                                                   onChange={(e) => {
+                                                       setResidenze(
+                                                           residenze.map(item =>
+                                                               item.faunaDocumentId === r.faunaDocumentId ? {...item, nota: e.currentTarget.value} : item
+                                                           )
+                                                       )
+                                                   }}
+                                            />
+                                        </td>
+                                        :
+                                        <td>{r.nota}</td>
+                                    }
+                                    {editabile ?
+                                        <td>
+                                            <input type="number"
+                                                   className="w-[60px] p-1 border border-blue-200"
+                                                   value={r.capienza}
+                                                   onChange={(e) => {
+                                                       setResidenze(
+                                                           residenze.map(item =>
+                                                               item.faunaDocumentId === r.faunaDocumentId ? {...item, capienza: parseInt(e.currentTarget.value)} : item
+                                                           )
+                                                       )
+                                                   }}
+                                            />
+                                        </td>
+                                        :
+                                        <td>{r.capienza}</td>
+                                    }
                                     <td>{(r.dati[r.dati.length - 1].capienzaAttuale * 100 / r.capienza).toFixed(2)}%</td>
                                     {editabile &&
                                         <th>
@@ -203,8 +249,9 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                                                 ? {
                                                     ...r,
                                                     dati: [...r.dati, {
+                                                        data: newValue[index].data,
                                                         capienzaAttuale: newValue[index].capienzaAttuale,
-                                                        data: newValue[index].data
+                                                        capienzaComplessiva: newValue[index].capienzaComplessiva
                                                     }]
                                                 }
                                                 : r
@@ -218,21 +265,27 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                         </button>
                         <button className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#4ecc8f] mb-2 w-2/3"
                                 onClick={() => {
-                                    let datiCopi:{id: string, data: string, capienzaAttuale: number}[] = [...datiReversed]
+                                    let datiCopi:{id: string, data: string, capienzaAttuale: number, capienzaComplessiva}[] = [...datiReversed]
                                     let res: InputResidenza[] = residenze.map(or => {
                                         return {...or, dati: []}
                                     })
                                     datiCopi.reverse().forEach(d => {
                                         res.forEach(r => {
+                                            let data = d.data.split("/");
+                                            let dat = new Date(new Date(data[2] + '/' + data[1] + '/' + (parseInt(data[0])).toLocaleString()).getTime());
                                             if(r.faunaDocumentId === d.id){
-                                                r.dati.push({data: d.data, capienzaAttuale: d.capienzaAttuale})
+                                                r.dati.push({data: d.data, capienzaAttuale: d.capienzaAttuale, capienzaComplessiva: d.capienzaComplessiva})
+                                                //r.dati.push({data: d.data, capienzaAttuale: d.capienzaAttuale, capienzaComplessiva: dat.getMonth() > 3 ? 211 : 192})
                                             }
                                         })
                                     })
                                     res.forEach((r, index) => {
                                         if (r.dati.length === dati[index].dati.length) {
-                                            if(selectedMenuItem === 'ra'){
+                                            if(selectedMenuItem === 'ra' && !altreSocieta){
                                                 updateResidenza(r)
+                                            }
+                                            if(selectedMenuItem === 'ra' && altreSocieta){
+                                                updateResidenzaAltraSocieta(r)
                                             }
                                             if(selectedMenuItem === 'cd'){
                                                 updateCentroDiurnoAnziani(r)

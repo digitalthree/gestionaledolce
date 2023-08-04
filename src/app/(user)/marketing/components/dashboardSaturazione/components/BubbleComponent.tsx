@@ -13,17 +13,17 @@ export interface BubbleComponentProps{
 export function calcoloPercentualeAttuale(dati: InputResidenza[]){
     const percentuali: number[] = []
     dati.forEach(ia => {
-        percentuali.push((ia.dati[ia.dati.length-1].capienzaAttuale*100)/ia.capienza)
+        percentuali.push((ia.dati[ia.dati.length-1].capienzaAttuale*100))
     })
-    return (percentuali.reduce((a,b) => a+b, 0) / percentuali.length).toFixed(2)
+    return (percentuali.reduce((a,b) => a+b, 0) / calcoloCapienzaComplessiva(dati)).toFixed(2)
 }
 
 export function calcoloPercentualePrecedente(dati: InputResidenza[]){
     const percentuali: number[] = [];
     dati.forEach(ia => {
-        percentuali.push((ia.dati[ia.dati.length-2].capienzaAttuale*100)/ia.capienza)
+        percentuali.push((ia.dati[ia.dati.length-2].capienzaAttuale*100))
     })
-    return (percentuali.reduce((a,b) => a+b, 0) / percentuali.length).toFixed(2)
+    return (percentuali.reduce((a,b) => a+b, 0) / calcoloCapienzaComplessiva(dati)).toFixed(2)
 }
 
 export function calcoloCapienzaComplessiva(dati: InputResidenza[]){
