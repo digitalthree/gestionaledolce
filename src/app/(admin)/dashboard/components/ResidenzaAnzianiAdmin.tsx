@@ -265,7 +265,7 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                         </button>
                         <button className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#4ecc8f] mb-2 w-2/3"
                                 onClick={() => {
-                                    let datiCopi:{id: string, data: string, capienzaAttuale: number, capienzaComplessiva}[] = [...datiReversed]
+                                    let datiCopi:{id: string, data: string, capienzaAttuale: number, capienzaComplessiva: number}[] = [...datiReversed]
                                     let res: InputResidenza[] = residenze.map(or => {
                                         return {...or, dati: []}
                                     })
