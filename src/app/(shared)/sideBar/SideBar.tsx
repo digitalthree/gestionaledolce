@@ -2,9 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import {MdArrowRight} from "react-icons/md";
 import {useUser} from "@auth0/nextjs-auth0/client";
-import Link from "next/link";
 import {BiGroup, BiUser} from 'react-icons/bi'
-import {TbFileExport} from "react-icons/tb";
 import News from "@/app/(shared)/sideBar/components/News";
 
 export interface SideBarProps{
@@ -141,7 +139,9 @@ const SiseBar: React.FC<SideBarProps> = (
                     <News editabile={user?.nickname === 'admin'}/>
                 </div>
                 <div className="flex flex-row justify-center absolute right-1/2 left-1/2 bottom-3">
-                    <Link href="/api/auth/logout" className="text-[#B6C7E8] p-1 px-20 rounded bg-[#E4E9F5] hover:bg-[red] hover:text-white hover:cursor-pointer">Logout</Link>
+                    <div onClick={() => {
+                        window.location.href = process.env.NEXT_PUBLIC_URL+'api/auth/logout'
+                    }} className="text-[#B6C7E8] p-1 px-20 rounded bg-[#E4E9F5] hover:bg-[red] hover:text-white hover:cursor-pointer">Logout</div>
                 </div>
             </div>
         </>
