@@ -236,7 +236,7 @@ export const updateGaraInFauna = async (objectToUpdate: Gara) => {
 
 export const createNews = async (news: News) => {
     return await faunaClient.query(
-        q.Create(q.Collection("News"), {data: news})
+        q.Select(["ref", "id"], q.Create(q.Collection("News"), {data: news}))
     )
 }
 
@@ -310,5 +310,5 @@ export const getNewsByIdInFauna = async (id: number) => {
 }
 
 export const deleteNewsFromFauna = async (newsId: string) => {
-    await faunaClient.query(q.Delete(q.Ref(q.Collection('News'), newsId)))
+    return await faunaClient.query(q.Delete(q.Ref(q.Collection('News'), newsId)))
 }

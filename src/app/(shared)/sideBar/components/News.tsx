@@ -31,7 +31,7 @@ const News: React.FC<NewsProps> = ({editabile}) => {
                 }
             )
         }
-    }, [res.data]);
+    }, [res]);
 
 
     const [updateNews] = useUpdateNewsMutation()
@@ -51,7 +51,7 @@ const News: React.FC<NewsProps> = ({editabile}) => {
                         return (
                             <>
 
-                                <li key={n.id} className="mb-3">
+                                <li key={n.faunaDocumentId} className="mb-3">
                                     <div className="grid grid-cols-5 items-center gap-4">
                                         <label htmlFor={`my_modal_${n.id}`}
                                                className="px-4 col-span-4 py-2 bg-white rounded-3xl text-[14px] text-[#2866CC] uppercase font-semibold hover:cursor-pointer hover:opacity-70">{dat[2]}/{dat[1]} | {n.titolo.length <= 50 ? n.titolo : n.titolo.substring(0, 50) + '...'}</label>
@@ -213,8 +213,10 @@ const News: React.FC<NewsProps> = ({editabile}) => {
                                 <label htmlFor={`my_modal_add`}
                                        className="btn bg-[#B5C5E7] hover:bg-[#B5C5E7] hover:opacity-70 text-white w-1/2"
                                        onClick={() => {
-                                           setInputNews((oldNews) => [...oldNews, newNews])
-                                           createNews(newNews)
+                                           createNews(newNews).then((res: any) => {
+                                               setInputNews((oldNews) => [...oldNews, {...newNews, faunaDocumentId: res.data }])
+                                           })
+
                                            setNewNews(
                                                {
                                                    id: newNews.id + 1,

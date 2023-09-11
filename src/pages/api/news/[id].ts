@@ -22,7 +22,7 @@ export default async function handler(req: any, res: any) {
         try {
             const {id} = req.query
             await deleteNewsFromFauna(id)
-            res.status(204)
+            res.status(204).json('No Content')
         } catch (err) {
             console.error(err);
             res.status(500).json({msg: 'Something went wrong.'});
