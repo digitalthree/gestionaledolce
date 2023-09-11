@@ -1,12 +1,14 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
 import {Gara} from "@/model/Gara";
+import {News} from "@/model/News";
+
 
 
 export const rtkqApi = createApi({
     reducerPath: "rtkqApi",
     baseQuery: fetchBaseQuery({baseUrl: process.env.NEXT_PUBLIC_URL+'api'}),
-    tagTypes: ['Residenze', 'ResidenzeAltreSocieta', 'Gare', 'Gara', 'CentriDiurniAnziani', 'StruttureSanitarie'],
+    tagTypes: ['Residenze', 'ResidenzeAltreSocieta', 'Gare', 'Gara', 'CentriDiurniAnziani', 'StruttureSanitarie', "News", "NewsId"],
     endpoints: (build) => ({
         getResidenze : build.query<InputResidenza[], void>({
             query: () => 'residenze',
@@ -71,7 +73,32 @@ export const rtkqApi = createApi({
                 body
             }),
             invalidatesTags: ['Gare', 'Gara']
-        })
+        }),
+        getNews: build.query<News[], void>({
+            query: () => "news",
+            providesTags: ["News"]
+        }),
+        createNews: build.mutation({
+            query: (body) => ({
+                url: "news",
+                method: 'POST',
+                body
+            })
+        }),
+        updateNews: build.mutation({
+            query: (body) => ({
+                url: 'news/'+body.faunaDocumentId,
+                method: 'PUT',
+                body
+            }),
+            invalidatesTags: ['News', 'NewsId']
+        }),
+        deleteNews: build.mutation({
+            query: (id) => ({
+                url: 'news/'+id,
+                method: 'DELETE'
+            })
+        }),
     })
 })
 
@@ -89,3 +116,8 @@ export const useUpdateResidenzaMutation = rtkqApi.endpoints.updateResidenza.useM
 export const useUpdateResidenzaAltraSocietaMutation = rtkqApi.endpoints.updateResidenzaAltraSocieta.useMutation
 export const useUpdateCentroDiurnoAnzianiMutation = rtkqApi.endpoints.updateCentroDiurnoAnziani.useMutation
 export const useUpdateStrutturaSanitariaMutation = rtkqApi.endpoints.updateStrutturaSanitaria.useMutation
+export const useGetNews = rtkqApi.endpoints.getNews.useQuery
+export const useCreateNewsMutation = rtkqApi.endpoints.createNews.useMutation
+export const useUpdateNewsMutation = rtkqApi.endpoints.updateNews.useMutation
+export const useDeleteNewsMutation = rtkqApi.endpoints?.deleteNews.useMutation
+

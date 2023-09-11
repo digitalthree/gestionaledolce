@@ -1,5 +1,6 @@
 import {ResidenzaAnziani} from "@/model/ResidenzaAnziani";
 import {Gara} from "@/model/Gara";
+import {News} from "@/model/News";
 
 const faunadb = require('faunadb');
 const faunaClient = new faunadb.Client({ secret: process.env.FAUNA_SECRET });
@@ -231,4 +232,83 @@ export const updateGaraInFauna = async (objectToUpdate: Gara) => {
             } as Gara
         })
     )
+}
+
+export const createNews = async (news: News) => {
+    return await faunaClient.query(
+        q.Create(q.Collection("News"), {data: news})
+    )
+}
+
+export const getAllNews = async () => {
+    const data =  await faunaClient.query(
+        q.Select("data",
+            q.Map(
+                q.Paginate(q.Match(q.Index("allNews"))),
+                q.Lambda("news", {
+                    faunaDocumentId: q.Select(
+                        ["ref", "id"],
+                        q.Get(
+                            q.Var("news")
+                        )
+                    ),
+                    news: q.Select(
+                        ["data"],
+                        q.Get(
+                            q.Var("news")
+                        )
+                    )
+                })
+            )
+        )
+    );
+    return data.map((d: any) => {
+        d.news.faunaDocumentId = d.faunaDocumentId
+        delete d.faunaDocumentId
+        return d.news
+    })
+}
+
+export const updateNewsInFauna = async (objectToUpdate: News) => {
+    const data = await faunaClient.query(
+        q.Update(q.Ref(q.Collection('News'), objectToUpdate.faunaDocumentId as string), {
+            data: {
+                ...objectToUpdate
+            } as News
+        })
+    )
+    return data
+}
+
+export const getNewsByIdInFauna = async (id: number) => {
+    const data =  await faunaClient.query(
+        q.Select("data",
+            q.Map(
+                q.Paginate(q.Match(q.Index("getNewsById"), id)),
+                q.Lambda("news", {
+                    faunaDocumentId: q.Select(
+                        ["ref", "id"],
+                        q.Get(
+                            q.Var("news")
+                        )
+                    ),
+                    news: q.Select(
+                        ["data"],
+                        q.Get(
+                            q.Var("news")
+                        )
+                    )
+                })
+            )
+        )
+    );
+    return data.map((d: any) => {
+        d.news.faunaDocumentId = d.faunaDocumentId
+        delete d.faunaDocumentId
+        return d.news
+    })
+}
+
+export const deleteNewsFromFauna = async (newsId: string) => {
+    await faunaClient.query(q.Delete(q.Ref(q.Collection('News'), newsId)))
 }

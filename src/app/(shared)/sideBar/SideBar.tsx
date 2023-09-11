@@ -40,7 +40,7 @@ const SiseBar: React.FC<SideBarProps> = (
                     </div>
                     <li className="pl-6 cursor-pointer text-lg text-white mt-3">
                         <details className="collapse collapse-arrow" open>
-                            <summary className={`collapse-title text-xl ${subMenu ? "font-semibold" : ""}`}>
+                            <summary className={`collapse-title py-0 min-h-0 text-xl ${subMenu ? "font-semibold" : ""}`}>
                                 SATURAZIONE
                             </summary>
                             <div className="collapse-content ml-4">
@@ -49,7 +49,7 @@ const SiseBar: React.FC<SideBarProps> = (
                                        setMenu(undefined)
                                        setSubMenu('ra')
                                    }}
-                                >residenza anziani</p>
+                                >residenze anziani</p>
                                 <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'ca' && 'underline'} `}
                                    onClick={() => {
                                        setMenu(undefined)
@@ -68,7 +68,7 @@ const SiseBar: React.FC<SideBarProps> = (
                                        setMenu(undefined)
                                        setSubMenu('rd')
                                    }}
-                                >residenza disabili</p>
+                                >residenze disabili</p>
                                 <p className={`mb-2 hover:cursor-pointer hover:underline ${subMenu === 'cd' && 'underline'} `}
                                    onClick={() => {
                                        setMenu(undefined)
