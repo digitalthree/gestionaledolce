@@ -3,11 +3,13 @@ import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import {useGetResidenze} from "@/store/rtkqApi";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
 import {FaEquals} from "react-icons/fa";
+import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
 
 export interface BubbleComponentProps{
     colorePrincipale: string,
     coloreSecondario: string,
-    dati: InputResidenza[]
+    dati: InputResidenza[],
+    datiAggiuntivi: DatiAggiuntivi
 }
 
 export function calcoloPercentualeAttuale(dati: InputResidenza[]){
@@ -34,7 +36,7 @@ export function calcoloCapienzaComplessiva(dati: InputResidenza[]){
     return result
 }
 
-const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale, coloreSecondario, dati}) => {
+const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale, coloreSecondario, dati, datiAggiuntivi}) => {
 
 
 
@@ -44,10 +46,10 @@ const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale, colo
                 <div className={`rounded-full p-2 m-1 w-60 h-60 flex items-center justify-center text-[60px] font-[100] shadow-xl text-white font-bold relative`}
                      style={{backgroundColor: colorePrincipale}}
                 >
-                    {calcoloPercentualeAttuale(dati)}%
-                    <div className={`rounded-full p-2 m-1 w-32 h-32 text-white flex items-center justify-center text-[25px] font-bold absolute top-[-20%] right-[-30%] z-[-1]`}
+                    {datiAggiuntivi.percentualeTotale}%
+                    {/*<div className={`rounded-full p-2 m-1 w-32 h-32 text-white flex items-center justify-center text-[25px] font-bold absolute top-[-20%] right-[-30%] z-[-1]`}
                          style={{backgroundColor: coloreSecondario}}
-                    >{calcoloPercentualePrecedente(dati)}%</div>
+                    >{calcoloPercentualePrecedente(dati)}%</div>*/}
                 </div>
             </div>
         </div>

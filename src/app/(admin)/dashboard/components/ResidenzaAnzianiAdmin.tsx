@@ -1,24 +1,27 @@
 import React, {useEffect, useState} from "react";
 import {
-    useUpdateCentroDiurnoAnzianiMutation, useUpdateResidenzaAltraSocietaMutation,
+    useUpdateCentroDiurnoAnzianiMutation, useUpdateDatiAggiuntivi, useUpdateResidenzaAltraSocietaMutation,
     useUpdateResidenzaMutation,
     useUpdateStrutturaSanitariaMutation
 } from "@/store/rtkqApi";
-import {InputDati, InputResidenza} from "@/model/ResidenzaAnziani";
+import {InputResidenza} from "@/model/ResidenzaAnziani";
 import {BiPlus, BiSave} from "react-icons/bi";
 import {BsFillTrash2Fill} from "react-icons/bs";
 import {
     calcoloCapienzaComplessiva
 } from "@/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent";
+import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
+import GestioneDatiAggiuntivi from "@/app/(admin)/dashboard/components/GestioneDatiAggiuntivi";
 
 export interface ResidenzaAnzianiAdminProps {
     dati: InputResidenza[],
     editabile: boolean,
     selectedMenuItem: undefined | 'ra' | 'ca' | 'ss' | 'rd' | 'cd',
-    altreSocieta?: boolean
+    altreSocieta?: boolean,
+    datiAggiuntivi: DatiAggiuntivi
 }
 
-const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, editabile, selectedMenuItem, altreSocieta}) => {
+const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, editabile, selectedMenuItem, altreSocieta, datiAggiuntivi}) => {
 
     const [updateResidenza] = useUpdateResidenzaMutation()
     const [updateStrutturaSanitaria] = useUpdateStrutturaSanitariaMutation()
@@ -30,6 +33,20 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
     const [newResidenze, setNewResidenze] = useState<InputResidenza[]>([])
     const [newDate, setNewDate] = useState<Date>(new Date())
     const [capienzaComplessiva, setCapienzaComplessiva] = useState<number>(calcoloCapienzaComplessiva(dati))
+    const [capienzaTotale, setCapienzaTotale] = useState<number>(0)
+    const [percentualeTotale, setPercentualeTotale] = useState<number>(0)
+    const [nota, setNota] = useState<string>("")
+    const [abilitaNota, setAbilitaNota] = useState<boolean>(false)
+    const [updateDatiAggiuntivi] = useUpdateDatiAggiuntivi()
+
+    useEffect(() => {
+        if (datiAggiuntivi) {
+            setCapienzaTotale(datiAggiuntivi.capienzaComplessiva)
+            setPercentualeTotale(datiAggiuntivi.percentualeTotale)
+            setNota(datiAggiuntivi.nota)
+        }
+    }, [datiAggiuntivi]);
+
 
     useEffect(() => {
         if (dati.length > 0) {
@@ -37,7 +54,7 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
             setResidenze(dati)
             setNewResidenze(dati)
             let d = dati[0].dati[dati[0].dati.length - 1].data.split("/");
-            let dat = new Date(new Date(d[2] + '/' + d[1] + '/' + (parseInt(d[0])).toLocaleString()).getTime() + (86400000*7));
+            let dat = new Date(new Date(d[2] + '/' + d[1] + '/' + (parseInt(d[0])).toLocaleString()).getTime() + (86400000 * 7));
             setNewDate(dat)
         }
     }, [dati])
@@ -54,7 +71,7 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                 capienzaComplessiva: capienzaComplessiva
             }])
             let datiCopy = [...ic.dati]
-            datiCopy.reverse().forEach((d, index) => {
+            datiCopy.reverse().forEach((d) => {
                 setDatiReversed((old) => [...old, {
                     id: ic.faunaDocumentId as string,
                     data: d.data,
@@ -69,16 +86,16 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
         if (newResidenze.length > 0) {
             newResidenze.forEach((nr, index) => {
                 if (nr.dati.length > dati[index].dati.length) {
-                    if(selectedMenuItem === 'ra' && !altreSocieta){
+                    if (selectedMenuItem === 'ra' && !altreSocieta) {
                         updateResidenza(nr)
                     }
-                    if(selectedMenuItem === 'ra' && altreSocieta){
+                    if (selectedMenuItem === 'ra' && altreSocieta) {
                         updateResidenzaAltraSocieta(nr)
                     }
-                    if(selectedMenuItem === 'cd'){
+                    if (selectedMenuItem === 'cd') {
                         updateCentroDiurnoAnziani(nr)
                     }
-                    if(selectedMenuItem === 'ss'){
+                    if (selectedMenuItem === 'ss') {
                         updateStrutturaSanitaria(nr)
                     }
 
@@ -92,10 +109,21 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
     return (
         <div className={`${!editabile && 'flex justify-center'}`}>
             {editabile && !altreSocieta &&
-                <h2 className="mb-5 font-semibold text-[#b5c5e7]">SERVIZI IN CAPO A SOCIETA DOLCE</h2>
+                <div className="mb-5">
+                    <h2 className="mb-5 font-semibold text-[#b5c5e7]">SERVIZI IN CAPO A SOCIETA DOLCE</h2>
+                    <GestioneDatiAggiuntivi datiAggiuntivi={datiAggiuntivi} capienzaTotale={capienzaTotale}
+                                            setCapienzaTotale={setCapienzaTotale} percentualeTotale={percentualeTotale}
+                                            setPercentualeTotale={setPercentualeTotale}/>
+                </div>
             }
             {editabile && altreSocieta &&
-                <h2 className="mt-5 mb-5 font-semibold text-[#b5c5e7]">SERVIZI IN CAPO AD ALTRE SOCIETA</h2>
+                <div className="mb-5">
+                    <h2 className="mt-5 mb-5 font-semibold text-[#b5c5e7]">SERVIZI IN CAPO AD ALTRE SOCIETA</h2>
+                    <GestioneDatiAggiuntivi datiAggiuntivi={datiAggiuntivi} capienzaTotale={capienzaTotale}
+                                            setCapienzaTotale={setCapienzaTotale} percentualeTotale={percentualeTotale}
+                                            setPercentualeTotale={setPercentualeTotale}/>
+                </div>
+
             }
             <div className="flex flex-row overflow-y-scroll max-h-[78vh]">
                 <div className="overflow-x-auto">
@@ -241,61 +269,63 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
             {editabile &&
                 <div className="flex flex-col">
                     <div className="flex flex-row">
-                        <button className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#4ecc8f] mb-2 w-1/3"
-                                onClick={() => {
-                                    setNewResidenze(
-                                        newResidenze.map((r, index) =>
-                                            r.faunaDocumentId === newValue[index].id
-                                                ? {
-                                                    ...r,
-                                                    dati: [...r.dati, {
-                                                        data: newValue[index].data,
-                                                        capienzaAttuale: newValue[index].capienzaAttuale,
-                                                        capienzaComplessiva: newValue[index].capienzaComplessiva
-                                                    }]
-                                                }
-                                                : r
-                                        )
+                        <button
+                            className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#4ecc8f] mb-2 w-1/3"
+                            onClick={() => {
+                                setNewResidenze(
+                                    newResidenze.map((r, index) =>
+                                        r.faunaDocumentId === newValue[index].id
+                                            ? {
+                                                ...r,
+                                                dati: [...r.dati, {
+                                                    data: newValue[index].data,
+                                                    capienzaAttuale: newValue[index].capienzaAttuale,
+                                                    capienzaComplessiva: newValue[index].capienzaComplessiva
+                                                }]
+                                            }
+                                            : r
                                     )
+                                )
 
-                                }}
+                            }}
                         >
                             <BiSave size={20}/>
                             Salva Dati del {newDate.toLocaleDateString()}
                         </button>
-                        <button className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#4ecc8f] mb-2 w-2/3"
-                                onClick={() => {
-                                    let datiCopi:{id: string, data: string, capienzaAttuale: number, capienzaComplessiva: number}[] = [...datiReversed]
-                                    let res: InputResidenza[] = residenze.map(or => {
-                                        return {...or, dati: []}
-                                    })
-                                    datiCopi.reverse().forEach(d => {
-                                        res.forEach(r => {
-                                            let data = d.data.split("/");
-                                            let dat = new Date(new Date(data[2] + '/' + data[1] + '/' + (parseInt(data[0])).toLocaleString()).getTime());
-                                            if(r.faunaDocumentId === d.id){
-                                                r.dati.push({data: d.data, capienzaAttuale: d.capienzaAttuale, capienzaComplessiva: d.capienzaComplessiva})
-                                                //r.dati.push({data: d.data, capienzaAttuale: d.capienzaAttuale, capienzaComplessiva: dat.getMonth() > 3 ? 211 : 192})
-                                            }
-                                        })
-                                    })
-                                    res.forEach((r, index) => {
-                                        if (r.dati.length === dati[index].dati.length) {
-                                            if(selectedMenuItem === 'ra' && !altreSocieta){
-                                                updateResidenza(r)
-                                            }
-                                            if(selectedMenuItem === 'ra' && altreSocieta){
-                                                updateResidenzaAltraSocieta(r)
-                                            }
-                                            if(selectedMenuItem === 'cd'){
-                                                updateCentroDiurnoAnziani(r)
-                                            }
-                                            if(selectedMenuItem === 'ss'){
-                                                updateStrutturaSanitaria(r)
-                                            }
+                        <button
+                            className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#4ecc8f] mb-2 w-2/3"
+                            onClick={() => {
+                                let datiCopi: { id: string, data: string, capienzaAttuale: number, capienzaComplessiva: number }[] = [...datiReversed]
+                                let res: InputResidenza[] = residenze.map(or => {
+                                    return {...or, dati: []}
+                                })
+                                datiCopi.reverse().forEach(d => {
+                                    res.forEach(r => {
+                                        //let data = d.data.split("/");
+                                        //let dat = new Date(new Date(data[2] + '/' + data[1] + '/' + (parseInt(data[0])).toLocaleString()).getTime());
+                                        if (r.faunaDocumentId === d.id) {
+                                            r.dati.push({data: d.data, capienzaAttuale: d.capienzaAttuale, capienzaComplessiva: d.capienzaComplessiva})
+                                            //r.dati.push({data: d.data, capienzaAttuale: d.capienzaAttuale, capienzaComplessiva: dat.getMonth() > 3 ? 211 : 192})
                                         }
                                     })
-                                }}
+                                })
+                                res.forEach((r, index) => {
+                                    if (r.dati.length === dati[index].dati.length) {
+                                        if (selectedMenuItem === 'ra' && !altreSocieta) {
+                                            updateResidenza(r)
+                                        }
+                                        if (selectedMenuItem === 'ra' && altreSocieta) {
+                                            updateResidenzaAltraSocieta(r)
+                                        }
+                                        if (selectedMenuItem === 'cd') {
+                                            updateCentroDiurnoAnziani(r)
+                                        }
+                                        if (selectedMenuItem === 'ss') {
+                                            updateStrutturaSanitaria(r)
+                                        }
+                                    }
+                                })
+                            }}
                         >
                             <BiSave size={20}/>
                             Aggiorna Dati Precedenti
@@ -359,6 +389,25 @@ const ResidenzaAnzianiAdmin: React.FC<ResidenzaAnzianiAdminProps> = ({dati, edit
                                 }}>Aggiungi Struttura</label>
                             </div>
                         </div>
+                    </div>
+                    <div className="flex flex-row mt-5 items-center gap-10">
+                        <span className="mb-5 font-semibold text-[#b5c5e7]">NOTE:</span>
+                        <textarea className="border border-blue-200 p-1 w-2/3 h-[70px]"
+                                  value={nota}
+                                  onChange={(e) => {
+                                      setNota(e.currentTarget.value)
+                                      setAbilitaNota(true)
+                                  }}
+                        />
+                        <button className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#4ecc8f] w-1/5"
+                                disabled={!abilitaNota}
+                                onClick={() => {
+                                    updateDatiAggiuntivi({...datiAggiuntivi, nota: nota} as DatiAggiuntivi)
+                                    setAbilitaNota(false)
+                                }}
+                        >
+                            Salva
+                        </button>
                     </div>
                 </div>
             }

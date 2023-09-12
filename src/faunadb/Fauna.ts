@@ -1,6 +1,7 @@
 import {ResidenzaAnziani} from "@/model/ResidenzaAnziani";
 import {Gara} from "@/model/Gara";
 import {News} from "@/model/News";
+import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
 
 const faunadb = require('faunadb');
 const faunaClient = new faunadb.Client({ secret: process.env.FAUNA_SECRET });
@@ -36,14 +37,13 @@ export const getAllServiziSocietaDolce = async () => {
 }
 
 export const updateResidenzaInFauna = async (objectToUpdate: ResidenzaAnziani) => {
-    const data = await faunaClient.query(
+    return await faunaClient.query(
         q.Update(q.Ref(q.Collection('ServiziSocietaDolce'), objectToUpdate.faunaDocumentId as string), {
             data: {
                 ...objectToUpdate
             } as ResidenzaAnziani
         })
     )
-    return data
 }
 
 export const getAllServiziAltreSocieta = async () => {
@@ -76,14 +76,13 @@ export const getAllServiziAltreSocieta = async () => {
 }
 
 export const updateResidenzaAltreSocietaInFauna = async (objectToUpdate: ResidenzaAnziani) => {
-    const data = await faunaClient.query(
+    return await faunaClient.query(
         q.Update(q.Ref(q.Collection('ServiziAltreSocieta'), objectToUpdate.faunaDocumentId as string), {
             data: {
                 ...objectToUpdate
             } as ResidenzaAnziani
         })
     )
-    return data
 }
 
 export const getAllCentriDiurniAnziani = async () => {
@@ -116,14 +115,13 @@ export const getAllCentriDiurniAnziani = async () => {
 }
 
 export const updateCentroDiurnoAnzianiInFauna = async (objectToUpdate: ResidenzaAnziani) => {
-    const data = await faunaClient.query(
+    return await faunaClient.query(
         q.Update(q.Ref(q.Collection('CentriDiurniAnziani'), objectToUpdate.faunaDocumentId as string), {
             data: {
                 ...objectToUpdate
             } as ResidenzaAnziani
         })
     )
-    return data
 }
 
 export const getAllStruttureSanitarie = async () => {
@@ -156,14 +154,13 @@ export const getAllStruttureSanitarie = async () => {
 }
 
 export const updateStrutturaSanitariaInFauna = async (objectToUpdate: ResidenzaAnziani) => {
-    const data = await faunaClient.query(
+    return await faunaClient.query(
         q.Update(q.Ref(q.Collection('StruttureSanitarie'), objectToUpdate.faunaDocumentId as string), {
             data: {
                 ...objectToUpdate
             } as ResidenzaAnziani
         })
     )
-    return data
 }
 
 export const getAllGareInFauna = async () => {
@@ -270,14 +267,13 @@ export const getAllNews = async () => {
 }
 
 export const updateNewsInFauna = async (objectToUpdate: News) => {
-    const data = await faunaClient.query(
+    return await faunaClient.query(
         q.Update(q.Ref(q.Collection('News'), objectToUpdate.faunaDocumentId as string), {
             data: {
                 ...objectToUpdate
             } as News
         })
     )
-    return data
 }
 
 export const getNewsByIdInFauna = async (id: number) => {
@@ -311,4 +307,43 @@ export const getNewsByIdInFauna = async (id: number) => {
 
 export const deleteNewsFromFauna = async (newsId: string) => {
     return await faunaClient.query(q.Delete(q.Ref(q.Collection('News'), newsId)))
+}
+
+export const getAllDatiAggiuntivi = async () => {
+    const data =  await faunaClient.query(
+        q.Select("data",
+            q.Map(
+                q.Paginate(q.Match(q.Index("allDatiAggiuntivi"))),
+                q.Lambda("dati", {
+                    faunaDocumentId: q.Select(
+                        ["ref", "id"],
+                        q.Get(
+                            q.Var("dati")
+                        )
+                    ),
+                    dati: q.Select(
+                        ["data"],
+                        q.Get(
+                            q.Var("dati")
+                        )
+                    )
+                })
+            )
+        )
+    );
+    return data.map((d: any) => {
+        d.dati.faunaDocumentId = d.faunaDocumentId
+        delete d.faunaDocumentId
+        return d.dati
+    })
+}
+
+export const updateDatiAggiuntiviFauna = async (objectToUpdate: DatiAggiuntivi) => {
+    return await faunaClient.query(
+        q.Update(q.Ref(q.Collection('DatiAggiuntivi'), objectToUpdate.faunaDocumentId as string), {
+            data: {
+                ...objectToUpdate
+            } as DatiAggiuntivi
+        })
+    )
 }

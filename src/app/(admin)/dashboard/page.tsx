@@ -10,12 +10,13 @@ import DiagrammaTemporale from "@/app/(shared)/diagrammaTemporale/DiagrammaTempo
 import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
 import Gare from "@/app/(user)/marketing/components/gare/Gare";
 import {
-    useGetCentriDiurniAnziani,
+    useGetCentriDiurniAnziani, useGetDatiAggiuntivi,
     useGetResidenze,
     useGetResidenzeAltraSocieta,
     useGetStruttureSanitarie
 } from "@/store/rtkqApi";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
+import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
 
 export default function Page() {
     const {user} = useUser()
@@ -59,6 +60,12 @@ export default function Page() {
         residenzeAltreSocieta = res4.data
     }
 
+    const res5 = useGetDatiAggiuntivi()
+    let datiAggiuntivi: DatiAggiuntivi[] = []
+    if(res5.data){
+        datiAggiuntivi = res5.data
+    }
+
     return (
         <>
             <div className="w-full h-screen bg-gray-200">
@@ -69,17 +76,17 @@ export default function Page() {
                     {/* Sidebar ends */}
                     <div className="w-full bg-white p-10 overflow-x-hidden overflow-y-auto max-h-[100vh]">
                         {subMenu === 'ra' && !visualizzazioneUser && <>
-                            <ResidenzaAnzianiAdmin dati={residenze} editabile={true} selectedMenuItem={subMenu}/>
-                            <ResidenzaAnzianiAdmin dati={residenzeAltreSocieta} editabile={true} selectedMenuItem={subMenu} altreSocieta={true}/>
+                            <ResidenzaAnzianiAdmin dati={residenze} editabile={true} selectedMenuItem={subMenu} datiAggiuntivi={datiAggiuntivi.filter(d => d.tipo === "radolce")[0]}/>
+                            <ResidenzaAnzianiAdmin dati={residenzeAltreSocieta} editabile={true} selectedMenuItem={subMenu} altreSocieta={true} datiAggiuntivi={datiAggiuntivi.filter(d => d.tipo === "raaltre")[0]}/>
                         </>}
                         {subMenu === 'ca' && !visualizzazioneUser &&
-                            <ResidenzaAnzianiAdmin dati={centri} editabile={true} selectedMenuItem={subMenu}/>}
+                            <ResidenzaAnzianiAdmin dati={centri} editabile={true} selectedMenuItem={subMenu} datiAggiuntivi={datiAggiuntivi.filter(d => d.tipo === "cdadolce")[0]}/>}
                         {subMenu === 'ss' && !visualizzazioneUser &&
-                            <ResidenzaAnzianiAdmin dati={strutture} editabile={true} selectedMenuItem={subMenu}/>}
+                            <ResidenzaAnzianiAdmin dati={strutture} editabile={true} selectedMenuItem={subMenu} datiAggiuntivi={datiAggiuntivi.filter(d => d.tipo === "ssdolce")[0]}/>}
                         {subMenu === 'rd' && !visualizzazioneUser &&
-                            <ResidenzaAnzianiAdmin dati={residenze} editabile={true} selectedMenuItem={subMenu}/>}
+                            <ResidenzaAnzianiAdmin dati={residenze} editabile={true} selectedMenuItem={subMenu} datiAggiuntivi={datiAggiuntivi.filter(d => d.tipo === "radolce")[0]}/>}
                         {subMenu === 'cd' && !visualizzazioneUser &&
-                            <ResidenzaAnzianiAdmin dati={residenze} editabile={true} selectedMenuItem={subMenu}/>}
+                            <ResidenzaAnzianiAdmin dati={residenze} editabile={true} selectedMenuItem={subMenu} datiAggiuntivi={datiAggiuntivi.filter(d => d.tipo === "radolce")[0]}/>}
                         {menu === 'gare' && !visualizzazioneUser && <GareAdmin/>}
                         {menu === 'planning' && !visualizzazioneUser && <DiagrammaTemporale editabile={true}/>}
                         {subMenu === 'ra' && visualizzazioneUser &&

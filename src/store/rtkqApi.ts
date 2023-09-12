@@ -2,13 +2,14 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
 import {Gara} from "@/model/Gara";
 import {News} from "@/model/News";
+import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
 
 
 
 export const rtkqApi = createApi({
     reducerPath: "rtkqApi",
     baseQuery: fetchBaseQuery({baseUrl: process.env.NEXT_PUBLIC_URL+'api'}),
-    tagTypes: ['Residenze', 'ResidenzeAltreSocieta', 'Gare', 'Gara', 'CentriDiurniAnziani', 'StruttureSanitarie', "News", "NewsId"],
+    tagTypes: ['Residenze', 'ResidenzeAltreSocieta', 'Gare', 'Gara', 'CentriDiurniAnziani', 'StruttureSanitarie', "News", "NewsId", "DatiAggiuntivi"],
     endpoints: (build) => ({
         getResidenze : build.query<InputResidenza[], void>({
             query: () => 'residenze',
@@ -99,6 +100,18 @@ export const rtkqApi = createApi({
                 method: 'DELETE'
             })
         }),
+        getDatiAggiuntivi : build.query<DatiAggiuntivi[], void>({
+            query: () => 'datiAggiuntivi',
+            providesTags: ['DatiAggiuntivi']
+        }),
+        updateDatiAggiuntivi: build.mutation({
+            query: (body) => ({
+                url: 'datiAggiuntivi',
+                method: 'PUT',
+                body
+            }),
+            invalidatesTags: ['DatiAggiuntivi']
+        }),
     })
 })
 
@@ -120,4 +133,6 @@ export const useGetNews = rtkqApi.endpoints.getNews.useQuery
 export const useCreateNewsMutation = rtkqApi.endpoints.createNews.useMutation
 export const useUpdateNewsMutation = rtkqApi.endpoints.updateNews.useMutation
 export const useDeleteNewsMutation = rtkqApi.endpoints?.deleteNews.useMutation
+export const useGetDatiAggiuntivi = rtkqApi.endpoints?.getDatiAggiuntivi.useQuery
+export const useUpdateDatiAggiuntivi = rtkqApi.endpoints?.updateDatiAggiuntivi.useMutation
 

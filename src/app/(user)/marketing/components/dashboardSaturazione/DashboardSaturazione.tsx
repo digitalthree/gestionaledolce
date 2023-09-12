@@ -15,6 +15,8 @@ import {VscGraph, VscTable} from "react-icons/vsc";
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
 import {FaEquals} from "react-icons/fa";
 import {TbFileExport} from "react-icons/tb";
+import {useGetDatiAggiuntivi} from "@/store/rtkqApi";
+import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
 
 export interface DashboardSaturazioneProps {
     colorePrincipale: string,
@@ -39,6 +41,31 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
         let datiReversed = [...item.dati].reverse()
         return {...item, dati: datiReversed.filter((d, index) => index < numeroSettimane)}
     }): [])
+
+    const [datiAggiuntivi, setDatiAggiuntivi] = useState<DatiAggiuntivi>({} as DatiAggiuntivi)
+
+    const res5 = useGetDatiAggiuntivi()
+    useEffect(() => {
+        if(res5.data){
+            if(selectedMenuItem === 'ra'){
+                setDatiAggiuntivi(res5.data.filter(d => d.tipo === "radolce")[0])
+            }
+            if(selectedMenuItem === 'ca'){
+                setDatiAggiuntivi(res5.data.filter(d => d.tipo === "cdadolce")[0])
+            }
+            if(selectedMenuItem === 'ss'){
+                setDatiAggiuntivi(res5.data.filter(d => d.tipo === "ssdolce")[0])
+            }
+            if(selectedMenuItem === 'rd'){
+                setDatiAggiuntivi(res5.data.filter(d => d.tipo === "radolce")[0])
+            }
+            if(selectedMenuItem === 'cd'){
+                setDatiAggiuntivi(res5.data.filter(d => d.tipo === "radolce")[0])
+            }
+
+        }
+    }, [res5.data]);
+
 
     useEffect(() => {
         if(dati.length > 0){
@@ -87,7 +114,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
             <div className="2xl:grid 2xl:grid-cols-12 2xl:px-10 2xl:gap-10 flex flex-col items-center">
                 <div className="2xl:col-span-3 mb-5">
                     <BubbleComponent colorePrincipale={colorePrincipale} coloreSecondario={coloreSecondario}
-                                     dati={dati}/>
+                                     dati={dati} datiAggiuntivi={datiAggiuntivi}/>
                 </div>
                 <div className="2xl:col-span-5 mb-5">
                     <MonthTrendComponent colorePrincipale={colorePrincipale} coloreSecondario={coloreSecondario}
@@ -188,7 +215,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
                     />
                     <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale strutture in capo a Società Dolce</span>
                 </div>
-                {!visualizzazione ? <ResidenzaAnzianiAdmin dati={dati} editabile={false} selectedMenuItem={selectedMenuItem}/>
+                {!visualizzazione ? <ResidenzaAnzianiAdmin dati={dati} editabile={false} selectedMenuItem={selectedMenuItem} datiAggiuntivi={datiAggiuntivi}/>
                     : <HorizontalBarChartComponente colorePrincipale={colorePrincipale}
                                                     coloreSecondario={coloreSecondario} dati={dati}/>
                 }
@@ -217,7 +244,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
                     />
                     <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale strutture in capo ad altre società</span>
                 </div>
-                {!visualizzazione2 ? <ResidenzaAnzianiAdmin dati={datiAltreSocieta} editabile={false} selectedMenuItem={selectedMenuItem}/>
+                {!visualizzazione2 ? <ResidenzaAnzianiAdmin dati={datiAltreSocieta} editabile={false} selectedMenuItem={selectedMenuItem} datiAggiuntivi={datiAggiuntivi}/>
                     : <HorizontalBarChartComponente colorePrincipale={colorePrincipale}
                                                     coloreSecondario={coloreSecondario} dati={datiAltreSocieta}/>
                 }
