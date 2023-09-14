@@ -7,7 +7,7 @@ export interface BottomLegendProps{
 const BottomLegend: React.FC<BottomLegendProps> = ({}) => {
     return(
         <>
-            <div className="flex flex-row justify-center mt-20">
+            <div className="flex flex-row justify-center mt-20 pb-10">
                 <div className="grid grid-cols-3 gap-20">
                     <div className="flex flex-col">
                         <h3 className="text-[#0040b8] font-semibold">COMUNICAZIONE ISTITUZIONALE</h3>

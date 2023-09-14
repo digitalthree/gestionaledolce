@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ac4ea4f-9152-402b-88b9-5b2d0ca3671d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/GestioneDatiAggiuntivi.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/DatiAggiuntivi.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/api/datiAggiuntivi/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/faunadb/Fauna.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/faunadb/Fauna.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/rtkqApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/rtkqApi.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/DiagrammaTemporale.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/DiagrammaTemporale.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/components/BottomLegend.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/components/BottomLegend.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Gara.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Gara.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +136,8 @@
       <workItem from="1690784877780" duration="15021000" />
       <workItem from="1691138261376" duration="5374000" />
       <workItem from="1694441058303" duration="9624000" />
-      <workItem from="1694527287497" duration="5761000" />
+      <workItem from="1694527287497" duration="6110000" />
+      <workItem from="1694701585301" duration="5679000" />
     </task>
     <servers />
   </component>
