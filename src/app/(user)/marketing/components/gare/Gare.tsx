@@ -9,6 +9,7 @@ import {TbFileExport} from "react-icons/tb";
 import Image from "next/image";
 import {HiOutlinePhoto} from "react-icons/hi2";
 import {event} from "next/dist/build/output/log";
+import {deleteFileS3, getFileFromS3, uploadFileS3} from "@/aws/s3APIs";
 
 export interface GareProps {
 
@@ -26,7 +27,6 @@ const Gare: React.FC<GareProps> = ({}) => {
         gare = resGare.data
     }
 
-
     const [garaAnnoPrec, setGaraAnnoPrec] = useState<Gara>(gara)
     const [garePartecipate, setGarePartecipate] = useState<number[]>([])
     const [gareVinte, setGareVinte] = useState<number[]>([])
@@ -34,13 +34,15 @@ const Gare: React.FC<GareProps> = ({}) => {
     const [hovered, setHovered] = useState<boolean>(false)
     const fileRef =  useRef<HTMLInputElement>(null);
 
+    const [imageKey, setImageKey] = useState<string | undefined>(undefined)
+
     useEffect(() => {
         if (gare.length > 0) {
             setGaraAnnoPrec(gare.filter(g => g.anno === new Date().getFullYear() - 1)[0])
             setGarePartecipate(garePartecipate => [...garePartecipate, ...gare.map(g => g.gareNuovePartecipate)])
             setGareVinte(gareVinte => [...gareVinte, ...gare.map(g => g.gareNuoveVinte)])
         }
-
+        getFileFromS3().then(res => setImageKey(res))
     }, [gare])
 
     return (
@@ -159,35 +161,46 @@ const Gare: React.FC<GareProps> = ({}) => {
                         </div>
                     </div>
                     <div className="flex justify-center relative">
-                        <Image src={"/img/immagineGara.png"} alt={"immagine gara"} width={1200} height={500}
-                               onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-                               className={`${hovered ? 'opacity-70' : 'opacity-100'}`}
-                        />
-                        <button
-                            className={`btn bg-[#2866CC] hover:bg-blue-500 text-white absolute top-1/2 ${hovered ? 'flex' : 'hidden'}`}
-                            onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-                            onClick={() => {
-                                if(fileRef.current) {
-                                    fileRef.current.click()
-                                }
-                            }}
-                        >
-                            <HiOutlinePhoto size={25}/>
-                            Cambia Immagine
-                        </button>
-                        <input type="file"
-                               className="hidden"
-                               ref={fileRef}
-                               onChange={(e) => {
-                                   if(e.target.files) {
-                                       const file = e.target.files[0]
-                                       if(file) {
-                                           const imageURL = URL.createObjectURL(file)
-                                       }
-                                   }
+                        {imageKey &&
+                            <>
+                                <Image src={`https://${process.env.NEXT_PUBLIC_AWS_BUCKET_NAME}.s3.amazonaws.com/${imageKey}`} alt={"immagine gara"} width={1200} height={500}
+                                       onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+                                       className={`${hovered ? 'opacity-70' : 'opacity-100'}`}
+                                />
+                                <button
+                                    className={`btn bg-[#2866CC] hover:bg-blue-500 text-white absolute top-1/2 ${hovered ? 'flex' : 'hidden'}`}
+                                    onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+                                    onClick={() => {
+                                        if(fileRef.current) {
+                                            fileRef.current.click()
+                                        }
+                                    }}
+                                >
+                                    <HiOutlinePhoto size={25}/>
+                                    Cambia Immagine
+                                </button>
+                                <input type="file"
+                                       className="hidden"
+                                       ref={fileRef}
+                                       onChange={(e) => {
+                                           if(e.target.files) {
+                                               const file = e.target.files[0]
+                                               deleteFileS3().then(() => {
+                                                   if(e.target.files){
+                                                       uploadFileS3(e.target.files[0]).then((r) => {
+                                                           if(r){
+                                                               setImageKey(r.key)
+                                                           }
+                                                       })
+                                                   }
+                                               })
 
-                               }}
-                        />
+                                           }
+
+                                       }}
+                                />
+                            </>
+                        }
                     </div>
                 </>
             }
