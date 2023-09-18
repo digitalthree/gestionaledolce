@@ -47,7 +47,7 @@ const Gare: React.FC<GareProps> = ({}) => {
 
     return (
         <div className="overflow-y-scroll max-h-[900px] pb-20">
-            {gare.length > 0 && gara.gareNuoveVinte &&
+            {gare.length > 0 &&
                 <>
                     <div className="w-full flex flex-row items-center">
                         <span className="mr-2 text-[#B5C5E7] text-sm">Conferme</span>
