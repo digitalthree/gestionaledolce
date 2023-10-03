@@ -1,4 +1,4 @@
-import {ResidenzaAnziani} from "@/model/ResidenzaAnziani";
+import {InputResidenza, ResidenzaAnziani} from "@/model/ResidenzaAnziani";
 import {Gara} from "@/model/Gara";
 import {News} from "@/model/News";
 import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
@@ -46,6 +46,12 @@ export const updateResidenzaInFauna = async (objectToUpdate: ResidenzaAnziani) =
     )
 }
 
+export const createResidenza = async (residenza: InputResidenza) => {
+    return await faunaClient.query(
+        q.Select(["ref", "id"], q.Create(q.Collection("ServiziSocietaDolce"), {data: residenza}))
+    )
+}
+
 export const getAllServiziAltreSocieta = async () => {
     const data =  await faunaClient.query(
         q.Select("data",
@@ -82,6 +88,12 @@ export const updateResidenzaAltreSocietaInFauna = async (objectToUpdate: Residen
                 ...objectToUpdate
             } as ResidenzaAnziani
         })
+    )
+}
+
+export const createResidenzaAltreSocieta = async (residenza: InputResidenza) => {
+    return await faunaClient.query(
+        q.Select(["ref", "id"], q.Create(q.Collection("ServiziAltreSocieta"), {data: residenza}))
     )
 }
 
@@ -124,6 +136,12 @@ export const updateCentroDiurnoAnzianiInFauna = async (objectToUpdate: Residenza
     )
 }
 
+export const createCentroDiurnoAnziani = async (residenza: InputResidenza) => {
+    return await faunaClient.query(
+        q.Select(["ref", "id"], q.Create(q.Collection("CentriDiurniAnziani"), {data: residenza}))
+    )
+}
+
 export const getAllStruttureSanitarie = async () => {
     const data =  await faunaClient.query(
         q.Select("data",
@@ -163,6 +181,11 @@ export const updateStrutturaSanitariaInFauna = async (objectToUpdate: ResidenzaA
     )
 }
 
+export const createStrutturaSanitaria = async (residenza: InputResidenza) => {
+    return await faunaClient.query(
+        q.Select(["ref", "id"], q.Create(q.Collection("StruttureSanitarie"), {data: residenza}))
+    )
+}
 export const getAllGareInFauna = async () => {
     const data =  await faunaClient.query(
         q.Select("data",

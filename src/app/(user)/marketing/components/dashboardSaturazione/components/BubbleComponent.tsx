@@ -47,9 +47,9 @@ const BubbleComponent: React.FC<BubbleComponentProps> = ({colorePrincipale, colo
                      style={{backgroundColor: colorePrincipale}}
                 >
                     {datiAggiuntivi.percentualeTotale}%
-                    {/*<div className={`rounded-full p-2 m-1 w-32 h-32 text-white flex items-center justify-center text-[25px] font-bold absolute top-[-20%] right-[-30%] z-[-1]`}
+                    <div className={`rounded-full p-2 m-1 w-32 h-32 text-white flex items-center justify-center text-[25px] font-bold absolute top-[-20%] right-[-30%] z-[-1]`}
                          style={{backgroundColor: coloreSecondario}}
-                    >{calcoloPercentualePrecedente(dati)}%</div>*/}
+                    >{datiAggiuntivi.percentualeTotaleSettPrec}%</div>
                 </div>
             </div>
         </div>

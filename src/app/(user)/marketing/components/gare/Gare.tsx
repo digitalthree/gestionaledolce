@@ -1,15 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import PieChart from "@/app/(user)/marketing/components/gare/components/PieChart";
 import {IoIosArrowDown, IoIosArrowUp} from "react-icons/io";
-import VerticalBarChart from "@/app/(user)/marketing/components/gare/components/VerticalBarChart";
 import {Gara} from "@/model/Gara";
 import {useGetGaraByAnno, useGetGare} from "@/store/rtkqApi";
-import {MdRectangle} from "react-icons/md";
-import {TbFileExport} from "react-icons/tb";
 import Image from "next/image";
 import {HiOutlinePhoto} from "react-icons/hi2";
-import {event} from "next/dist/build/output/log";
 import {deleteFileS3, getFileFromS3, uploadFileS3} from "@/aws/s3APIs";
+import {useUser} from "@auth0/nextjs-auth0/client";
 
 export interface GareProps {
 
@@ -36,6 +33,8 @@ const Gare: React.FC<GareProps> = ({}) => {
 
     const [imageKey, setImageKey] = useState<string | undefined>(undefined)
 
+    const {user} = useUser()
+
     useEffect(() => {
         if (gare.length > 0) {
             setGaraAnnoPrec(gare.filter(g => g.anno === new Date().getFullYear() - 1)[0])
@@ -53,7 +52,7 @@ const Gare: React.FC<GareProps> = ({}) => {
                         <span className="mr-2 text-[#B5C5E7] text-sm">Conferme</span>
                         <hr className="w-full border-[#B5C5E7] border"/>
                     </div>
-                    <div className="grid grid-cols-7 gap-20 p-10">
+                    <div className="grid grid-cols-7 gap-20 px-10">
                         <div className="col-span-4">
                             <div className="grid grid-cols-1 gap-4">
                                 <div className="grid grid-cols-12 gap-[2px]">
@@ -117,59 +116,39 @@ const Gare: React.FC<GareProps> = ({}) => {
                                       backgroundColor={['#c0cbec', '#d2dbf2', '#D1D5DB']}
                                       borderColor={['#FFFFFF', '#FFFFFF', '#FFFFFF']}
                             />
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-2 mb-10">
-                        <div className="grid grid-cols-3 pl-20">
-                            <hr className="col-span-3 border border-[#B5C5E7]"/>
-                            <div className="flex flex-row items-center justify-center mb-2">
-                                <MdRectangle color="#c0cbec" size={30}/>
-                                <span className="ml-2 text-sm">Fatturato Confermato</span>
-                            </div>
-                            <div className="flex flex-row items-center justify-center mb-2">
-                                <MdRectangle color="#D1D5DB" size={30}/>
-                                <span className="ml-2 text-sm">Fatturato non Confermato</span>
-                            </div>
-                            <div className="flex flex-row items-center justify-center mb-2">
-                                <MdRectangle color="#d2dbf2" size={30}/>
-                                <span className="ml-2 text-sm">Aggiudicazione in corso</span>
-                            </div>
-                            <hr className="col-span-3 border border-[#B5C5E7]"/>
-                        </div>
-                        <div className="flex flex-row px-20 items-center justify-around">
-                            <p className="text-base">
-                                Valore del fatturato in scadenza
-                            </p>
-                            <div
-                                className={`${((gara.fatturatoConfermato / gara.valoreGareInScadenza) > (garaAnnoPrec.fatturatoConfermato / garaAnnoPrec.valoreGareInScadenza)) ? "text-[green]" : "text-[red]"} text-6xl font-medium`}>
-                                {((gara.fatturatoConfermato / gara.valoreGareInScadenza) * 100).toFixed(2)}%
-                            </div>
-                            {((gara.fatturatoConfermato / gara.valoreGareInScadenza) > (garaAnnoPrec.fatturatoConfermato / garaAnnoPrec.valoreGareInScadenza)) ?
-                                <div className="flex flex-col">
-                                    <IoIosArrowUp size="40px" color="green" className="mb-[-25px]"/>
-                                    <IoIosArrowUp size="40px" color="green" className="mb-[-25px] opacity-60"/>
-                                    <IoIosArrowUp size="40px" color="green" className="opacity-40"/>
-                                </div> :
-                                <div className="flex flex-col">
-                                    <IoIosArrowDown size="40px" color="red" className="mb-[-25px] opacity-40"/>
-                                    <IoIosArrowDown size="40px" color="red" className="mb-[-25px] opacity-60"/>
-                                    <IoIosArrowDown size="40px" color="red"/>
+                            <div className="flex flex-col px-20 mt-10 items-center justify-around">
+                                <p className="text-base">
+                                    Valore del fatturato confermato
+                                </p>
+                                <div
+                                    className={`${((gara.fatturatoConfermato / gara.valoreGareInScadenza) > (garaAnnoPrec.fatturatoConfermato / garaAnnoPrec.valoreGareInScadenza)) ? "text-[green]" : "text-[red]"} text-6xl font-medium`}>
+                                    {((gara.fatturatoConfermato / gara.valoreGareInScadenza) * 100).toFixed(2)}%
                                 </div>
-                            }
-
-
+                                {((gara.fatturatoConfermato / gara.valoreGareInScadenza) > (garaAnnoPrec.fatturatoConfermato / garaAnnoPrec.valoreGareInScadenza)) ?
+                                    <div className="flex flex-col">
+                                        <IoIosArrowUp size="40px" color="green" className="mb-[-25px]"/>
+                                        <IoIosArrowUp size="40px" color="green" className="mb-[-25px] opacity-60"/>
+                                        <IoIosArrowUp size="40px" color="green" className="opacity-40"/>
+                                    </div> :
+                                    <div className="flex flex-col">
+                                        <IoIosArrowDown size="40px" color="red" className="mb-[-25px] opacity-40"/>
+                                        <IoIosArrowDown size="40px" color="red" className="mb-[-25px] opacity-60"/>
+                                        <IoIosArrowDown size="40px" color="red"/>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
-                    <div className="flex justify-center relative">
+                    <div className="flex justify-center relative mt-10">
                         {imageKey &&
                             <>
                                 <Image src={`https://${process.env.NEXT_PUBLIC_AWS_BUCKET_NAME}.s3.amazonaws.com/${imageKey}`} alt={"immagine gara"} width={1200} height={500}
-                                       onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+                                       onMouseOver={() => user?.nickname !== 'user' && setHovered(true)} onMouseLeave={() => user?.nickname !== 'user' && setHovered(false)}
                                        className={`${hovered ? 'opacity-70' : 'opacity-100'}`}
                                 />
                                 <button
                                     className={`btn bg-[#2866CC] hover:bg-blue-500 text-white absolute top-1/2 ${hovered ? 'flex' : 'hidden'}`}
-                                    onMouseOver={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
+                                    onMouseOver={() => user?.nickname !== 'user' && setHovered(true)} onMouseLeave={() => user?.nickname !== 'user' && setHovered(false)}
                                     onClick={() => {
                                         if(fileRef.current) {
                                             fileRef.current.click()

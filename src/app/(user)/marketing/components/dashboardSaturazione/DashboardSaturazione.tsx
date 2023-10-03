@@ -8,7 +8,7 @@ import MonthTrendComponent
 import LineChartComponent from "@/app/(user)/marketing/components/dashboardSaturazione/components/LineChartComponent";
 import {MdRectangle} from "react-icons/md";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
-import ResidenzaAnzianiAdmin from "@/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin";
+import Saturazione from "@/app/(admin)/dashboard/components/(saturazione)/Saturazione";
 import HorizontalBarChartComponente
     from "@/app/(user)/marketing/components/dashboardSaturazione/components/HorizontalBarChartComponent";
 import {VscGraph, VscTable} from "react-icons/vsc";
@@ -127,34 +127,34 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
             <div className="2xl:grid 2xl:grid-cols-12 2xl:px-10 2xl:gap-10 flex flex-col items-center">
                 <div className="2xl:col-span-3 mb-5 flex justify-center">
                     <div className="mt-3 flex justify-start items-center">
-                        {calcoloPercentualeAttuale(dati) > calcoloPercentualePrecedente(dati) &&
+                        {datiAggiuntivi.percentualeTotale > datiAggiuntivi.percentualeTotaleSettPrec &&
                             <div className="flex flex-col">
                                 <IoIosArrowUp size="50px" color={'green'} className="mb-[-30px]"/>
                                 <IoIosArrowUp size="50px" color={'green'} className="mb-[-30px] opacity-60"/>
                                 <IoIosArrowUp size="50px" color={'green'} className="opacity-40"/>
                             </div>
                         }
-                        {calcoloPercentualeAttuale(dati) < calcoloPercentualePrecedente(dati) &&
+                        {datiAggiuntivi.percentualeTotale < datiAggiuntivi.percentualeTotaleSettPrec &&
                             <div className="flex flex-col">
                                 <IoIosArrowDown size="50px" color={'red'} className="mb-[-30px] opacity-40"/>
                                 <IoIosArrowDown size="50px" color={'red'} className="mb-[-30px] opacity-60"/>
                                 <IoIosArrowDown size="50px" color={'red'}/>
                             </div>
                         }
-                        {calcoloPercentualeAttuale(dati) === calcoloPercentualePrecedente(dati) &&
+                        {datiAggiuntivi.percentualeTotale === datiAggiuntivi.percentualeTotaleSettPrec &&
                             <div className="flex flex-col">
                                 <FaEquals size="50px" color={'#B5C5E7'}/>
                             </div>
                         }
                         <div className="flex flex-col ml-5">
-                            <span className="mb-3">Capienza Complessiva: <span className="p-2 rounded bg-[#2866CC] text-white font-semibold">{calcoloCapienzaComplessiva(dati)}</span></span>
-                            {calcoloPercentualeAttuale(dati) < calcoloPercentualePrecedente(dati) &&
+                            <span className="mb-3">Capienza Complessiva: <span className="p-2 rounded bg-[#2866CC] text-white font-semibold">{datiAggiuntivi.capienzaComplessiva}</span></span>
+                            {datiAggiuntivi.percentualeTotale < datiAggiuntivi.percentualeTotaleSettPrec &&
                                 <span className="text-[red] uppercase">Andamento in diminuzione</span>
                             }
-                            {calcoloPercentualeAttuale(dati) > calcoloPercentualePrecedente(dati) &&
+                            {datiAggiuntivi.percentualeTotale > datiAggiuntivi.percentualeTotaleSettPrec &&
                                 <span className="text-[green] uppercase">Andamento in crescita</span>
                             }
-                            {calcoloPercentualeAttuale(dati) === calcoloPercentualePrecedente(dati) &&
+                            {datiAggiuntivi.percentualeTotale === datiAggiuntivi.percentualeTotaleSettPrec &&
                                 <span className="uppercase">Andamento costante</span>
                             }
                         </div>
@@ -215,7 +215,7 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
                     />
                     <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale strutture in capo a Società Dolce</span>
                 </div>
-                {!visualizzazione ? <ResidenzaAnzianiAdmin dati={dati} editabile={false} selectedMenuItem={selectedMenuItem} datiAggiuntivi={datiAggiuntivi}/>
+                {!visualizzazione ? <Saturazione dati={dati} editabile={false} selectedMenuItem={selectedMenuItem} datiAggiuntivi={datiAggiuntivi}/>
                     : <HorizontalBarChartComponente colorePrincipale={colorePrincipale}
                                                     coloreSecondario={coloreSecondario} dati={dati}/>
                 }
@@ -244,19 +244,19 @@ const DashboardSaturazione: React.FC<DashboardSaturazioneProps> = ({
                     />
                     <span style={{color: '#808080'}} className="uppercase font-semibold">Trend Settimanale strutture in capo ad altre società</span>
                 </div>
-                {!visualizzazione2 ? <ResidenzaAnzianiAdmin dati={datiAltreSocieta} editabile={false} selectedMenuItem={selectedMenuItem} datiAggiuntivi={datiAggiuntivi}/>
+                {!visualizzazione2 ? <Saturazione dati={datiAltreSocieta} editabile={false} selectedMenuItem={selectedMenuItem} datiAggiuntivi={datiAggiuntivi}/>
                     : <HorizontalBarChartComponente colorePrincipale={colorePrincipale}
                                                     coloreSecondario={coloreSecondario} dati={datiAltreSocieta}/>
                 }
 
 
             </div>
-            <div className="flex justify-center">
+            {/*<div className="flex justify-center">
                 <a href="/img/reportTipo.pdf" download className="btn btn-sm w-full px-7 mt-10 mb-5 border-white bg-[#2866CC] hover:bg-[#2866CC] hover:opacity-70">
                     <TbFileExport size={25} color="white"/>
                     <span className="text-white">Scarica Report</span>
                 </a>
-            </div>
+            </div>*/}
         </div>
     )
 }

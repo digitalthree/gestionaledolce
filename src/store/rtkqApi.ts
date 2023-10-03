@@ -23,6 +23,14 @@ export const rtkqApi = createApi({
             }),
             invalidatesTags: ['Residenze']
         }),
+        createResidenza: build.mutation({
+            query: (body) => ({
+                url: "residenze",
+                method: 'POST',
+                body
+            }),
+            invalidatesTags: ['Residenze']
+        }),
         getResidenzeAltreSocieta : build.query<InputResidenza[], void>({
             query: () => 'residenzeAltreSocieta',
             providesTags: ['ResidenzeAltreSocieta']
@@ -31,6 +39,14 @@ export const rtkqApi = createApi({
             query: (body) => ({
                 url: 'residenzeAltreSocieta',
                 method: 'PUT',
+                body
+            }),
+            invalidatesTags: ['ResidenzeAltreSocieta']
+        }),
+        createResidenzaAltreSocieta: build.mutation({
+            query: (body) => ({
+                url: "residenzeAltreSocieta",
+                method: 'POST',
                 body
             }),
             invalidatesTags: ['ResidenzeAltreSocieta']
@@ -47,6 +63,14 @@ export const rtkqApi = createApi({
             }),
             invalidatesTags: ['CentriDiurniAnziani']
         }),
+        createCentroDiurnoAnziani: build.mutation({
+            query: (body) => ({
+                url: "centriDiurniAnziani",
+                method: 'POST',
+                body
+            }),
+            invalidatesTags: ['CentriDiurniAnziani']
+        }),
         getStruttureSanitarie : build.query<InputResidenza[], void>({
             query: () => 'struttureSanitarie',
             providesTags: ['StruttureSanitarie']
@@ -55,6 +79,14 @@ export const rtkqApi = createApi({
             query: (body) => ({
                 url: 'struttureSanitarie',
                 method: 'PUT',
+                body
+            }),
+            invalidatesTags: ['StruttureSanitarie']
+        }),
+        createStrutturaSanitaria: build.mutation({
+            query: (body) => ({
+                url: "struttureSanitarie",
+                method: 'POST',
                 body
             }),
             invalidatesTags: ['StruttureSanitarie']
@@ -126,9 +158,13 @@ export const useGetGare = rtkqApi.endpoints.getGare.useQuery
 export const useGetGaraByAnno = rtkqApi.endpoints.getGaraByAnno.useQuery
 export const useUpdateGaraMutation = rtkqApi.endpoints.updateGara.useMutation
 export const useUpdateResidenzaMutation = rtkqApi.endpoints.updateResidenza.useMutation
+export const useCreateResidenzaMutation = rtkqApi.endpoints?.createResidenza.useMutation
 export const useUpdateResidenzaAltraSocietaMutation = rtkqApi.endpoints.updateResidenzaAltraSocieta.useMutation
+export const useCreateResidenzaAltraSocietaMutation = rtkqApi.endpoints?.createResidenzaAltreSocieta.useMutation
 export const useUpdateCentroDiurnoAnzianiMutation = rtkqApi.endpoints.updateCentroDiurnoAnziani.useMutation
+export const useCreateCentroDiurnoAnzianiMutation = rtkqApi.endpoints?.createCentroDiurnoAnziani.useMutation
 export const useUpdateStrutturaSanitariaMutation = rtkqApi.endpoints.updateStrutturaSanitaria.useMutation
+export const useCreateStrutturaSanitariaMutation = rtkqApi.endpoints?.createStrutturaSanitaria.useMutation
 export const useGetNews = rtkqApi.endpoints.getNews.useQuery
 export const useCreateNewsMutation = rtkqApi.endpoints.createNews.useMutation
 export const useUpdateNewsMutation = rtkqApi.endpoints.updateNews.useMutation

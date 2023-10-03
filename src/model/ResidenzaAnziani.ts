@@ -12,11 +12,15 @@ export interface InputResidenza {
     servizio: string,
     struttura: string,
     capienza: number,
-    dati: InputDati[]
+    dati: InputDati[],
+    dataInizioGestione: string,
+    onOff: boolean
 }
 
 export interface InputDati {
+    disponibilitaStruttura: number,
     capienzaAttuale: number,
-    capienzaComplessiva: number,
+    percentuale: number,
     data: string,
+    onOff: boolean
 }

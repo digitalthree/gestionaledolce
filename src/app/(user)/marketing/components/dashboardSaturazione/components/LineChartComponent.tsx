@@ -58,33 +58,30 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
     };
 
     const labels = ['Gen', 'Feb', 'Mar', 'Apr', 'Mag', 'Giu', 'Lug', 'Ago', 'Set', 'Ott', 'Nov', 'Dic'];
-    const [valuesArray, setValuesArray] = useState<{ month: string, values: number[], struttura: string, capienzaComplessiva: number }[][]>([])
-    const [sumValue, setSumValue] = useState<{ month: string, value: number, struttura: string, capienzaComplessiva: number }[]>([])
-    const [percentuali, setPercentuali] = useState<{ month: string, value: number , capienzaComplessiva: number}[]>([])
+    const [valuesArray, setValuesArray] = useState<{ month: string, values: number[], struttura: string }[][]>([])
+    const [sumValue, setSumValue] = useState<{ month: string, value: number, struttura: string}[]>([])
+    const [percentuali, setPercentuali] = useState<{ month: string, value: number}[]>([])
 
     useEffect(() => {
-        let updatedValuesArray: { month: string, values: number[], struttura: string, capienzaComplessiva: number }[][] = dati.map(d => {
+        let updatedValuesArray: { month: string, values: number[], struttura: string}[][] = dati.map(d => {
             return labels.map(l => {
-                return {month: l, values: [], struttura: d.struttura, capienzaComplessiva: 0}
+                return {month: l, values: [], struttura: d.struttura}
             })
         })
-        /*let updatedValuesArray: { month: string, values: number[] }[] = labels.map(l => {
-            return {month: l, values: []}
-        })*/
-        updatedValuesArray.forEach(uv => console.log(uv.length))
         dati.forEach(d => {
             d.dati.forEach(d1 => {
                 let dat = d1.data.split("/");
                 let date = new Date(dat[2] + '/' + dat[1] + '/' + (parseInt(dat[0])).toLocaleString());
+                //setto tutti i valori percentuali per ogni struttura andando a raggrupparli per mese
                 labels.forEach((l, index) => {
                     updatedValuesArray = updatedValuesArray.map(item =>
                         item.map(it =>
-                            it.month === l && date.getMonth() === index && it.struttura === d.struttura ? {month: it.month, values: [...it.values, d1.capienzaAttuale], struttura: d.struttura, capienzaComplessiva: d1.capienzaComplessiva} : it
+                            it.month === l && date.getMonth() === index && it.struttura === d.struttura && d1.onOff ? {month: it.month, values: [...it.values, d1.percentuale], struttura: d.struttura} : it
                         )
                     )
                     setValuesArray(updatedValuesArray.map(item =>
                         item.map(it =>
-                            it.month === l && date.getMonth() === index && it.struttura === d.struttura ? {month: it.month, values: [...it.values, d1.capienzaAttuale], struttura: d.struttura, capienzaComplessiva: d1.capienzaComplessiva} : it
+                            it.month === l && date.getMonth() === index && it.struttura === d.struttura && d1.onOff ? {month: it.month, values: [...it.values, d1.percentuale], struttura: d.struttura} : it
                         )
 
                     ))
@@ -94,10 +91,11 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
     }, [dati])
 
     useEffect(() => {
+        //faccio la somma dei valori percentuali per ogni mese
         valuesArray.forEach(va => {
             va.forEach(v => {
                 if(v.values.length > 0){
-                    setSumValue((old) => [...old, {month: v.month, value: v.values.reduce((acc, currentValue) => acc+currentValue, 0)/v.values.length, struttura: v.struttura, capienzaComplessiva: v.capienzaComplessiva}])
+                    setSumValue((old) => [...old, {month: v.month, value: v.values.reduce((acc, currentValue) => acc+currentValue, 0)/v.values.length, struttura: v.struttura}])
                 }
             })
 
@@ -106,19 +104,17 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
 
     useEffect(() => {
         labels.forEach(l => {
-            let capienzaComplessiva = sumValue.filter(sv => sv.month === l).map(v => v.capienzaComplessiva)[0]
+            //let percentuale = sumValue.filter(sv => sv.month === l).map(v => v.value)[0]
+            //console.log(l, percentuale)
+            //ricavo la percentuale complessiva del singolo mese per ogni struttura
             let valuesToSum: number[] = sumValue.filter(sv => sv.month === l).map(v => v.value)
             let sum = valuesToSum.reduce((a, b) => a+b,0)
-            if(sum !== 0){
-                setPercentuali((old) => [...old, {month: l, value: sum, capienzaComplessiva: capienzaComplessiva ? capienzaComplessiva : 0}])
-            }
 
+            if(sum !== 0) {
+                setPercentuali((old) => [...old, {month: l, value: sum}])
+            }
         })
     }, [sumValue])
-
-    useEffect(() => {
-        console.log(percentuali)
-    }, [percentuali])
 
 
     const dataChart = {
@@ -127,7 +123,8 @@ const LineChartComponent: React.FC<LineChartComponentsProps> = ({colorePrincipal
             {
                 label: 'Anno corrente',
                 data: percentuali.map(p => {
-                    return (p.value*100)/p.capienzaComplessiva
+                    //ricavo la media dei valori percentuali dividendo per il numero di strutture
+                    return (p.value)/dati.length
                 }),
                 borderColor: colorePrincipale,
                 backgroundColor: colorePrincipale,

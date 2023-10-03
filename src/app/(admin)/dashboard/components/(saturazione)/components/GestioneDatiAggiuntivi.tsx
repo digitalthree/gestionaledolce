@@ -7,12 +7,15 @@ export interface GestioneDatiAggiuntiviProps{
     capienzaTotale: number,
     setCapienzaTotale: (v:number) => void,
     percentualeTotale: number,
-    setPercentualeTotale: (v:number) => void
+    setPercentualeTotale: (v:number) => void,
+    percentualeTotaleSettPrec: number,
+    setPercentualeTotaleSettPrec: (v:number) => void
 }
 
 const GestioneDatiAggiuntivi: React.FC<GestioneDatiAggiuntiviProps> = (
     {
-        datiAggiuntivi, capienzaTotale, setCapienzaTotale, percentualeTotale, setPercentualeTotale
+        datiAggiuntivi, capienzaTotale, setCapienzaTotale,
+        percentualeTotale, setPercentualeTotale, setPercentualeTotaleSettPrec, percentualeTotaleSettPrec
     }
 ) => {
 
@@ -40,10 +43,19 @@ const GestioneDatiAggiuntivi: React.FC<GestioneDatiAggiuntiviProps> = (
                            setAbilitaBtnDatiAggiuntivi(true)
                        }}
                 />
+                <span>Percentuale Totale Settimana Prec.: </span>
+                <input type="number"
+                       className="p-1 border border-blue-200"
+                       value={percentualeTotaleSettPrec}
+                       onChange={(e) => {
+                           setPercentualeTotaleSettPrec(parseFloat(e.currentTarget.value))
+                           setAbilitaBtnDatiAggiuntivi(true)
+                       }}
+                />
                 <button className="btn btn-sm bg-[#B5C5E7] text-white hover:opacity-80 hover:bg-[#4ecc8f] w-1/5"
                         disabled={!abilitaBtnDatiAggiuntivi}
                         onClick={() => {
-                            updateDatiAggiuntivi({...datiAggiuntivi, capienzaComplessiva: capienzaTotale, percentualeTotale: percentualeTotale} as DatiAggiuntivi)
+                            updateDatiAggiuntivi({...datiAggiuntivi, capienzaComplessiva: capienzaTotale, percentualeTotale: percentualeTotale, percentualeTotaleSettPrec: percentualeTotaleSettPrec} as DatiAggiuntivi)
                             setAbilitaBtnDatiAggiuntivi(false)
                         }}
                 >
