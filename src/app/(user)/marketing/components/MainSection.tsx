@@ -1,15 +1,16 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import DiagrammaTemporale from "@/app/(shared)/diagrammaTemporale/DiagrammaTemporale";
 import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
 import SideBar from "@/app/(shared)/sideBar/SideBar";
 import Gare from "@/app/(user)/marketing/components/gare/Gare";
 import {
-    useGetCentriDiurniAnziani,
+    useGetCentriDiurniAnziani, useGetDatiAggiuntivi,
     useGetResidenze,
     useGetResidenzeAltraSocieta,
     useGetStruttureSanitarie
 } from "@/store/rtkqApi";
 import {InputResidenza} from "@/model/ResidenzaAnziani";
+import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
 
 export default function MainSection() {
 
@@ -17,31 +18,50 @@ export default function MainSection() {
     const [menu, setMenu] = useState<undefined | 'planning' | 'gare' | 'contratti'>(undefined);
 
     const res = useGetResidenze()
-
-    let residenze:InputResidenza[] = []
-    if(res.data){
-        residenze = res.data
-    }
-
     const res2 = useGetCentriDiurniAnziani()
-
-    let centri:InputResidenza[] = []
-    if(res2.data){
-        centri = res2.data
-    }
-
     const res3 = useGetStruttureSanitarie()
-
-    let strutture:InputResidenza[] = []
-    if(res3.data){
-        strutture = res3.data
-    }
-
     const res4 = useGetResidenzeAltraSocieta()
-    let residenzeAltreSocieta: InputResidenza[] = []
-    if(res4.data){
-        residenzeAltreSocieta = res4.data
-    }
+    const res5 = useGetDatiAggiuntivi()
+
+    const [residenze, setResidenze] = useState<InputResidenza[]>([])
+    const [centri, setCentri] = useState<InputResidenza[]>([])
+    const [strutture, setStrutture] = useState<InputResidenza[]>([])
+    const [residenzeAltreSocieta, setResidenzeAltreSocieta] = useState<InputResidenza[]>([])
+
+    useEffect(() => {
+        if (res.data) {
+            setResidenze([
+                ...res.data.filter(d => d.area === "Nord Ovest"),
+                ...res.data.filter(d => d.area === "Centro"),
+                ...res.data.filter(d => d.area === "Sede"),
+
+            ])
+        }
+        if (res2.data) {
+            setCentri([
+                ...res2.data.filter(d => d.area === "Nord Ovest"),
+                ...res2.data.filter(d => d.area === "Centro"),
+                ...res2.data.filter(d => d.area === "Sede"),
+
+            ])
+        }
+        if (res3.data) {
+            setStrutture([
+                ...res3.data.filter(d => d.area === "Nord Ovest"),
+                ...res3.data.filter(d => d.area === "Centro"),
+                ...res3.data.filter(d => d.area === "Sede"),
+
+            ])
+        }
+        if (res4.data) {
+            setResidenzeAltreSocieta([
+                ...res4.data.filter(d => d.area === "Nord Ovest"),
+                ...res4.data.filter(d => d.area === "Centro"),
+                ...res4.data.filter(d => d.area === "Sede"),
+
+            ])
+        }
+    }, [res.data, res2.data, res3.data, res4.data]);
     return (
         <>
             <div className="w-full h-screen bg-gray-200 overflow-hidden">
@@ -49,7 +69,11 @@ export default function MainSection() {
                     {/* Sidebar starts */}
                     <SideBar subMenu={subMenu} setSubMenu={setSubMenu} menu={menu} setMenu={setMenu}/>
                     {/* Sidebar ends */}
-                    <div className="w-full bg-white overflow-hidden p-10">
+                    {(res.isLoading || res2.isLoading || res3.isLoading || res4.isLoading || res5.isLoading ) ?
+                        <div className="absolute top-1/2 left-1/2">
+                            <span className="loading loading-bars loading-lg text-[#B5C5E7]"></span>
+                        </div> :
+                        <div className="w-full bg-white overflow-hidden p-10">
                             {menu === 'planning' && <DiagrammaTemporale editabile={false}/>}
                             {menu === undefined && subMenu === 'ra' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
                             {menu === undefined && subMenu === 'ca' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={centri} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
@@ -58,7 +82,8 @@ export default function MainSection() {
                             {menu === undefined && subMenu === 'cd' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
                             {menu == 'gare' && <Gare/>}
                             {menu == 'contratti' && <div className="absolute top-1/2 left-1/2">Sezione in aggiornamento</div>}
-                    </div>
+                        </div>
+                    }
                 </div>
             </div>
         </>

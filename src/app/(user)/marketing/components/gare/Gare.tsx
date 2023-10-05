@@ -15,18 +15,21 @@ export interface GareProps {
 const Gare: React.FC<GareProps> = ({}) => {
     const resGare = useGetGare()
     const resGara = useGetGaraByAnno(new Date().getFullYear())
-    let gara = {} as Gara
-    if (resGara.data) {
-        gara = (resGara.data as unknown as Gara[])[0]
-    }
-    let gare: Gara[] = []
-    if (resGare.data) {
-        gare = resGare.data
-    }
+
+    const [gara, setGara] = useState<Gara>({} as Gara)
+    const [gare, setGare] = useState<Gara[]>([])
+
+    useEffect(() => {
+        if(resGara.data){
+            setGara((resGara.data as unknown as Gara[])[0])
+        }
+        if(resGare.data){
+            setGare(resGare.data)
+        }
+    }, [resGara.data, resGare.data]);
+
 
     const [garaAnnoPrec, setGaraAnnoPrec] = useState<Gara>(gara)
-    const [garePartecipate, setGarePartecipate] = useState<number[]>([])
-    const [gareVinte, setGareVinte] = useState<number[]>([])
 
     const [hovered, setHovered] = useState<boolean>(false)
     const fileRef =  useRef<HTMLInputElement>(null);
@@ -38,21 +41,24 @@ const Gare: React.FC<GareProps> = ({}) => {
     useEffect(() => {
         if (gare.length > 0) {
             setGaraAnnoPrec(gare.filter(g => g.anno === new Date().getFullYear() - 1)[0])
-            setGarePartecipate(garePartecipate => [...garePartecipate, ...gare.map(g => g.gareNuovePartecipate)])
-            setGareVinte(gareVinte => [...gareVinte, ...gare.map(g => g.gareNuoveVinte)])
         }
         getFileFromS3().then(res => setImageKey(res))
     }, [gare])
 
     return (
         <div className="overflow-y-scroll max-h-[900px] pb-20">
-            {gare.length > 0 &&
+            {resGare.isLoading && resGara.isLoading &&
+                <div className="absolute top-1/2 left-1/2">
+                    <span className="loading loading-bars loading-lg text-[#B5C5E7]"></span>
+                </div>
+            }
+            {gare.length > 0 && gara &&
                 <>
                     <div className="w-full flex flex-row items-center">
                         <span className="mr-2 text-[#B5C5E7] text-sm">Conferme</span>
                         <hr className="w-full border-[#B5C5E7] border"/>
                     </div>
-                    <div className="grid grid-cols-7 gap-20 px-10">
+                    <div className="grid grid-cols-7 gap-20 px-10 py-10">
                         <div className="col-span-4">
                             <div className="grid grid-cols-1 gap-4">
                                 <div className="grid grid-cols-12 gap-[2px]">
@@ -61,7 +67,7 @@ const Gare: React.FC<GareProps> = ({}) => {
                                         della <br/> produzione
                                     </div>
                                     <div
-                                        className="col-span-9 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-r-2xl text-4xl font-medium">{gara.valoreDellaProduzione.toLocaleString('en-US')}€
+                                        className="col-span-9 flex items-center justify-center p-6 bg-[#0066cc] text-white rounded-r-2xl text-4xl font-medium">{gara.valoreDellaProduzione && gara.valoreDellaProduzione.toLocaleString('en-US')}€
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-12 gap-[2px]">
@@ -71,21 +77,21 @@ const Gare: React.FC<GareProps> = ({}) => {
                                     </div>
                                     <div
                                         className="col-span-4 flex items-center justify-center p-6 bg-[#B5C5E7] text-white text-center text-4xl font-semibold">
-                                        {gara.valoreGareInScadenza.toLocaleString('en-US')}€
+                                        {gara.valoreGareInScadenza && gara.valoreGareInScadenza.toLocaleString('en-US')}€
                                     </div>
                                     <div className="col-span-5 flex flex-col">
                                         <div
                                             className="flex flex-row bg-[#B5C5E7] items-center justify-center p-6 text-white rounded-r-2xl font-medium mb-1 justify-between">
                                             <span>Fatturato <br/> Confermato</span><span
-                                            className="text-2xl">{gara.fatturatoConfermato.toLocaleString('en-US')}€</span></div>
+                                            className="text-2xl">{gara.fatturatoConfermato && gara.fatturatoConfermato.toLocaleString('en-US')}€</span></div>
                                         <div
                                             className="flex flex-row bg-gray-300 items-center justify-center p-6 text-white rounded-r-2xl font-medium mb-1 justify-between">
                                             <span>Fatturato non <br/> Confermato</span><span
-                                            className="text-2xl">{gara.fatturatoNonConfermato.toLocaleString('en-US')}€</span></div>
+                                            className="text-2xl">{gara.fatturatoNonConfermato && gara.fatturatoNonConfermato.toLocaleString('en-US')}€</span></div>
                                         <div
                                             className="flex flex-row bg-[#d2dbf2] items-center justify-center p-6 text-white rounded-r-2xl font-medium justify-between">
                                             <span>Aggiudicazione <br/> in corso</span><span
-                                            className="text-2xl">{gara.aggiudicazioneInCorso.toLocaleString('en-US')}€</span></div>
+                                            className="text-2xl">{gara.aggiudicazioneInCorso && gara.aggiudicazioneInCorso.toLocaleString('en-US')}€</span></div>
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-12 gap-[2px]">
@@ -94,17 +100,17 @@ const Gare: React.FC<GareProps> = ({}) => {
                                     </div>
                                     <div
                                         className="col-span-4 flex items-center justify-center p-6 bg-[#B5C5E7] text-white text-center text-4xl font-semibold">
-                                        {gara.fatturatoConfermato.toLocaleString('en-US')}€
+                                        {gara.fatturatoConfermato && gara.fatturatoConfermato.toLocaleString('en-US')}€
                                     </div>
                                     <div className="col-span-5 flex flex-col">
                                         <div
                                             className="flex flex-row bg-[#B5C5E7] items-center p-6 text-white rounded-r-2xl font-medium mb-1 justify-between">
                                             <span>Confermato <br/> di gara</span><span
-                                            className="text-2xl">{gara.confermatoDiGara.toLocaleString('en-US')}€</span></div>
+                                            className="text-2xl">{gara.confermatoDiGara && gara.confermatoDiGara.toLocaleString('en-US')}€</span></div>
                                         <div
                                             className="flex flex-row bg-gray-300 items-center p-6 text-white rounded-r-2xl font-medium justify-between">
                                             <span>Prorogato</span><span
-                                            className="text-2xl">{gara.prorogato.toLocaleString('en-US')}€</span></div>
+                                            className="text-2xl">{gara.prorogato && gara.prorogato.toLocaleString('en-US')}€</span></div>
                                     </div>
                                 </div>
 

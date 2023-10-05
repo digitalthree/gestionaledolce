@@ -5,29 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ac4ea4f-9152-402b-88b9-5b2d0ca3671d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/Saturazione.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/Buttons.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/DataTable.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/ModaleNuovaStruttura.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/Nota.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/GestioneDatiAggiuntivi.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/GestioneDatiAggiuntivi.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/ResidenzaAnzianiAdmin.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/BubbleComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/LineChartComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/dashboardSaturazione/components/LineChartComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/DataTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/DataTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/MainSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/MainSection.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/faunadb/Fauna.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/faunadb/Fauna.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/DatiAggiuntivi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/DatiAggiuntivi.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/ResidenzaAnziani.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/ResidenzaAnziani.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/centriDiurniAnziani/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/centriDiurniAnziani/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/residenze/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/residenze/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/residenzeAltreSocieta/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/residenzeAltreSocieta/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/api/struttureSanitarie/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/struttureSanitarie/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/rtkqApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/rtkqApi.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +142,8 @@
       <workItem from="1695818653264" duration="6671000" />
       <workItem from="1695911306660" duration="11812000" />
       <workItem from="1695996589164" duration="5894000" />
-      <workItem from="1696316714971" duration="15100000" />
+      <workItem from="1696316714971" duration="15197000" />
+      <workItem from="1696515589683" duration="1982000" />
     </task>
     <servers />
   </component>

@@ -70,6 +70,7 @@ const DataTable: React.FC<DataTableProps> = ({
                                     <th>
                                         <label className="swap">
                                             <input type="checkbox" checked={r.onOff}
+                                                   disabled={!editabile}
                                                    onChange={() => {
                                                        setResidenze(
                                                            residenze.map(item =>
