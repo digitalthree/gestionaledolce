@@ -1,6 +1,7 @@
 import React from 'react';
 import {BiSave} from "react-icons/bi";
 import {InputDati, InputResidenza} from "@/model/ResidenzaAnziani";
+import {TbFileExport} from "react-icons/tb";
 
 export interface ButtonsProps{
     newResidenze: InputResidenza[],

@@ -244,6 +244,11 @@ export const getGaraByAnnoInFauna = async (anno: number) => {
     })
 }
 
+export const createGaraInFauna = async (gara: Gara) => {
+    return await faunaClient.query(
+        q.Select(["ref", "id"], q.Create(q.Collection("Gare"), {data: gara}))
+    )
+}
 export const updateGaraInFauna = async (objectToUpdate: Gara) => {
     return await faunaClient.query(
         q.Update(q.Ref(q.Collection('Gare'), objectToUpdate.faunaDocumentId as string), {

@@ -116,7 +116,7 @@ const SiseBar: React.FC<SideBarProps> = (
                         }
                     </li>
                 </ul>
-                {user?.nickname === "admin" &&
+                {/*{user?.nickname === "admin" &&
                     <div className="flex flex-col px-8" onClick={() =>setVisualizzazioneUser && setVisualizzazioneUser(!visualizzazioneUser)}>
                         <hr className="w-full border border-white"/>
                         <div className=" text-white my-2 text-sm flex justify-center">{visualizzazioneUser && visualizzazioneUser ?
@@ -134,7 +134,7 @@ const SiseBar: React.FC<SideBarProps> = (
                         }</div>
                         <hr className="w-full border border-white"/>
                     </div>
-                }
+                }*/}
                 <div className="flex justify-center px-7 mt-5">
                     <News editabile={user?.nickname === 'admin'}/>
                 </div>

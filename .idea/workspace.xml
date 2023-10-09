@@ -5,10 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ac4ea4f-9152-402b-88b9-5b2d0ca3671d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/(shared)/gare/Gare.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/(shared)/gare/components/ModalNewGara.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/Saturazione.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/Saturazione.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/Buttons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/Buttons.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/DataTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components/DataTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/components/GareAdmin.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(admin)/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(shared)/sideBar/SideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(shared)/sideBar/SideBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/MainSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/MainSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/Gare.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/components/PieChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(shared)/gare/components/PieChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(user)/marketing/components/gare/components/VerticalBarChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(shared)/gare/components/VerticalBarChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/faunadb/Fauna.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/faunadb/Fauna.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Gara.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Gara.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/api/gare/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/api/gare/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/rtkqApi.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/rtkqApi.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,11 +82,11 @@
       <recent name="$PROJECT_DIR$/public/img" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/(shared)" />
       <recent name="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)/components" />
       <recent name="$PROJECT_DIR$/src/app/(admin)/dashboard/components/(saturazione)" />
       <recent name="$PROJECT_DIR$/public/img" />
       <recent name="$PROJECT_DIR$/src/app/(shared)/sideBar" />
-      <recent name="$PROJECT_DIR$/src/app/(shared)/diagrammaTemporale/components" />
     </key>
   </component>
   <component name="RunManager" selected="npm.build">
@@ -143,7 +158,9 @@
       <workItem from="1695911306660" duration="11812000" />
       <workItem from="1695996589164" duration="5894000" />
       <workItem from="1696316714971" duration="15197000" />
-      <workItem from="1696515589683" duration="1982000" />
+      <workItem from="1696515589683" duration="2647000" />
+      <workItem from="1696666054105" duration="3290000" />
+      <workItem from="1696862767558" duration="7869000" />
     </task>
     <servers />
   </component>

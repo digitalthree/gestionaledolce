@@ -204,6 +204,7 @@ const DataTable: React.FC<DataTableProps> = ({
                                                     <input type="number"
                                                            disabled={newValue.length > 0 && !newValue.filter(v => v.id === r.faunaDocumentId)[0].onOff}
                                                            className="w-[80px] p-1 border border-blue-200"
+                                                           readOnly
                                                            value={newValue.length > 0 ? newValue.filter(v => v.id === r.faunaDocumentId)[0].percentuale.toFixed(2) : 0}
                                                     />
                                                 </div>
@@ -312,6 +313,7 @@ const DataTable: React.FC<DataTableProps> = ({
                                                                 <span className="text-[10px]">%</span>
                                                                 <input type="number"
                                                                        disabled={!editabile || !d.onOff}
+                                                                       readOnly
                                                                        value={d.id === r.faunaDocumentId ? (d.capienzaAttuale/d.disponibilitaStruttura*100).toFixed(2) : 0}
                                                                        className={`w-[80px] p-1 border-2 border-blue-200 text-center
                                                                             ${indexd === residenze[0].dati.length * (index) && r.dati[r.dati.length - 1].capienzaAttuale > r.dati[r.dati.length - 2].capienzaAttuale && 'text-[green] border-green-700'}

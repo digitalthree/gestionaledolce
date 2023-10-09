@@ -99,6 +99,13 @@ export const rtkqApi = createApi({
             query: (anno) => 'gare/'+anno,
             providesTags: ['Gara']
         }),
+        createGara: build.mutation({
+            query: (body) => ({
+                url: 'gare',
+                method: 'POST',
+                body
+            })
+        }),
         updateGara: build.mutation({
             query: (body) => ({
                 url: 'gare/'+body.anno,
@@ -156,6 +163,7 @@ export const useGetCentriDiurniAnziani = rtkqApi.endpoints.getCentriDiurniAnzian
 export const useGetStruttureSanitarie = rtkqApi.endpoints.getStruttureSanitarie.useQuery
 export const useGetGare = rtkqApi.endpoints.getGare.useQuery
 export const useGetGaraByAnno = rtkqApi.endpoints.getGaraByAnno.useQuery
+export const useCreateGaraMutation = rtkqApi.endpoints?.createGara.useMutation
 export const useUpdateGaraMutation = rtkqApi.endpoints.updateGara.useMutation
 export const useUpdateResidenzaMutation = rtkqApi.endpoints.updateResidenza.useMutation
 export const useCreateResidenzaMutation = rtkqApi.endpoints?.createResidenza.useMutation

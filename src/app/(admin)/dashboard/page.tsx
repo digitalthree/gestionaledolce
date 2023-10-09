@@ -1,14 +1,11 @@
 'use client';
-import Profile from "@/app/(user)/marketing/components/UserProfile";
 import React, {useEffect, useState} from "react";
 import {useUser} from "@auth0/nextjs-auth0/client";
-import {Gantt, Task} from "gantt-task-react";
 import Saturazione from "@/app/(admin)/dashboard/components/(saturazione)/Saturazione";
 import SideBar from "@/app/(shared)/sideBar/SideBar";
-import GareAdmin from "@/app/(admin)/dashboard/components/GareAdmin";
 import DiagrammaTemporale from "@/app/(shared)/diagrammaTemporale/DiagrammaTemporale";
 import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
-import Gare from "@/app/(user)/marketing/components/gare/Gare";
+import Gare from "@/app/(shared)/gare/Gare";
 import {
     useGetCentriDiurniAnziani, useGetDatiAggiuntivi,
     useGetResidenze,
@@ -111,7 +108,7 @@ export default function Page() {
                                 <Saturazione dati={residenze} editabile={true} selectedMenuItem={subMenu} datiAggiuntivi={datiAggiuntivi.filter(d => d.tipo === "radolce")[0]}/>}
                             {subMenu === 'cd' && !visualizzazioneUser &&
                                 <Saturazione dati={residenze} editabile={true} selectedMenuItem={subMenu} datiAggiuntivi={datiAggiuntivi.filter(d => d.tipo === "radolce")[0]}/>}
-                            {menu === 'gare' && !visualizzazioneUser && <GareAdmin/>}
+                            {menu === 'gare' && !visualizzazioneUser && <Gare editabile={true}/>}
                             {menu === 'planning' && !visualizzazioneUser && <DiagrammaTemporale editabile={true}/>}
                             {subMenu === 'ra' && visualizzazioneUser &&
                                 <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze}
@@ -128,7 +125,7 @@ export default function Page() {
                             {subMenu === 'cd' && visualizzazioneUser &&
                                 <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze}
                                                       datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
-                            {menu === 'gare' && visualizzazioneUser && <Gare/>}
+                            {menu === 'gare' && visualizzazioneUser && <Gare editabile={false}/>}
                             {menu === 'planning' && visualizzazioneUser && <DiagrammaTemporale editabile={false}/>}
                             {menu == 'contratti' &&
                                 <div className="absolute top-1/2 left-1/2">Sezione in aggiornamento</div>}

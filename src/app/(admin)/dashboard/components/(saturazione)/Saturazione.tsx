@@ -19,6 +19,8 @@ import DataTable from "@/app/(admin)/dashboard/components/(saturazione)/componen
 import ModaleNuovaStruttura from "@/app/(admin)/dashboard/components/(saturazione)/components/ModaleNuovaStruttura";
 import Buttons from "@/app/(admin)/dashboard/components/(saturazione)/components/Buttons";
 import Nota from "@/app/(admin)/dashboard/components/(saturazione)/components/Nota";
+import {TbFileExport} from "react-icons/tb";
+import {CSVLink} from "react-csv";
 
 export interface ResidenzaAnzianiAdminProps {
     dati: InputResidenza[],
@@ -54,7 +56,9 @@ const Saturazione: React.FC<ResidenzaAnzianiAdminProps> = ({
     const [percentualeTotaleSettPrec, setPercentualeTotaleSettPrec] = useState<number>(0)
     const [updateDatiAggiuntivi, resUpdateDatiAggiuntivi] = useUpdateDatiAggiuntivi()
     const [nota, setNota] = useState<string>("")
-
+    const [csvData, setCsvData] = useState<string[][]>([])
+    let csvHeader = ["Area", "Località", "Provincia", "Servizio", "Struttura", "Nota"]
+    const [fileName, setFileName] = useState<string>("")
     useEffect(() => {
         if (datiAggiuntivi) {
             setCapienzaTotale(datiAggiuntivi.capienzaComplessiva)
@@ -67,6 +71,24 @@ const Saturazione: React.FC<ResidenzaAnzianiAdminProps> = ({
 
     useEffect(() => {
         if (dati.length > 0) {
+            if (selectedMenuItem === 'ra' && !altreSocieta) {
+                setFileName("residenza_anziani_report")
+            }
+            if (selectedMenuItem === 'ra' && altreSocieta) {
+                setFileName("residenza_anziani_altre_societa_report")
+            }
+            if (selectedMenuItem === 'ca') {
+                setFileName("centri_diurni_anziani_report")
+            }
+            if (selectedMenuItem === 'ss') {
+                setFileName("strutture_sanitarie_report")
+            }
+            dati[0].dati.forEach(d => {
+                csvHeader = [...csvHeader, d.data]
+            })
+            setCsvData([csvHeader, ...dati.map(({area, localita, provincia, servizio, struttura, nota, dati}) => [
+                area, localita, provincia, servizio, struttura, nota, ...dati.map(da => da.capienzaAttuale.toString())
+            ])])
             setResidenze(dati)
             setNewResidenze(dati)
             let d = dati[0].dati[dati[0].dati.length - 1].data.split("/");
@@ -109,7 +131,7 @@ const Saturazione: React.FC<ResidenzaAnzianiAdminProps> = ({
                     if (selectedMenuItem === 'ra' && altreSocieta) {
                         updateResidenzaAltraSocieta(nr)
                     }
-                    if (selectedMenuItem === 'cd') {
+                    if (selectedMenuItem === 'ca') {
                         updateCentroDiurnoAnziani(nr)
                     }
                     if (selectedMenuItem === 'ss') {
@@ -121,6 +143,7 @@ const Saturazione: React.FC<ResidenzaAnzianiAdminProps> = ({
         }
 
     }, [newResidenze])
+
 
 
     return (
@@ -187,7 +210,13 @@ const Saturazione: React.FC<ResidenzaAnzianiAdminProps> = ({
                                               createStrutturaSanitaria={createStrutturaSanitaria}
                                               selectedMenuItem={selectedMenuItem} altreSocieta={altreSocieta}
                         />
-
+                        <div className="flex justify-center">
+                            <CSVLink data={csvData} filename={fileName}
+                               className="btn btn-sm w-full px-7 mt-2 mb-5 border-white bg-[#2866CC] hover:bg-[#2866CC] hover:opacity-70">
+                                <TbFileExport size={25} color="white"/>
+                                <span className="text-white">Scarica Report</span>
+                            </CSVLink>
+                        </div>
                     </div>
                 }
                 <Nota editabile={editabile} updateDatiAggiuntivi={updateDatiAggiuntivi}

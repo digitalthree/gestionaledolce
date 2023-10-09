@@ -4,14 +4,14 @@ export interface Gara {
     fatturatoConfermato: number,
     fatturatoNonConfermato: number,
     aggiudicazioneInCorso: number,
-    gareInScadenza: number,
+    /*gareInScadenza: number,
     gareInCorso: number,
     gareVinte: number,
     garePerse: number,
     gareNuovePartecipate: number,
     gareNuoveVinte: number,
     annoNuovoFatturato: number,
-    portafoglioAcquisto: number,
+    portafoglioAcquisto: number,*/
     confermatoDiGara: number,
     prorogato: number,
     faunaDocumentId?: string

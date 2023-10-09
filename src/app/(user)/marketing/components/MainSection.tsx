@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import DiagrammaTemporale from "@/app/(shared)/diagrammaTemporale/DiagrammaTemporale";
 import DashboardSaturazione from "@/app/(user)/marketing/components/dashboardSaturazione/DashboardSaturazione";
 import SideBar from "@/app/(shared)/sideBar/SideBar";
-import Gare from "@/app/(user)/marketing/components/gare/Gare";
+import Gare from "@/app/(shared)/gare/Gare";
 import {
     useGetCentriDiurniAnziani, useGetDatiAggiuntivi,
     useGetResidenze,
@@ -80,7 +80,7 @@ export default function MainSection() {
                             {menu === undefined && subMenu === 'ss' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={strutture} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
                             {menu === undefined && subMenu === 'rd' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
                             {menu === undefined && subMenu === 'cd' && <DashboardSaturazione colorePrincipale="#0066cc" coloreSecondario="#B5C5E7" dati={residenze} datiAltreSocieta={residenzeAltreSocieta} selectedMenuItem={subMenu}/>}
-                            {menu == 'gare' && <Gare/>}
+                            {menu == 'gare' && <Gare editabile={false}/>}
                             {menu == 'contratti' && <div className="absolute top-1/2 left-1/2">Sezione in aggiornamento</div>}
                         </div>
                     }
