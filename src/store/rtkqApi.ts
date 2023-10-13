@@ -3,13 +3,14 @@ import {InputResidenza} from "@/model/ResidenzaAnziani";
 import {Gara} from "@/model/Gara";
 import {News} from "@/model/News";
 import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
+import {Task} from "gantt-task-react";
 
 
 
 export const rtkqApi = createApi({
     reducerPath: "rtkqApi",
     baseQuery: fetchBaseQuery({baseUrl: process.env.NEXT_PUBLIC_URL+'api'}),
-    tagTypes: ['Residenze', 'ResidenzeAltreSocieta', 'Gare', 'Gara', 'CentriDiurniAnziani', 'StruttureSanitarie', "News", "NewsId", "DatiAggiuntivi"],
+    tagTypes: ['Residenze', 'ResidenzeAltreSocieta', 'Gare', 'Gara', 'CentriDiurniAnziani', 'StruttureSanitarie', "News", "NewsId", "DatiAggiuntivi", "Tasks", "TaskId"],
     endpoints: (build) => ({
         getResidenze : build.query<InputResidenza[], void>({
             query: () => 'residenze',
@@ -151,6 +152,33 @@ export const rtkqApi = createApi({
             }),
             invalidatesTags: ['DatiAggiuntivi']
         }),
+        getTasks: build.query<(Task & {faunaDocumentId: string})[], void>({
+            query: () => "tasks",
+            providesTags: ["Tasks"]
+        }),
+        createTask: build.mutation({
+            query: (body) => ({
+                url: "tasks",
+                method: 'POST',
+                body
+            }),
+            invalidatesTags: ['Tasks']
+        }),
+        updateTask: build.mutation({
+            query: (body) => ({
+                url: 'tasks/'+body.faunaDocumentId,
+                method: 'PUT',
+                body
+            }),
+            invalidatesTags: ['Tasks', 'TaskId']
+        }),
+        deleteTask: build.mutation({
+            query: (body) => ({
+                url: 'tasks/'+body.faunaDocumentId,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['Tasks']
+        }),
     })
 })
 
@@ -179,4 +207,8 @@ export const useUpdateNewsMutation = rtkqApi.endpoints.updateNews.useMutation
 export const useDeleteNewsMutation = rtkqApi.endpoints?.deleteNews.useMutation
 export const useGetDatiAggiuntivi = rtkqApi.endpoints?.getDatiAggiuntivi.useQuery
 export const useUpdateDatiAggiuntivi = rtkqApi.endpoints?.updateDatiAggiuntivi.useMutation
+export const useGetTasks = rtkqApi.endpoints?.getTasks.useQuery
+export const useCreateTaskMutation = rtkqApi.endpoints?.createTask.useMutation
+export const useUpdateTaskMutation = rtkqApi.endpoints?.updateTask.useMutation
+export const useDeleteTaskMutation = rtkqApi.endpoints?.deleteTask.useMutation
 

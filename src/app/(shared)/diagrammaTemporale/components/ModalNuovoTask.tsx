@@ -1,19 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {BiPlus} from "react-icons/bi";
 import {Task} from "gantt-task-react";
 
 export interface ModalNuovoTaskProps{
     tasks: Task[],
-    setTasks: Function
+    createTask: Function
 }
 
-const ModalNuovoTask: React.FC<ModalNuovoTaskProps> = ({tasks, setTasks}) => {
+const ModalNuovoTask: React.FC<ModalNuovoTaskProps> = ({tasks, createTask}) => {
 
     const [nome, setNome] = useState<string>("")
     const [categoria, setCategoria] = useState<string>("")
     const [colore, setColore] = useState<string>("")
     const [from, setFrom] = useState<string>("")
     const [to, setTo] = useState<string>("")
+    const [displayOrder, setDisplayOrder] = useState<number>(0)
+
+    useEffect(() => {
+        if(tasks.length > 0){
+            setDisplayOrder(tasks.length)
+        }
+    }, [tasks]);
+
 
     return(
         <>
@@ -36,6 +44,12 @@ const ModalNuovoTask: React.FC<ModalNuovoTaskProps> = ({tasks, setTasks}) => {
                             <span>Categoria:</span>
                             <input type="text" placeholder="Categoria" className="input input-sm input-bordered w-full max-w-xs"
                                    value={categoria} onChange={(e) => setCategoria(e.currentTarget.value)}
+                            />
+                        </div>
+                        <div className="flex flex-row items-center justify-between mt-2">
+                            <span>Task Numero:</span>
+                            <input type="number" placeholder="Task Numero" className="input input-sm input-bordered w-full max-w-xs"
+                                   value={displayOrder} onChange={(e) => setDisplayOrder(parseInt(e.currentTarget.value))}
                             />
                         </div>
                         <div className="flex flex-row items-center justify-between mt-2">
@@ -84,11 +98,11 @@ const ModalNuovoTask: React.FC<ModalNuovoTaskProps> = ({tasks, setTasks}) => {
                                     backgroundSelectedColor: "#bac0ce",
                                     progressSelectedColor: colore
                                 },
-                                displayOrder: tasks.length,
+                                displayOrder: displayOrder,
                                 id: `Task ${tasks.length+1}`,
                                 progress: 100
                             }
-                            setTasks((oldTasks: Task[]) => [...oldTasks, task])
+                            createTask(task)
                         }}>Aggiungi</label>
                     </div>
                 </div>

@@ -1,14 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Gantt, Task, ViewMode} from "gantt-task-react";
 import {ViewSwitcher} from "@/app/(shared)/diagrammaTemporale/components/ViewSwitcher";
-import Profile from "@/app/(user)/marketing/components/UserProfile";
-import {StandardTooltipContent} from "gantt-task-react/dist/components/other/tooltip";
-import {BsFillCircleFill} from "react-icons/bs";
 import Legend from "@/app/(shared)/diagrammaTemporale/components/Legend";
-import {BiPlus} from "react-icons/bi";
 import ModalNuovoTask from "@/app/(shared)/diagrammaTemporale/components/ModalNuovoTask";
 import BottomLegend from "@/app/(shared)/diagrammaTemporale/components/BottomLegend";
-import {TbFileExport} from "react-icons/tb";
+import {useCreateTaskMutation, useDeleteTaskMutation, useGetTasks, useUpdateTaskMutation} from "@/store/rtkqApi";
 
 export interface DiagrammaTemporaleProps {
     editabile: boolean
@@ -16,9 +12,13 @@ export interface DiagrammaTemporaleProps {
 
 const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({editabile}) => {
 
-    const [view, setView] = React.useState<ViewMode>(ViewMode.Month);
-    const [tasks, setTasks] = React.useState<Task[]>(initTasks());
-    const [isChecked, setIsChecked] = React.useState(false);
+    const [view, setView] = useState<ViewMode>(ViewMode.Month);
+    const [tasks, setTasks] = useState<(Task & {faunaDocumentId: string})[]>([]);
+    const [isChecked, setIsChecked] = useState(false);
+    const [selectedTask, setSelectedTask] = useState<Task | undefined>(undefined)
+
+    const [showModalUpdateTask, setShowModalUpdateTask] = useState<boolean>(false)
+
     let columnWidth = 65;
     if (view === ViewMode.Year) {
         columnWidth = 450;
@@ -28,122 +28,184 @@ const DiagrammaTemporale: React.FC<DiagrammaTemporaleProps> = ({editabile}) => {
         columnWidth = 250;
     }
 
+    const resTasks = useGetTasks()
+    const [updateTask, resUpdateTask] = useUpdateTaskMutation()
+    const [deleteTask, resDeleteTask] = useDeleteTaskMutation()
+    const [createTask, resCreateTask] = useCreateTaskMutation()
+
+    useEffect(() => {
+        if (resTasks.data) {
+            setTasks([])
+            resTasks.data.forEach(d => {
+                let taskObj: (Task & {faunaDocumentId: string}) = {...d, start: new Date(d.start), end: new Date(d.end)}
+                setTasks((prev) => ([...prev, taskObj]))
+            })
+        }
+    }, [resTasks]);
+
 
     const handleTaskChange = (task: Task) => {
-        console.log("On date change Id:" + task.id);
-        let newTasks = tasks.map(t => (t.id === task.id ? task : t));
-        if (task.project) {
-            const [start, end] = getStartEndDateForProject(newTasks, task.project);
-            const project = newTasks[newTasks.findIndex(t => t.id === task.project)];
-            if (
-                project.start.getTime() !== start.getTime() ||
-                project.end.getTime() !== end.getTime()
-            ) {
-                const changedProject = {...project, start, end};
-                newTasks = newTasks.map(t =>
-                    t.id === task.project ? changedProject : t
-                );
-            }
-        }
-        setTasks(newTasks);
+        updateTask(task)
     };
 
     const handleTaskDelete = (task: Task) => {
         const conf = window.confirm("Sei sicuro di cancellare " + task.name + " ?");
         if (conf) {
-            setTasks(tasks.filter(t => t.id !== task.id));
+            //setTasks(tasks.filter(t => t.id !== task.id));
+            deleteTask(task)
         }
         return conf;
     };
 
-    const handleProgressChange = async (task: Task) => {
-        setTasks(tasks.map(t => (t.id === task.id ? task : t)));
+    /*const handleProgressChange = async (task: Task) => {
+        //setTasks(tasks.map(t => (t.id === task.id ? task : t)));
         console.log("On progress change Id:" + task.id);
-    };
+    };*/
 
     const handleDblClick = (task: Task) => {
-        alert("On Double Click event Id:" + task.id);
+        setSelectedTask(task)
+        setShowModalUpdateTask(true)
     };
 
-    const handleClick = (task: Task) => {
+    /*const handleClick = (task: Task) => {
         console.log("On Click event Id:" + task.id);
-    };
+    };*/
 
-    const handleSelect = (task: Task, isSelected: boolean) => {
+    /*const handleSelect = (task: Task, isSelected: boolean) => {
         console.log(task.name + " has " + (isSelected ? "selected" : "unselected"));
-    };
+    };*/
 
-    const handleExpanderClick = (task: Task) => {
-        setTasks(tasks.map(t => (t.id === task.id ? task : t)));
+    /*const handleExpanderClick = (task: Task) => {
+        //setTasks(tasks.map(t => (t.id === task.id ? task : t)));
         console.log("On expander click Id:" + task.id);
-    };
+    };*/
 
     return (
         <>
             {editabile ?
-                <div className={`overflow-scroll ${isChecked || view === 'Week' ? 'max-w-[90%]' : 'max-w-[100%]'} max-h-[95vh]`}>
-                    <Legend/>
-                    <div className="flex flex-row mb-3 items-center justify-between pr-5">
-                        <ViewSwitcher
-                            onViewModeChange={viewMode => setView(viewMode)}
-                            onViewListChange={setIsChecked}
-                            isChecked={isChecked}
-                        />
-                        <ModalNuovoTask tasks={tasks} setTasks={setTasks}/>
+                <>
+                    {(resUpdateTask.isLoading || resCreateTask.isLoading || resDeleteTask.isLoading || resTasks.isLoading) &&
+                        <div className="absolute top-1/2 left-1/2">
+                            <span className="loading loading-bars loading-lg text-[#B5C5E7]"></span>
+                        </div>
+                    }
+                    <div
+                        className={`overflow-scroll ${(resUpdateTask.isLoading || resCreateTask.isLoading || resDeleteTask.isLoading || resTasks.isLoading) && 'opacity-10'} ${isChecked || view === 'Week' ? 'max-w-[90%]' : 'max-w-[100%]'} max-h-[95vh] relative`}>
+                        <Legend/>
+                        <div className="flex flex-row mb-3 items-center justify-between pr-5">
+                            <ViewSwitcher
+                                onViewModeChange={viewMode => setView(viewMode)}
+                                onViewListChange={setIsChecked}
+                                isChecked={isChecked}
+                            />
+                            <ModalNuovoTask tasks={tasks} createTask={createTask}/>
+
+                        </div>
+                        {tasks.length > 0 &&
+                            <Gantt
+                                tasks={tasks}
+                                viewMode={view}
+                                onDateChange={handleTaskChange}
+                                onDelete={handleTaskDelete}
+                                onDoubleClick={handleDblClick}
+                                listCellWidth={isChecked ? "270px" : ""}
+                                columnWidth={columnWidth}
+                                barCornerRadius={10}
+                                locale="it-IT"
+                                fontSize={"12px"}
+                                rowHeight={30}
+                            />
+                        }
+                        {showModalUpdateTask &&
+                            <div className="bg-white border-2 border-[#B5C5E7] rounded-3xl w-1/2 shadow-2xl p-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <h3 className="font-bold text-lg">Modifica {selectedTask?.name}</h3>
+                                <div className="flex flex-col py-3">
+                                    <div className="flex flex-row items-center justify-between">
+                                        <span>Nome:</span>
+                                        <input type="text" placeholder="Nome" className="input input-sm input-bordered w-full max-w-xs"
+                                               value={selectedTask?.name}
+                                               onChange={(e) => {
+                                                   setSelectedTask(prev => prev && ({...prev, name: e.target.value}))
+                                               }}
+                                        />
+                                    </div>
+                                    <div className="flex flex-row items-center justify-between mt-2">
+                                        <span>Task Numero:</span>
+                                        <input type="number" placeholder="Task Numero" className="input input-sm input-bordered w-full max-w-xs"
+                                               value={selectedTask?.displayOrder}
+                                               onChange={(e) => {
+                                                   setSelectedTask(prev => prev && ({...prev, displayOrder: parseInt(e.target.value)}))
+                                               }}
+                                        />
+                                    </div>
+                                    <div className="flex flex-row items-center justify-between mt-2">
+                                        <span>Colore:</span>
+                                        <input type="color" placeholder="Colore" className="input input-sm input-bordered w-[50px] rounded-full max-w-xs"
+                                               value={selectedTask?.styles?.progressColor}
+                                               onChange={(e) => {
+                                                   setSelectedTask(prev => prev && ({...prev, styles: {
+                                                           ...prev.styles,
+                                                           progressColor: e.target.value,
+                                                           progressSelectedColor: e.target.value
+                                                       }}))
+                                               }}
+                                        />
+                                    </div>
+                                    <div className="flex flex-row gap-4 justify-between">
+                                        <button className="btn btn-sm btn-active hover:border-2 hover:border-gray-500 mt-10 w-1/3"
+                                                onClick={() => {setShowModalUpdateTask(false)}
+                                        }
+                                        >Annulla</button>
+                                        <button className="btn btn-sm btn-active hover:border-2 hover:border-green-500 mt-10 w-1/3"
+                                                onClick={() => {
+                                                    updateTask(selectedTask)
+                                                    setShowModalUpdateTask(false)
+                                                }}
+                                        >Modifica Task</button>
+                                    </div>
+                                    <button className="btn btn-error btn-sm mt-3"
+                                        onClick={() => {
+                                            handleTaskDelete(selectedTask as Task)
+                                            setShowModalUpdateTask(false)
+                                        }}
+                                    >Elimina Task</button>
+                                </div>
+                            </div>
+                        }
+
+                        <BottomLegend/>
                     </div>
-                    <Gantt
-                        tasks={tasks}
-                        viewMode={view}
-                        onDateChange={handleTaskChange}
-                        onDelete={handleTaskDelete}
-                        onProgressChange={handleProgressChange}
-                        onDoubleClick={handleDblClick}
-                        onClick={handleClick}
-                        onSelect={handleSelect}
-                        onExpanderClick={handleExpanderClick}
-                        listCellWidth={isChecked ? "270px" : ""}
-                        columnWidth={columnWidth}
-                        barCornerRadius={10}
-                        locale="it-IT"
-                        fontSize={"12px"}
-                        rowHeight={30}
-                    />
-                    <BottomLegend/>
-                </div>
+
+                </>
                 :
-                <div className={`overflow-scroll ${isChecked || view === 'Week' ? 'max-w-[90%]' : 'max-w-[100%]'} max-h-[95vh]`}>
+                <div
+                    className={`overflow-scroll ${isChecked || view === 'Week' ? 'max-w-[90%]' : 'max-w-[100%]'} max-h-[95vh]`}>
                     <Legend/>
                     <ViewSwitcher
                         onViewModeChange={viewMode => setView(viewMode)}
                         onViewListChange={setIsChecked}
                         isChecked={isChecked}
                     />
-                    <Gantt
-                        tasks={tasks}
-                        viewMode={view}
-                        listCellWidth={isChecked ? "250px" : ""}
-                        columnWidth={columnWidth}
-                        barCornerRadius={10}
-                        locale="it-IT"
-                        fontSize={"12px"}
-                        rowHeight={30}
-                    />
+                    {tasks.length > 0 &&
+                        <Gantt
+                            tasks={tasks}
+                            viewMode={view}
+                            listCellWidth={isChecked ? "250px" : ""}
+                            columnWidth={columnWidth}
+                            barCornerRadius={10}
+                            locale="it-IT"
+                            fontSize={"12px"}
+                            rowHeight={30}
+                        />
+                    }
                     <BottomLegend/>
-                    {/*{!editabile &&
-                        <div className="flex justify-center">
-                            <a href="/img/reportTipo.pdf" download className="btn btn-sm w-full px-7 mt-10 mb-5 border-white bg-[#2866CC] hover:bg-[#2866CC] hover:opacity-70">
-                                <TbFileExport size={25} color="white"/>
-                                <span className="text-white">Scarica Report</span>
-                            </a>
-                        </div>
-                    }*/}
                 </div>
             }
         </>
     )
 }
 
-export function initTasks() {
+/*export function initTasks() {
     const currentDate = new Date();
     const tasks: Task[] = [
         {
@@ -565,6 +627,6 @@ export function getStartEndDateForProject(tasks: Task[], projectId: string) {
         }
     }
     return [start, end];
-}
+}*/
 
 export default DiagrammaTemporale

@@ -2,6 +2,7 @@ import {InputResidenza, ResidenzaAnziani} from "@/model/ResidenzaAnziani";
 import {Gara} from "@/model/Gara";
 import {News} from "@/model/News";
 import {DatiAggiuntivi} from "@/model/DatiAggiuntivi";
+import {Task} from "gantt-task-react";
 
 const faunadb = require('faunadb');
 const faunaClient = new faunadb.Client({ secret: process.env.FAUNA_SECRET });
@@ -374,4 +375,82 @@ export const updateDatiAggiuntiviFauna = async (objectToUpdate: DatiAggiuntivi) 
             } as DatiAggiuntivi
         })
     )
+}
+
+export const createTask = async (task: Task) => {
+    return await faunaClient.query(
+        q.Select(["ref", "id"], q.Create(q.Collection("Tasks"), {data: task}))
+    )
+}
+
+export const getAllTasks = async () => {
+    const data =  await faunaClient.query(
+        q.Select("data",
+            q.Map(
+                q.Paginate(q.Match(q.Index("allTasks"))),
+                q.Lambda("task", {
+                    faunaDocumentId: q.Select(
+                        ["ref", "id"],
+                        q.Get(
+                            q.Var("task")
+                        )
+                    ),
+                    task: q.Select(
+                        ["data"],
+                        q.Get(
+                            q.Var("task")
+                        )
+                    )
+                })
+            )
+        )
+    );
+    return data.map((d: any) => {
+        d.task.faunaDocumentId = d.faunaDocumentId
+        delete d.faunaDocumentId
+        return d.task
+    })
+}
+
+export const updateTaskInFauna = async (objectToUpdate: Task & {faunaDocumentId:string}) => {
+    return await faunaClient.query(
+        q.Update(q.Ref(q.Collection('Tasks'), objectToUpdate.faunaDocumentId as string), {
+            data: {
+                ...objectToUpdate
+            } as Task & {faunaDocumentId:string}
+        })
+    )
+}
+
+export const deleteTaskFromFauna = async (taskId: string) => {
+    return await faunaClient.query(q.Delete(q.Ref(q.Collection('Tasks'), taskId)))
+}
+
+export const getTaskByIdInFauna = async (id: number) => {
+    const data =  await faunaClient.query(
+        q.Select("data",
+            q.Map(
+                q.Paginate(q.Match(q.Index("getTaskById"), id)),
+                q.Lambda("task", {
+                    faunaDocumentId: q.Select(
+                        ["ref", "id"],
+                        q.Get(
+                            q.Var("task")
+                        )
+                    ),
+                    task: q.Select(
+                        ["data"],
+                        q.Get(
+                            q.Var("task")
+                        )
+                    )
+                })
+            )
+        )
+    );
+    return data.map((d: any) => {
+        d.task.faunaDocumentId = d.faunaDocumentId
+        delete d.faunaDocumentId
+        return d.task
+    })
 }
